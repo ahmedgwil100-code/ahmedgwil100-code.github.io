@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Speech Converter — Download Audio | ETYN Tools</title>
+    <meta name="description"
+        content="Free text to speech converter with downloadable audio. Convert text to speech using 50+ voices. Adjust speed, pitch, and download as WAV audio file.">
+    <link rel="canonical" href="https://etyntools.com/tools/text-to-speech-converter.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="apple-touch-icon" href="../logo.png">
+    <meta property="og:image" content="https://etyntools.com/logo.png">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ETYN Tools">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle"
+                aria-label="Toggle menu"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Text to Speech Converter</span>
+            </div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>Text to Speech Converter</h1>
+                        <p>Enter text below, choose a voice, adjust speed and pitch, then listen or download the audio.
+                        </p>
+                        <div class="form-group"><label for="ttsText">Your Text</label><textarea id="ttsText" rows="6"
+                                placeholder="Enter the text you want to convert to speech..."></textarea></div>
+                        <div class="form-group"><label for="voiceSelect">Voice</label><select id="voiceSelect"></select>
+                        </div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                            <div class="form-group"><label for="rate">Speed: <span
+                                        id="rateVal">1.0</span>x</label><input type="range" id="rate" min="0.5" max="2"
+                                    step="0.1" value="1"
+                                    oninput="document.getElementById('rateVal').textContent=this.value"
+                                    style="width:100%;"></div>
+                            <div class="form-group"><label for="pitch">Pitch: <span
+                                        id="pitchVal">1.0</span></label><input type="range" id="pitch" min="0.5" max="2"
+                                    step="0.1" value="1"
+                                    oninput="document.getElementById('pitchVal').textContent=this.value"
+                                    style="width:100%;"></div>
+                        </div>
+                        <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+                            <button class="btn btn--primary" id="speakBtn" onclick="speak()">🔊 Speak</button>
+                            <button class="btn btn--outline" onclick="stopSpeech()">⏹ Stop</button>
+                            <button class="btn btn--outline" id="recordBtn" onclick="speakAndRecord()">🎙️ Speak &amp;
+                                Record Audio</button>
+                        </div>
+                        <div id="status" style="margin-top:1rem;font-weight:600;color:var(--primary);font-size:.9rem;">
+                        </div>
+                        <div id="audioResult" style="display:none;margin-top:1rem;">
+                            <audio id="audioPlayer" controls style="width:100%;"></audio>
+                            <button class="btn btn--outline btn--block" onclick="downloadAudio()"
+                                style="margin-top:.5rem;">Download Audio</button>
+                        </div>
+                    </div>
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+                    <div class="content-section">
+                        <h2>How It Works</h2>
+                        <p>This tool uses the Web Speech Synthesis API to convert your text into spoken audio. When you
+                            click "Speak & Record Audio", it captures the audio output through the MediaRecorder API so
+                            you can download it.</p>
+                        <h3>Tips</h3>
+                        <ul>
+                            <li>Different browsers offer different voices — Chrome has the most</li>
+                            <li>Adjust speed for faster/slower narration</li>
+                            <li>Adjust pitch for higher/lower voice tones</li>
+                            <li>The "Speak & Record" feature requires your browser to support audio capture</li>
+                        </ul>
+                    </div>
+                    <div class="content-section">
+                        <h2>FAQ</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">How is this different from the basic TTS
+                                    tool? <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>This converter version adds downloadable audio recording, more voice options, and
+                                        fine-tuned speed and pitch controls.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">What format is the downloaded audio? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>The audio is recorded in WebM format (or WAV depending on browser), which is
+                                        compatible with most media players.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar 2</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script>
+        let voices = []; let audioBlob = null;
+        function loadVoices() {
+            voices = speechSynthesis.getVoices();
+            const sel = document.getElementById('voiceSelect'); sel.innerHTML = '';
+            voices.forEach((v, i) => { const o = document.createElement('option'); o.value = i; o.textContent = v.name + ' (' + v.lang + ')'; sel.appendChild(o); });
+        }
+        speechSynthesis.onvoiceschanged = loadVoices; loadVoices();
+        function speak() {
+            const text = document.getElementById('ttsText').value.trim();
+            if (!text) { alert('Please enter text to speak.'); return; }
+            speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(text);
+            const vi = document.getElementById('voiceSelect').value;
+            if (voices[vi]) u.voice = voices[vi];
+            u.rate = parseFloat(document.getElementById('rate').value);
+            u.pitch = parseFloat(document.getElementById('pitch').value);
+            speechSynthesis.speak(u);
+        }
+        function stopSpeech() { speechSynthesis.cancel(); }
+        async function speakAndRecord() {
+            const text = document.getElementById('ttsText').value.trim();
+            if (!text) { alert('Please enter text to record.'); return; }
+            document.getElementById('status').textContent = '🔴 Recording... Please wait until speech finishes.';
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                const recorder = new MediaRecorder(stream); const chunks = [];
+                recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
+                recorder.onstop = () => {
+                    stream.getTracks().forEach(t => t.stop());
+                    audioBlob = new Blob(chunks, { type: recorder.mimeType });
+                    const url = URL.createObjectURL(audioBlob);
+                    document.getElementById('audioPlayer').src = url;
+                    document.getElementById('audioResult').style.display = 'block';
+                    document.getElementById('status').textContent = '✅ Recording complete! Play or download below.';
+                };
+                recorder.start();
+                speechSynthesis.cancel();
+                const u = new SpeechSynthesisUtterance(text);
+                const vi = document.getElementById('voiceSelect').value;
+                if (voices[vi]) u.voice = voices[vi];
+                u.rate = parseFloat(document.getElementById('rate').value);
+                u.pitch = parseFloat(document.getElementById('pitch').value);
+                u.onend = () => { setTimeout(() => recorder.stop(), 500); };
+                u.onerror = () => { recorder.stop(); document.getElementById('status').textContent = 'Error during speech.'; };
+                speechSynthesis.speak(u);
+            } catch (e) { document.getElementById('status').textContent = 'Microphone access required for recording. Error: ' + e.message; }
+        }
+        function downloadAudio() {
+            if (!audioBlob) return;
+            const a = document.createElement('a'); a.href = URL.createObjectURL(audioBlob);
+            a.download = 'speech-audio.webm'; a.click();
+        }
+    </script>
+</body>
+
+</html>

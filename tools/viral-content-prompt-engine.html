@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viral Content Prompt Engine – Pro | ETYN Tools</title>
+    <meta name="description"
+        content="Generate advanced, long-form AI prompts for viral content. Platform-specific, engagement-optimized, and conversion-ready. Free pro-level prompt generator.">
+    <link rel="canonical" href="https://etyntools.com/tools/viral-content-prompt-engine.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="apple-touch-icon" href="../logo.png">
+    <meta property="og:image" content="https://etyntools.com/logo.png">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ETYN Tools">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .pro-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: #fff;
+            font-size: .65rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            padding: .25rem .65rem;
+            border-radius: 100px;
+            margin-left: .5rem;
+            vertical-align: middle;
+            animation: badge-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes badge-glow {
+            0% {
+                box-shadow: 0 0 4px rgba(99, 102, 241, .3);
+            }
+
+            100% {
+                box-shadow: 0 0 12px rgba(139, 92, 246, .6);
+            }
+        }
+
+        .prompt-output {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1.75rem;
+            margin-top: 1.25rem;
+            line-height: 1.8;
+            font-size: .92rem;
+            color: var(--text);
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-height: 600px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .prompt-output .po-section {
+            margin-bottom: 1.25rem;
+        }
+
+        .prompt-output .po-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: .3rem;
+            display: block;
+        }
+
+        .prompt-output .po-subtitle {
+            font-weight: 600;
+            font-size: .9rem;
+            color: var(--heading);
+            margin-bottom: .15rem;
+            display: block;
+        }
+
+        .prompt-output .po-text {
+            color: var(--text);
+            line-height: 1.75;
+        }
+
+        .prompt-output hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 1rem 0;
+        }
+
+        .copy-row {
+            display: flex;
+            gap: .5rem;
+            margin-top: .75rem;
+            flex-wrap: wrap;
+        }
+
+        .gen-btn {
+            position: relative;
+            overflow: hidden;
+            transition: transform .15s ease, box-shadow .15s ease;
+        }
+
+        .gen-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, .25);
+        }
+
+        .gen-btn:active {
+            transform: translateY(0);
+        }
+
+        .field-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media(max-width:600px) {
+            .field-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle"
+                aria-label="Toggle menu"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Viral Content Prompt
+                    Engine</span></div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>Viral Content Prompt Engine <span class="pro-badge">Pro Generator</span></h1>
+                        <p>Generate one highly advanced, structured AI prompt engineered for maximum engagement,
+                            virality, authority, and conversions. Select your platform, goal, and tone — then let the
+                            engine craft a professional-grade prompt.</p>
+
+                        <div class="field-grid">
+                            <div class="form-group">
+                                <label for="platform">Platform</label>
+                                <select id="platform">
+                                    <option value="YouTube">YouTube</option>
+                                    <option value="Instagram">Instagram</option>
+                                    <option value="TikTok">TikTok</option>
+                                    <option value="Blog">Blog</option>
+                                    <option value="Twitter/X">Twitter/X</option>
+                                    <option value="Marketing Ad">Marketing Ad</option>
+                                    <option value="Online Course">Online Course</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="goal">Content Goal</label>
+                                <select id="goal">
+                                    <option value="Go Viral">Go Viral</option>
+                                    <option value="Increase Sales">Increase Sales</option>
+                                    <option value="Grow Followers">Grow Followers</option>
+                                    <option value="Educate">Educate</option>
+                                    <option value="Build Authority">Build Authority</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="tone">Tone</label>
+                                <select id="tone">
+                                    <option value="Professional">Professional</option>
+                                    <option value="Friendly">Friendly</option>
+                                    <option value="Emotional">Emotional</option>
+                                    <option value="Storytelling">Storytelling</option>
+                                    <option value="Controversial">Controversial</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="audience">Target Audience <small
+                                        style="color:var(--text-light);">(optional)</small></label>
+                                <input type="text" id="audience"
+                                    placeholder="e.g. College students, entrepreneurs, designers...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="topic">Topic <span style="color:#ef4444;">*</span></label>
+                            <input type="text" id="topic" placeholder="e.g. How AI is changing the future of education"
+                                required>
+                        </div>
+
+                        <button class="btn btn--primary btn--block gen-btn" onclick="generatePrompt()">⚡ Generate Pro
+                            Prompt</button>
+
+                        <div class="prompt-output" id="promptOutput"></div>
+
+                        <div class="copy-row" id="copyRow" style="display:none;">
+                            <button class="btn btn--outline btn--sm" onclick="copyPrompt()">📋 Copy to
+                                Clipboard</button>
+                            <button class="btn btn--outline btn--sm" onclick="downloadPrompt()">💾 Download as
+                                .txt</button>
+                        </div>
+                    </div>
+
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+
+                    <div class="content-section">
+                        <h2>What Is the Viral Content Prompt Engine?</h2>
+                        <p>The Viral Content Prompt Engine is a professional-grade AI prompt generator designed for
+                            content creators, marketers, educators, and entrepreneurs. Instead of generic templates, it
+                            produces rich, structured prompts tailored to your specific platform, audience, and content
+                            goal.</p>
+                        <h3>Why Use Structured AI Prompts?</h3>
+                        <p>The quality of AI output depends heavily on prompt quality. Generic prompts produce generic
+                            content. Structured, detailed prompts — with clear role instructions, emotional triggers,
+                            formatting guidelines, and engagement strategies — produce content that stands out,
+                            converts, and goes viral.</p>
+                        <h3>Who Is This For?</h3>
+                        <ul>
+                            <li><strong>Content Creators:</strong> YouTubers, TikTokers, bloggers, and social media
+                                managers</li>
+                            <li><strong>Marketers:</strong> Ad copywriters, email marketers, and growth hackers</li>
+                            <li><strong>Educators:</strong> Online course creators and teachers building content</li>
+                            <li><strong>Entrepreneurs:</strong> Founders building authority and personal brands</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>FAQ</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">Does this use AI or an API? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>No. This tool runs entirely in your browser using JavaScript. It uses a
+                                        rule-based engine with platform-specific templates and strategies to construct
+                                        advanced prompts. No AI model or API is called.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">How do I use the generated prompt? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Copy the generated prompt and paste it into ChatGPT, Claude, Gemini, or any other
+                                        AI assistant. The prompt is specifically structured to produce high-quality,
+                                        platform-optimized output.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Can I customize the output? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Yes. After generating, you can edit the prompt text before pasting it into your
+                                        AI tool. Consider adding specific data points, brand voice guidelines, or
+                                        competitor references.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar 2</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script>
+        /* ======= Viral Content Prompt Engine — Pro ======= */
+
+        const platformData = {
+            'YouTube': {
+                role: 'a world-class YouTube content strategist and scriptwriter with 10+ years of experience growing channels from 0 to 1M+ subscribers',
+                format: 'a full YouTube video script including: a pattern-interrupting hook (first 5 seconds), an intro that builds curiosity (next 25 seconds), clearly structured body sections with timestamps, retention-boosting techniques (open loops, pattern interrupts every 2-3 minutes, visual cue suggestions), and a strong end screen CTA',
+                seo: 'Optimize the title for YouTube search (front-load keywords, use power words, keep under 60 characters). Write an SEO-rich description with primary and secondary keywords in the first 2 lines. Include 15-20 relevant tags ranging from broad to specific. Suggest 3 thumbnail concepts with text overlay ideas.',
+                engagement: 'Include a pinned comment suggestion, a question to drive comments, a "subscribe + bell" CTA woven naturally into the content, and a community post idea to pair with the upload.',
+                lengthNote: 'Aim for 10-15 minute watch time.'
+            },
+            'Instagram': {
+                role: 'an elite Instagram growth strategist and carousel designer who has helped brands reach millions of impressions organically',
+                format: 'a 10-slide Instagram carousel with exact text for each slide. Slide 1 must be a scroll-stopping hook. Slides 2-9 should deliver structured value with short, punchy sentences (max 30 words per slide). Slide 10 must have a clear CTA. Also include the full caption (2200 characters max) with line breaks, emojis, and 30 relevant hashtags grouped by reach tier.',
+                seo: 'Use keyword-rich alt text for each slide. Front-load the caption with the primary keyword. Include a mix of high-volume (1M+), medium (100K-1M), and niche (under 100K) hashtags.',
+                engagement: 'Include a "save this for later" CTA, a question in the caption to drive comments, and a suggestion to cross-post to Stories with a poll or quiz sticker.',
+                lengthNote: 'Keep each slide scannable in under 3 seconds.'
+            },
+            'TikTok': {
+                role: 'a viral TikTok content creator and algorithm specialist who consistently lands on the For You Page with 1M+ view videos',
+                format: 'a TikTok video script with: a 1-second visual hook, a 3-second verbal hook that creates an information gap, a clear 3-act structure (Setup → Tension → Payoff) optimized for 60-90 second watch time, on-screen text overlay suggestions, trending sound recommendation strategy, and a loop ending that encourages rewatches.',
+                seo: 'Write a caption with 3-5 relevant keywords naturally integrated. Suggest 5 hashtags mixing trending and niche. Include a keyword-rich on-screen text suggestion.',
+                engagement: 'Include a "watch till the end" hook, a controversial or surprising statement to drive comments, and a duet/stitch invitation.',
+                lengthNote: 'Optimize for 90-second format with high completion rate.'
+            },
+            'Blog': {
+                role: 'a seasoned SEO content strategist and long-form blog writer who has ranked articles on page 1 of Google for competitive keywords',
+                format: 'a complete blog post outline with: an SEO-optimized H1 title, meta description (150-160 chars), introduction with a hook and thesis statement, 5-7 H2 sections with H3 subsections, bullet points, a key takeaway box, internal linking suggestions, and a conclusion with CTA. Include word count target and readability level.',
+                seo: 'Identify primary keyword, 3-5 secondary keywords, and 5-10 LSI keywords. Place primary keyword in the title, first paragraph, at least 2 H2s, meta description, and URL slug. Suggest an FAQ section with 3 questions for featured snippet optimization.',
+                engagement: 'Include a table of contents, shareable quote blocks, a downloadable resource CTA (lead magnet), and social sharing prompts.',
+                lengthNote: 'Target 2000-3000 words for comprehensive coverage.'
+            },
+            'Twitter/X': {
+                role: 'a Twitter/X viral thread architect and personal brand strategist who has crafted threads with 10K+ engagements',
+                format: 'a 12-15 tweet thread with: Tweet 1 as a bold, curiosity-driven hook with an emoji pattern interrupt; tweets 2-13 delivering structured insights with one key idea per tweet; a penultimate tweet summarizing key takeaways; and a final tweet with CTA (follow + retweet). Each tweet must be under 280 characters.',
+                seo: 'No traditional SEO, but optimize for Twitter search by naturally including 2-3 relevant keywords. Avoid hashtags in the thread body — place 2-3 in the final tweet only.',
+                engagement: 'Include a "Retweet tweet 1 if you agree" CTA, a controversial take to spark quote tweets, a "bookmark this thread" prompt, and a suggestion for a follow-up standalone tweet to post 2 hours later.',
+                lengthNote: 'Keep each tweet punchy — one idea per tweet.'
+            },
+            'Marketing Ad': {
+                role: 'an elite direct-response copywriter and conversion rate optimization specialist with experience writing ads that generate 5-10x ROAS',
+                format: 'a complete ad copy package with: 3 headline variations (using proven formulas: PAS, AIDA, Before-After-Bridge), primary ad copy (125 words), a long-form ad copy variant (250 words), 3 CTA button text options, and a landing page headline + subheadline suggestion. Include ad format specifications for Facebook/Google.',
+                seo: 'For Google Ads: include exact-match and broad-match keyword suggestions. For Facebook: suggest 3 interest-based targeting audiences and 2 lookalike audience strategies.',
+                engagement: 'Use social proof elements (statistics, testimonials framework), urgency triggers (limited time, scarcity), and a risk-reversal statement (guarantee, free trial). Include A/B test suggestions for 2 variables.',
+                lengthNote: 'Primary copy: 125 words. Long-form: 250 words.'
+            },
+            'Online Course': {
+                role: 'an expert online course designer and instructional strategist who has launched courses generating $100K+ in revenue',
+                format: 'a complete course module outline with: a compelling module title, learning objectives (3-5 measurable outcomes), lesson breakdown (5-7 lessons with descriptions), a practical exercise or assignment, a quiz with 3 questions, key vocabulary list, and resource recommendations. Include a promotional description for the sales page.',
+                seo: 'Write an SEO-optimized course title and description for Udemy/Skillshare discovery. Include 10 relevant keywords for course marketplace search.',
+                engagement: 'Include a discussion prompt for community engagement, a peer review activity, a milestone celebration moment, and a teaser for the next module to maintain enrollment.',
+                lengthNote: 'Each lesson should be 10-15 minutes of content.'
+            }
+        };
+
+        const goalStrategies = {
+            'Go Viral': 'The primary objective is VIRALITY. Employ pattern interrupts, information gaps, controversial angles, shareable "aha moments," and emotional extremes (awe, outrage, humor, inspiration). Structure content so it\'s impossible NOT to share. Use the "social currency" principle — make the audience feel smart or ahead of the curve by sharing.',
+            'Increase Sales': 'The primary objective is CONVERSION. Use the PAS framework (Problem → Agitate → Solve) or AIDA (Attention → Interest → Desire → Action). Lead with pain points, amplify the cost of inaction, present the solution as inevitable, stack value, overcome objections preemptively, and create urgency with a clear, single-action CTA.',
+            'Grow Followers': 'The primary objective is FOLLOWER GROWTH. Deliver outsized value that positions the creator as a must-follow resource. Use "save-worthy" content formats, "follow for part 2" hooks, consistent series branding, and community-building language ("we" over "I"). End every piece with a clear reason WHY the audience should follow.',
+            'Educate': 'The primary objective is EDUCATION with RETENTION. Use the Feynman technique (explain complex ideas simply), concrete examples, analogies from everyday life, progressive complexity (easy → medium → hard), and knowledge checks. Structure content so the audience feels measurably smarter after consuming it.',
+            'Build Authority': 'The primary objective is AUTHORITY POSITIONING. Lead with credentials, data, and original insights. Use contrarian takes backed by evidence, cite specific numbers and case studies, reference industry leaders, and demonstrate deep expertise through nuanced analysis. The audience should think: "This person really knows what they\'re talking about."'
+        };
+
+        const toneInstructions = {
+            'Professional': 'Use a polished, authoritative, and confident tone. Write with precision — every word should earn its place. Avoid slang or casual language. Use industry-appropriate vocabulary. Maintain a tone that commands respect and signals expertise.',
+            'Friendly': 'Use a warm, approachable, and conversational tone — like a knowledgeable friend sharing advice over coffee. Use "you" and "we" frequently. Include light humor where appropriate. Make complex concepts feel accessible and non-intimidating.',
+            'Emotional': 'Use a deeply emotional, empathetic tone that connects with the audience on a visceral level. Lead with feelings before facts. Use vivid sensory language, personal vulnerability, and storytelling that triggers mirror neurons. The audience should FEEL something before they think something.',
+            'Storytelling': 'Use a narrative-driven tone structured around a compelling story arc: character → conflict → struggle → transformation → lesson. Open with "in media res" (start in the middle of the action). Use cliffhangers, detail, and pacing to maintain engagement. Weave the key message into the story\'s resolution.',
+            'Controversial': 'Use a bold, provocative, and unapologetic tone that challenges conventional wisdom. Open with a statement that most people would disagree with — then systematically prove it with logic, data, and examples. Use rhetorical questions and strategic pauses. The goal is healthy debate, not offense.'
+        };
+
+        function generatePrompt() {
+            const platform = document.getElementById('platform').value;
+            const goal = document.getElementById('goal').value;
+            const tone = document.getElementById('tone').value;
+            const topic = document.getElementById('topic').value.trim();
+            const audience = document.getElementById('audience').value.trim();
+
+            if (!topic) { alert('Please enter a topic.'); return; }
+
+            const pd = platformData[platform];
+            const audienceStr = audience ? audience : 'a broad, engaged online audience interested in ' + topic;
+
+            let prompt = '';
+
+            // Section 1: Role
+            prompt += '<span class="po-section"><span class="po-title">🎯 ROLE & EXPERTISE</span>';
+            prompt += '<span class="po-text">Act as ' + pd.role + '. You specialize in creating content that achieves the goal of "' + goal + '" using a "' + tone + '" tone. Your expertise spans content strategy, audience psychology, platform-specific algorithms, and conversion optimization.</span></span>';
+
+            prompt += '<hr>';
+
+            // Section 2: Mission
+            prompt += '<span class="po-section"><span class="po-title">📋 MISSION BRIEF</span>';
+            prompt += '<span class="po-text">Create ' + pd.format + '</span>\n\n';
+            prompt += '<span class="po-subtitle">Topic:</span><span class="po-text">"' + topic + '"</span>\n';
+            prompt += '<span class="po-subtitle">Target Audience:</span><span class="po-text">' + audienceStr + '</span>\n';
+            prompt += '<span class="po-subtitle">Platform:</span><span class="po-text">' + platform + '</span>\n';
+            prompt += '<span class="po-subtitle">Content Length:</span><span class="po-text">' + pd.lengthNote + '</span></span>';
+
+            prompt += '<hr>';
+
+            // Section 3: Goal Strategy
+            prompt += '<span class="po-section"><span class="po-title">🚀 GOAL STRATEGY</span>';
+            prompt += '<span class="po-text">' + goalStrategies[goal] + '</span></span>';
+
+            prompt += '<hr>';
+
+            // Section 4: Tone & Voice
+            prompt += '<span class="po-section"><span class="po-title">🎙️ TONE & VOICE DIRECTION</span>';
+            prompt += '<span class="po-text">' + toneInstructions[tone] + '</span></span>';
+
+            prompt += '<hr>';
+
+            // Section 5: Hook Strategy
+            prompt += '<span class="po-section"><span class="po-title">🪝 HOOK STRATEGY</span>';
+            prompt += '<span class="po-text">Open with one of these proven hook frameworks (choose the most impactful for this topic):\n';
+            prompt += '• <strong>The Contrarian Hook:</strong> "Everyone says [common belief] — here\'s why they\'re wrong."\n';
+            prompt += '• <strong>The Curiosity Gap:</strong> "I discovered something about [topic] that changed everything."\n';
+            prompt += '• <strong>The Statistical Shock:</strong> Open with a surprising, specific statistic.\n';
+            prompt += '• <strong>The Story Hook:</strong> Start with a vivid 2-sentence personal anecdote.\n';
+            prompt += '• <strong>The Direct Challenge:</strong> "If you\'re still doing [old way], you\'re leaving [value] on the table."\n\n';
+            prompt += 'The hook must stop the scroll within 1-3 seconds and create an irresistible urge to keep consuming.</span></span>';
+
+            prompt += '<hr>';
+
+            // Section 6: Emotional Triggers
+            prompt += '<span class="po-section"><span class="po-title">💡 EMOTIONAL TRIGGER STRATEGY</span>';
+            prompt += '<span class="po-text">Weave these psychological triggers throughout the content:\n';
+            prompt += '• <strong>FOMO:</strong> Imply that not acting on this knowledge creates missed opportunity.\n';
+            prompt += '• <strong>Aspiration:</strong> Paint a vivid picture of the audience\'s desired future state.\n';
+            prompt += '• <strong>Social Proof:</strong> Reference case studies, statistics, or examples of others who succeeded.\n';
+            prompt += '• <strong>Reciprocity:</strong> Deliver so much free value that the audience feels compelled to engage.\n';
+            prompt += '• <strong>Identity:</strong> Frame the content so the audience sees themselves as the type of person who takes action on this.</span></span>';
+
+            prompt += '<hr>';
+
+            // Section 7: Content Framework
+            prompt += '<span class="po-section"><span class="po-title">🏗️ CONTENT FRAMEWORK</span>';
+            prompt += '<span class="po-text">Structure the content using this proven framework:\n\n';
+            prompt += '<strong>1. THE HOOK</strong> (5% of content) — Pattern interrupt + curiosity gap.\n';
+            prompt += '<strong>2. THE CONTEXT</strong> (10%) — Why this matters RIGHT NOW. Create urgency and relevance.\n';
+            prompt += '<strong>3. THE CORE VALUE</strong> (60%) — The main teaching, insight, or argument. Break into 3-5 digestible sections with clear subheadings.\n';
+            prompt += '<strong>4. THE PROOF</strong> (15%) — Evidence, examples, data, case studies, or personal experience that validate the core message.\n';
+            prompt += '<strong>5. THE TRANSFORMATION</strong> (5%) — Show the before/after: what changes when the audience applies this knowledge.\n';
+            prompt += '<strong>6. THE CTA</strong> (5%) — One clear, specific next action. Make it feel like the natural next step, not a sales pitch.</span></span>';
+
+            prompt += '<hr>';
+
+            // Section 8: Engagement
+            prompt += '<span class="po-section"><span class="po-title">📈 ENGAGEMENT TECHNIQUES</span>';
+            prompt += '<span class="po-text">' + pd.engagement + '\n\n';
+            prompt += 'Additionally:\n';
+            prompt += '• Use open loops — tease upcoming points to maintain consumption.\n';
+            prompt += '• Ask rhetorical questions every 2-3 sections to maintain mental engagement.\n';
+            prompt += '• Include a "micro-commitment" moment — a small action that increases investment.\n';
+            prompt += '• End sections with transition hooks that pull the audience into the next section.</span></span>';
+
+            prompt += '<hr>';
+
+            // Section 9: SEO
+            prompt += '<span class="po-section"><span class="po-title">🔍 SEO & DISCOVERABILITY</span>';
+            prompt += '<span class="po-text">' + pd.seo + '</span></span>';
+
+            prompt += '<hr>';
+
+            // Section 10: CTA
+            prompt += '<span class="po-section"><span class="po-title">🎬 CALL-TO-ACTION STRATEGY</span>';
+            prompt += '<span class="po-text">End with a CTA that:\n';
+            prompt += '• Feels like a natural extension of the value delivered, not a hard sell.\n';
+            prompt += '• Uses the "because" principle — give a specific reason to act.\n';
+            prompt += '• Creates a bridge to further engagement (follow, subscribe, buy, share).\n';
+            prompt += '• Optionally includes a soft CTA mid-content and a strong CTA at the end.\n';
+            prompt += '• Uses urgency or scarcity ONLY if authentic and relevant.</span></span>';
+
+            prompt += '<hr>';
+
+            // Section 11: Formatting
+            prompt += '<span class="po-section"><span class="po-title">✨ FORMATTING & DELIVERY GUIDELINES</span>';
+            prompt += '<span class="po-text">• Use short paragraphs (2-3 sentences max) for scanability.\n';
+            prompt += '• Use bold text for key phrases and takeaways.\n';
+            prompt += '• Use bullet points and numbered lists for structured information.\n';
+            prompt += '• Include white space — dense walls of text kill engagement.\n';
+            prompt += '• If applicable, suggest visual elements (images, charts, screenshots).\n';
+            prompt += '• Match the content length and depth to the platform expectations.\n';
+            prompt += '• Write at an 8th-grade reading level for maximum accessibility.</span></span>';
+
+            const output = document.getElementById('promptOutput');
+            output.innerHTML = prompt;
+            output.style.display = 'block';
+            document.getElementById('copyRow').style.display = 'flex';
+            output.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function getPlainText() {
+            return document.getElementById('promptOutput').innerText;
+        }
+
+        function copyPrompt() {
+            const text = getPlainText();
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = document.querySelector('#copyRow button');
+                const orig = btn.textContent;
+                btn.textContent = '✅ Copied!';
+                setTimeout(() => { btn.textContent = orig; }, 2000);
+            });
+        }
+
+        function downloadPrompt() {
+            const text = getPlainText();
+            const blob = new Blob([text], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'viral-content-prompt.txt';
+            a.click();
+        }
+    </script>
+</body>
+
+</html>

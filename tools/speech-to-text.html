@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech to Text — Convert Voice to Text Online | ETYN Tools</title>
+    <meta name="description"
+        content="Free speech to text converter. Use your microphone to convert spoken words into text in real time. Works in Chrome, Edge, and Safari.">
+    <link rel="canonical" href="https://etyntools.com/tools/speech-to-text.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="apple-touch-icon" href="../logo.png">
+    <meta property="og:image" content="https://etyntools.com/logo.png">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ETYN Tools">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .recording-pulse {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ef4444;
+            animation: pulse-anim 1s ease infinite;
+            margin-right: .5rem;
+            vertical-align: middle;
+        }
+
+        @keyframes pulse-anim {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: .5;
+                transform: scale(1.3);
+            }
+        }
+
+        .lang-select {
+            display: flex;
+            gap: .75rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle"
+                aria-label="Toggle menu"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Speech to Text</span></div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>Speech to Text Tool</h1>
+                        <p>Click the microphone button below and start speaking. Your words will be transcribed in real
+                            time.</p>
+                        <div class="form-group"><label for="langSelect">Language</label>
+                            <select id="langSelect">
+                                <option value="en-US">English (US)</option>
+                                <option value="en-GB">English (UK)</option>
+                                <option value="es-ES">Spanish</option>
+                                <option value="fr-FR">French</option>
+                                <option value="de-DE">German</option>
+                                <option value="it-IT">Italian</option>
+                                <option value="pt-BR">Portuguese</option>
+                                <option value="ar-SA">Arabic</option>
+                                <option value="zh-CN">Chinese</option>
+                                <option value="ja-JP">Japanese</option>
+                                <option value="ko-KR">Korean</option>
+                                <option value="hi-IN">Hindi</option>
+                            </select>
+                        </div>
+                        <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.25rem;">
+                            <button class="btn btn--primary" id="startBtn" onclick="toggleRecording()">🎤 Start
+                                Listening</button>
+                            <button class="btn btn--outline btn--sm" onclick="copyTranscript()">Copy Text</button>
+                            <button class="btn btn--outline btn--sm" onclick="clearTranscript()">Clear</button>
+                        </div>
+                        <div id="status"
+                            style="font-size:.85rem;font-weight:600;color:var(--text-light);margin-bottom:1rem;"></div>
+                        <div class="form-group"><label for="transcript">Transcript</label><textarea id="transcript"
+                                rows="10" placeholder="Your transcribed text will appear here..." readonly></textarea>
+                        </div>
+                        <div class="result-box visible" id="stats" style="margin-top:1rem;">
+                            <div class="result-item"><span>Words</span><span id="wordCount">0</span></div>
+                            <div class="result-item"><span>Characters</span><span id="charCount">0</span></div>
+                        </div>
+                    </div>
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+                    <div class="content-section">
+                        <h2>How It Works</h2>
+                        <p>This tool uses your browser's built-in Web Speech Recognition API to convert your spoken
+                            words into text in real time. Simply click the microphone button, speak clearly, and watch
+                            your words appear on screen.</p>
+                        <h3>Supported Browsers</h3>
+                        <ul>
+                            <li>Google Chrome (recommended)</li>
+                            <li>Microsoft Edge</li>
+                            <li>Safari (macOS/iOS)</li>
+                        </ul>
+                        <p><strong>Note:</strong> Firefox does not support the Web Speech API. Use Chrome or Edge for
+                            the best experience.</p>
+                    </div>
+                    <div class="content-section">
+                        <h2>FAQ</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">Is my voice data stored? <svg fill="none"
+                                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>No. Voice processing uses your browser's built-in speech recognition. ETYN Tools
+                                        does not store, record, or transmit your voice data.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Why isn't it working? <svg fill="none"
+                                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Make sure you're using Chrome or Edge, allow microphone access when prompted, and
+                                        speak clearly. Firefox is not supported.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar 2</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script>
+        let recognition = null, isRecording = false;
+        function toggleRecording() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) { alert('Speech Recognition is not supported in this browser. Please use Chrome or Edge.'); return; }
+            if (isRecording) { stopRecording(); return; }
+            const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SR();
+            recognition.lang = document.getElementById('langSelect').value;
+            recognition.continuous = true; recognition.interimResults = true;
+            recognition.onresult = function (e) {
+                let final = '', interim = '';
+                for (let i = 0; i < e.results.length; i++) { if (e.results[i].isFinal) final += e.results[i][0].transcript + ' '; else interim += e.results[i][0].transcript; }
+                document.getElementById('transcript').value = final + (interim ? '[...' + interim + ']' : '');
+                updateWordCount(final);
+            };
+            recognition.onerror = function (e) { document.getElementById('status').textContent = 'Error: ' + e.error; stopRecording(); };
+            recognition.onend = function () { if (isRecording) recognition.start(); };
+            recognition.start(); isRecording = true;
+            document.getElementById('startBtn').innerHTML = '<span class="recording-pulse"></span> Stop Listening';
+            document.getElementById('startBtn').classList.add('btn--danger');
+            document.getElementById('status').textContent = '🔴 Listening... Speak now.';
+        }
+        function stopRecording() { if (recognition) recognition.stop(); isRecording = false; document.getElementById('startBtn').innerHTML = '🎤 Start Listening'; document.getElementById('startBtn').classList.remove('btn--danger'); document.getElementById('status').textContent = 'Stopped.'; }
+        function updateWordCount(t) { const w = t.trim() ? t.trim().split(/\s+/).length : 0; document.getElementById('wordCount').textContent = w; document.getElementById('charCount').textContent = t.length; }
+        function copyTranscript() { const t = document.getElementById('transcript').value; if (t) navigator.clipboard.writeText(t); }
+        function clearTranscript() { document.getElementById('transcript').value = ''; updateWordCount(''); }
+    </script>
+</body>
+
+</html>

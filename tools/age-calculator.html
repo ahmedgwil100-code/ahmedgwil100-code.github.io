@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator — Calculate Your Exact Age | ETYN Tools</title>
+    <meta name="description"
+        content="Free online age calculator. Find your exact age in years, months, and days from your date of birth. Fast and accurate.">
+    <link rel="canonical" href="https://etyntools.com/tools/age-calculator.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="apple-touch-icon" href="../logo.png">
+  <meta property="og:image" content="https://etyntools.com/logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ETYN Tools">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle" aria-label="Toggle menu"><svg
+                    fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Age Calculator</span></div>
+
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>Age Calculator</h1>
+                        <p>Enter your date of birth to calculate your exact age in years, months, and days.</p>
+
+                        <div class="form-group">
+                            <label for="birthdate">Date of Birth</label>
+                            <input type="date" id="birthdate">
+                        </div>
+                        <div class="form-group">
+                            <label for="ageToDate">Calculate Age As Of (optional)</label>
+                            <input type="date" id="ageToDate">
+                        </div>
+                        <button class="btn btn--primary btn--block" onclick="calculateAge()">Calculate Age</button>
+
+                        <div class="result-box" id="result">
+                            <h3>Your Age</h3>
+                            <div class="result-item"><span>Years</span><span id="resYears">—</span></div>
+                            <div class="result-item"><span>Months</span><span id="resMonths">—</span></div>
+                            <div class="result-item"><span>Days</span><span id="resDays">—</span></div>
+                            <div class="result-item"><span>Total Days Lived</span><span id="resTotalDays">—</span></div>
+                            <div class="result-item"><span>Next Birthday In</span><span id="resNextBday">—</span></div>
+                        </div>
+                    </div>
+
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+
+                    <div class="content-section">
+                        <h2>How to Use the Age Calculator</h2>
+                        <p>Our free online Age Calculator makes it simple to determine your exact age down to the day.
+                            Whether you need to know your age for official documents, health assessments, or just out of
+                            curiosity, this tool provides precise results instantly.</p>
+                        <h3>Step-by-Step Instructions</h3>
+                        <p>Using the Age Calculator is straightforward. First, select your date of birth using the date
+                            picker. If you want to calculate your age as of a specific date (for example, a future date
+                            or a historical date), you can optionally fill in the "Calculate Age As Of" field. If left
+                            blank, the tool uses today's date. Then click "Calculate Age" to see your results.</p>
+                        <h3>Understanding the Results</h3>
+                        <p>The calculator displays your age broken down into years, months, and days. It also shows the
+                            total number of days you have lived and how many days are left until your next birthday.
+                            This level of detail is useful for legal age verification, retirement planning, or milestone
+                            tracking.</p>
+                        <h3>Why Age Calculation Matters</h3>
+                        <p>Knowing your exact age is important in many situations. Insurance companies use precise age
+                            for premium calculations. Government agencies require exact age for benefit eligibility.
+                            Schools and universities set age-based enrollment cutoffs. Even in healthcare, age affects
+                            screening recommendations and treatment protocols.</p>
+                        <h3>How the Calculation Works</h3>
+                        <p>The calculator uses the Gregorian calendar to compute the difference between your birth date
+                            and today's date (or your chosen date). It accounts for varying month lengths and leap
+                            years, ensuring that the result is always accurate. The algorithm first calculates full
+                            years, then remaining months, and finally remaining days, mimicking how humans intuitively
+                            think about age.</p>
+                        <p>Unlike simple division (dividing total days by 365), our method handles edge cases like being
+                            born on February 29th or calculating age across century boundaries. This ensures you always
+                            get a result that matches what you would see on official documents.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>Frequently Asked Questions</h2>
+                        <div class="faq-list">
+                            <div class="faq-item">
+                                <button class="faq-question">Is this age calculator accurate? <svg fill="none"
+                                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Yes. It accounts for leap years and varying month lengths to give you an exact
+                                        result.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <button class="faq-question">Can I calculate age for a future date? <svg fill="none"
+                                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Yes. Use the "Calculate Age As Of" field to pick any future date and see what
+                                        your age will be on that day.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <button class="faq-question">Does it work for birthdays on February 29? <svg fill="none"
+                                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Yes. Leap year birthdays are handled correctly. In non-leap years, the birthday
+                                        is treated as March 1.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <button class="faq-question">Is my data stored? <svg fill="none" stroke="currentColor"
+                                        stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>No. All calculations happen in your browser. No data is sent to any server.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar 2</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a> &nbsp;|&nbsp; <a href="../disclaimer.html">Disclaimer</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../main.js"></script>
+    <script>
+        function calculateAge() {
+            const bd = document.getElementById('birthdate').value;
+            if (!bd) { alert('Please select your date of birth.'); return; }
+            const birth = new Date(bd);
+            const toVal = document.getElementById('ageToDate').value;
+            const today = toVal ? new Date(toVal) : new Date();
+            if (birth > today) { alert('Birth date cannot be in the future.'); return; }
+
+            let years = today.getFullYear() - birth.getFullYear();
+            let months = today.getMonth() - birth.getMonth();
+            let days = today.getDate() - birth.getDate();
+            if (days < 0) { months--; const prev = new Date(today.getFullYear(), today.getMonth(), 0); days += prev.getDate(); }
+            if (months < 0) { years--; months += 12; }
+
+            const totalDays = Math.floor((today - birth) / (1000 * 60 * 60 * 24));
+
+            let nextBday = new Date(today.getFullYear(), birth.getMonth(), birth.getDate());
+            if (nextBday <= today) nextBday.setFullYear(nextBday.getFullYear() + 1);
+            const daysUntil = Math.ceil((nextBday - today) / (1000 * 60 * 60 * 24));
+
+            document.getElementById('resYears').textContent = years;
+            document.getElementById('resMonths').textContent = months;
+            document.getElementById('resDays').textContent = days;
+            document.getElementById('resTotalDays').textContent = totalDays.toLocaleString();
+            document.getElementById('resNextBday').textContent = daysUntil + ' days';
+            showResult('result');
+        }
+    </script>
+</body>
+
+</html>

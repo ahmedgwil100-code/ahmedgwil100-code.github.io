@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Thumbnail Downloader — Download HD Thumbnails | ETYN Tools</title>
+    <meta name="description"
+        content="Free YouTube thumbnail downloader. Get high-quality thumbnails from any YouTube video in all available resolutions. Instant and free.">
+    <link rel="canonical" href="https://etyntools.com/tools/youtube-thumbnail-downloader.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="apple-touch-icon" href="../logo.png">
+    <meta property="og:image" content="https://etyntools.com/logo.png">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ETYN Tools">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .thumb-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1.25rem;
+        }
+
+        .thumb-card {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background: var(--bg-card);
+        }
+
+        .thumb-card img {
+            width: 100%;
+            display: block;
+        }
+
+        .thumb-card__info {
+            padding: .75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: .85rem;
+        }
+
+        .thumb-card__label {
+            font-weight: 600;
+            color: var(--text);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle"
+                aria-label="Toggle menu"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>YouTube Thumbnail
+                    Downloader</span></div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>YouTube Thumbnail Downloader</h1>
+                        <p>Paste a YouTube video URL below to download its thumbnail in all available resolutions.</p>
+                        <div class="form-group"><label for="ytUrl">YouTube Video URL</label><input type="text"
+                                id="ytUrl" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"></div>
+                        <button class="btn btn--primary btn--block" onclick="fetchThumbnails()">Get Thumbnails</button>
+                        <div id="thumbResult" style="display:none;">
+                            <div class="thumb-grid" id="thumbGrid"></div>
+                        </div>
+                    </div>
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+                    <div class="content-section">
+                        <h2>How It Works</h2>
+                        <p>YouTube stores thumbnails for every video at predictable URLs in several resolutions. This
+                            tool extracts the video ID from your URL and shows all available thumbnail sizes, which you
+                            can right-click and save or click the download button.</p>
+                        <h3>Available Resolutions</h3>
+                        <ul>
+                            <li><strong>Default</strong> — 120×90 px</li>
+                            <li><strong>Medium</strong> — 320×180 px</li>
+                            <li><strong>High</strong> — 480×360 px</li>
+                            <li><strong>Standard</strong> — 640×480 px</li>
+                            <li><strong>Max Resolution</strong> — 1280×720 px (HD)</li>
+                        </ul>
+                    </div>
+                    <div class="content-section">
+                        <h2>FAQ</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">Is this legal? <svg fill="none"
+                                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>YouTube thumbnails are publicly accessible images. Downloading them for personal
+                                        use or reference is generally acceptable, but always respect copyright.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Why is maxresdefault not available? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Not all videos have max resolution thumbnails. Older or lower-quality videos may
+                                        only have smaller versions available.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar 2</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script>
+        function extractVideoId(url) {
+            const patterns = [/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/];
+            for (const p of patterns) { const m = url.match(p); if (m) return m[1]; } return null;
+        }
+        function fetchThumbnails() {
+            const url = document.getElementById('ytUrl').value.trim();
+            const id = extractVideoId(url);
+            if (!id) { alert('Please enter a valid YouTube URL.'); return; }
+            const sizes = [{ name: 'Max Resolution (HD)', key: 'maxresdefault', size: '1280×720' }, { name: 'Standard', key: 'sddefault', size: '640×480' }, { name: 'High Quality', key: 'hqdefault', size: '480×360' }, { name: 'Medium Quality', key: 'mqdefault', size: '320×180' }, { name: 'Default', key: 'default', size: '120×90' }];
+            let html = '';
+            sizes.forEach(s => {
+                const imgUrl = 'https://img.youtube.com/vi/' + id + '/' + s.key + '.jpg';
+                html += '<div class="thumb-card"><img src="' + imgUrl + '" alt="' + s.name + ' thumbnail" onerror="this.parentNode.style.display=\'none\'"><div class="thumb-card__info"><span class="thumb-card__label">' + s.name + ' (' + s.size + ')</span><a href="' + imgUrl + '" target="_blank" download class="btn btn--outline btn--sm">Open</a></div></div>';
+            });
+            document.getElementById('thumbGrid').innerHTML = html;
+            document.getElementById('thumbResult').style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percentage Calculator — Calculate Percentages Easily | ETYN Tools</title>
+    <meta name="description"
+        content="Free percentage calculator. Calculate percentage of a number, percentage increase or decrease, and more. Instant results.">
+    <link rel="canonical" href="https://etyntools.com/tools/percentage-calculator.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="apple-touch-icon" href="../logo.png">
+  <meta property="og:image" content="https://etyntools.com/logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ETYN Tools">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle" aria-label="Toggle menu"><svg
+                    fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Percentage Calculator</span>
+            </div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>Percentage Calculator</h1>
+                        <p>Calculate percentages, increases, decreases, and percentage of a number.</p>
+
+                        <!-- Calc 1: X% of Y -->
+                        <div
+                            style="background:var(--bg-subtle);padding:1.25rem;border-radius:var(--radius-sm);margin-bottom:1.25rem;">
+                            <h3 style="margin-bottom:.75rem;">What is X% of Y?</h3>
+                            <div class="form-row">
+                                <div class="form-group"><label for="p1x">Percentage (%)</label><input type="number"
+                                        id="p1x" placeholder="e.g. 25"></div>
+                                <div class="form-group"><label for="p1y">of Number</label><input type="number" id="p1y"
+                                        placeholder="e.g. 200"></div>
+                            </div>
+                            <button class="btn btn--primary btn--sm" onclick="calc1()">Calculate</button>
+                            <p style="margin-top:.75rem;font-weight:700;color:var(--text);" id="r1"></p>
+                        </div>
+
+                        <!-- Calc 2: X is what % of Y -->
+                        <div
+                            style="background:var(--bg-subtle);padding:1.25rem;border-radius:var(--radius-sm);margin-bottom:1.25rem;">
+                            <h3 style="margin-bottom:.75rem;">X is what % of Y?</h3>
+                            <div class="form-row">
+                                <div class="form-group"><label for="p2x">Number X</label><input type="number" id="p2x"
+                                        placeholder="e.g. 50"></div>
+                                <div class="form-group"><label for="p2y">Number Y</label><input type="number" id="p2y"
+                                        placeholder="e.g. 200"></div>
+                            </div>
+                            <button class="btn btn--primary btn--sm" onclick="calc2()">Calculate</button>
+                            <p style="margin-top:.75rem;font-weight:700;color:var(--text);" id="r2"></p>
+                        </div>
+
+                        <!-- Calc 3: % increase/decrease -->
+                        <div
+                            style="background:var(--bg-subtle);padding:1.25rem;border-radius:var(--radius-sm);margin-bottom:1.25rem;">
+                            <h3 style="margin-bottom:.75rem;">Percentage Change</h3>
+                            <div class="form-row">
+                                <div class="form-group"><label for="p3from">From</label><input type="number" id="p3from"
+                                        placeholder="e.g. 80"></div>
+                                <div class="form-group"><label for="p3to">To</label><input type="number" id="p3to"
+                                        placeholder="e.g. 100"></div>
+                            </div>
+                            <button class="btn btn--primary btn--sm" onclick="calc3()">Calculate</button>
+                            <p style="margin-top:.75rem;font-weight:700;color:var(--text);" id="r3"></p>
+                        </div>
+                    </div>
+
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+
+                    <div class="content-section">
+                        <h2>How to Calculate Percentages</h2>
+                        <p>Percentages are everywhere in daily life — from shopping discounts and tax calculations to
+                            exam scores and investment returns. Understanding how to calculate percentages quickly and
+                            accurately is a fundamental skill. Our Percentage Calculator handles three of the most
+                            common percentage calculations you will encounter.</p>
+                        <h3>What Is X% of Y?</h3>
+                        <p>This is the most basic percentage calculation. To find X% of Y, you multiply Y by X and
+                            divide by 100. For example, 25% of 200 is (200 × 25) ÷ 100 = 50. This calculation is useful
+                            when calculating tips at a restaurant, figuring out sale prices, or determining how much of
+                            a budget is allocated to a specific category.</p>
+                        <h3>X Is What Percent of Y?</h3>
+                        <p>This calculation answers the question: if I have X out of Y, what percentage does X
+                            represent? The formula is (X ÷ Y) × 100. For instance, if you scored 42 out of 50 on a test,
+                            your percentage is (42 ÷ 50) × 100 = 84%. This is commonly used for grading, progress
+                            tracking, and statistical analysis.</p>
+                        <h3>Percentage Change (Increase or Decrease)</h3>
+                        <p>Percentage change tells you how much a value has increased or decreased relative to its
+                            original value. The formula is ((New Value − Old Value) ÷ Old Value) × 100. A positive
+                            result indicates an increase, while a negative result indicates a decrease. This is
+                            essential for tracking stock returns, comparing prices over time, or measuring growth rates.
+                        </p>
+                        <p>For example, if a price goes from $80 to $100, the percentage increase is ((100 − 80) ÷ 80) ×
+                            100 = 25%. If the price drops from $100 to $80, the percentage decrease is ((80 − 100) ÷
+                            100) × 100 = −20%. Notice that the increase and decrease percentages are different because
+                            the base value changes.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>Frequently Asked Questions</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">How do I calculate a discount price? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Use "What is X% of Y?" to find the discount amount, then subtract it from the
+                                        original price. For example, 30% off $150: 30% of 150 = 45, so the sale price is
+                                        $105.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">What is the difference between percentage
+                                    and percentile? <svg fill="none" stroke="currentColor" stroke-width="2"
+                                        viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>A percentage is a fraction of 100. A percentile indicates the rank of a value in
+                                        a dataset — the 90th percentile means you scored higher than 90% of
+                                        participants.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Can percentage change be negative? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Yes. A negative percentage change indicates a decrease from the original value.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a> &nbsp;|&nbsp; <a href="../disclaimer.html">Disclaimer</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script>
+        function calc1() { const x = parseFloat(document.getElementById('p1x').value), y = parseFloat(document.getElementById('p1y').value); if (isNaN(x) || isNaN(y)) { alert('Enter both values.'); return; } document.getElementById('r1').textContent = x + '% of ' + y + ' = ' + (y * x / 100).toFixed(4).replace(/\.?0+$/, ''); }
+        function calc2() { const x = parseFloat(document.getElementById('p2x').value), y = parseFloat(document.getElementById('p2y').value); if (isNaN(x) || isNaN(y) || y === 0) { alert('Enter valid values (Y ≠ 0).'); return; } document.getElementById('r2').textContent = x + ' is ' + (x / y * 100).toFixed(2) + '% of ' + y; }
+        function calc3() { const f = parseFloat(document.getElementById('p3from').value), t = parseFloat(document.getElementById('p3to').value); if (isNaN(f) || isNaN(t) || f === 0) { alert('Enter valid values (From ≠ 0).'); return; } const c = ((t - f) / Math.abs(f) * 100).toFixed(2); document.getElementById('r3').textContent = 'Change: ' + c + '% ' + (c >= 0 ? '(Increase)' : '(Decrease)'); }
+    </script>
+</body>
+
+</html>

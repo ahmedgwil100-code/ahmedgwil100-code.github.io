@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Size Calculator — Check File Size Online | ETYN Tools</title>
+    <meta name="description"
+        content="Free file size calculator. Instantly check the size of any file in bytes, KB, MB, and GB. No uploads — everything happens locally.">
+    <link rel="canonical" href="https://etyntools.com/tools/file-size-calculator.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="apple-touch-icon" href="../logo.png">
+    <meta property="og:image" content="https://etyntools.com/logo.png">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ETYN Tools">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle"
+                aria-label="Toggle menu"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>File Size Calculator</span>
+            </div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>File Size Calculator</h1>
+                        <p>Select one or more files to instantly see their size in bytes, KB, MB, and GB. Nothing is
+                            uploaded.</p>
+                        <div class="form-group"><label for="fileInput">Choose Files</label><input type="file"
+                                id="fileInput" multiple onchange="calculateSize(event)"></div>
+                        <div class="result-box" id="result">
+                            <h3>File Details</h3>
+                            <div id="fileList"></div>
+                            <hr style="border:none;border-top:1px solid var(--border);margin:1rem 0;">
+                            <div class="result-item"><span>Total Files</span><span id="totalFiles">0</span></div>
+                            <div class="result-item"><span>Total Size (Bytes)</span><span id="totalBytes">0</span></div>
+                            <div class="result-item"><span>Total Size (KB)</span><span id="totalKB">0</span></div>
+                            <div class="result-item"><span>Total Size (MB)</span><span id="totalMB">0</span></div>
+                            <div class="result-item"><span>Total Size (GB)</span><span id="totalGB">0</span></div>
+                        </div>
+                    </div>
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+                    <div class="content-section">
+                        <h2>Understanding File Sizes</h2>
+                        <p>File sizes are measured in bytes, where 1 kilobyte (KB) = 1,024 bytes, 1 megabyte (MB) =
+                            1,024 KB, and 1 gigabyte (GB) = 1,024 MB. Understanding file sizes is important for email
+                            attachments, storage management, and upload limits.</p>
+                        <h3>Common File Size Limits</h3>
+                        <ul>
+                            <li>Email attachment: 25 MB (Gmail)</li>
+                            <li>WhatsApp file: 100 MB</li>
+                            <li>Discord upload: 8–100 MB</li>
+                            <li>GitHub file: 100 MB</li>
+                        </ul>
+                    </div>
+                    <div class="content-section">
+                        <h2>FAQ</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">Are my files uploaded? <svg fill="none"
+                                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>No. The tool only reads file metadata (name, size, type) from your browser. Files
+                                        are not uploaded or transmitted.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Can I check multiple files at once? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Yes! Select multiple files and the tool will show individual and total sizes.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar 2</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script>
+        function formatSize(b) { if (b === 0) return '0 Bytes'; const k = 1024; const s = ['Bytes', 'KB', 'MB', 'GB', 'TB']; const i = Math.floor(Math.log(b) / Math.log(k)); return parseFloat((b / Math.pow(k, i)).toFixed(2)) + ' ' + s[i]; }
+        function calculateSize(e) {
+            const files = e.target.files; if (!files.length) return;
+            let total = 0; let html = '';
+            for (let i = 0; i < files.length; i++) {
+                const f = files[i]; total += f.size;
+                html += '<div class="result-item"><span>' + f.name + ' <small style="color:var(--text-light);">(' + f.type + ')</small></span><span>' + formatSize(f.size) + '</span></div>';
+            }
+            document.getElementById('fileList').innerHTML = html;
+            document.getElementById('totalFiles').textContent = files.length;
+            document.getElementById('totalBytes').textContent = total.toLocaleString();
+            document.getElementById('totalKB').textContent = (total / 1024).toFixed(2);
+            document.getElementById('totalMB').textContent = (total / 1048576).toFixed(2);
+            document.getElementById('totalGB').textContent = (total / 1073741824).toFixed(4);
+            showResult('result');
+        }
+    </script>
+</body>
+
+</html>

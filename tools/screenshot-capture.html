@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screenshot Capture — Capture Web Element Screenshots | ETYN Tools</title>
+    <meta name="description"
+        content="Free screenshot capture tool. Paste HTML or enter a URL snippet and capture it as a PNG image. Client-side, no server processing.">
+    <link rel="canonical" href="https://etyntools.com/tools/screenshot-capture.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="apple-touch-icon" href="../logo.png">
+    <meta property="og:image" content="https://etyntools.com/logo.png">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ETYN Tools">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        #capturePreview {
+            min-height: 150px;
+            padding: 2rem;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: #222;
+            font-family: inherit;
+            overflow: auto;
+            max-height: 400px;
+        }
+
+        #capturePreview * {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle"
+                aria-label="Toggle menu"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Screenshot Capture</span></div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>Screenshot Capture Tool</h1>
+                        <p>Paste HTML content below, preview it live, and capture it as a high-quality PNG screenshot.
+                        </p>
+                        <div class="form-group"><label for="htmlInput">HTML Content</label>
+                            <textarea id="htmlInput" rows="8"
+                                placeholder="<h1>Hello World</h1>&#10;<p>This is a sample HTML snippet.</p>&#10;<ul><li>Item 1</li><li>Item 2</li></ul>"
+                                oninput="updatePreview()"></textarea>
+                        </div>
+                        <div class="form-group"><label for="bgColor">Background Color</label><input type="color"
+                                id="bgColor" value="#ffffff" onchange="updatePreview()"
+                                style="width:60px;height:36px;border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;">
+                        </div>
+                        <div class="form-group"><label>Live Preview</label>
+                            <div id="capturePreview">
+                                <p style="color:#aaa;">Your HTML will render here...</p>
+                            </div>
+                        </div>
+                        <button class="btn btn--primary btn--block" onclick="captureScreenshot()">📸 Capture
+                            Screenshot</button>
+                        <div id="resultArea" style="display:none;margin-top:1.25rem;text-align:center;">
+                            <img id="screenshotResult"
+                                style="max-width:100%;border:1px solid var(--border);border-radius:var(--radius-sm);">
+                            <button class="btn btn--outline btn--block" onclick="downloadScreenshot()"
+                                style="margin-top:.75rem;">Download PNG</button>
+                        </div>
+                    </div>
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+                    <div class="content-section">
+                        <h2>How It Works</h2>
+                        <p>Type or paste any HTML code into the editor. The live preview shows exactly what it will look
+                            like. Click "Capture Screenshot" to render the preview into a high-quality PNG image using
+                            the html2canvas library. Everything runs in your browser.</p>
+                        <h3>Use Cases</h3>
+                        <ul>
+                            <li>Create screenshots of HTML email templates</li>
+                            <li>Capture code snippets for presentations</li>
+                            <li>Generate social media images from HTML</li>
+                            <li>Test HTML designs and save as images</li>
+                        </ul>
+                    </div>
+                    <div class="content-section">
+                        <h2>FAQ</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">Can I capture external websites? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Due to browser security restrictions, you cannot load external URLs. However, you
+                                        can paste the HTML source code of any page.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar 2</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script>
+        let screenshotDataUrl = '';
+        function updatePreview() { const html = document.getElementById('htmlInput').value; const bg = document.getElementById('bgColor').value; const p = document.getElementById('capturePreview'); p.innerHTML = html || '<p style="color:#aaa;">Your HTML will render here...</p>'; p.style.backgroundColor = bg; }
+        function captureScreenshot() {
+            const el = document.getElementById('capturePreview');
+            if (!el.textContent.trim()) { alert('Please enter some HTML content first.'); return; }
+            html2canvas(el, { backgroundColor: document.getElementById('bgColor').value, scale: 2 }).then(canvas => {
+                screenshotDataUrl = canvas.toDataURL('image/png');
+                document.getElementById('screenshotResult').src = screenshotDataUrl;
+                document.getElementById('resultArea').style.display = 'block';
+            });
+        }
+        function downloadScreenshot() { if (!screenshotDataUrl) return; const a = document.createElement('a'); a.href = screenshotDataUrl; a.download = 'screenshot.png'; a.click(); }
+    </script>
+</body>
+
+</html>

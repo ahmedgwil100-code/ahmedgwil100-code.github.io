@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Converter — Convert Weight &amp; Length Units | ETYN Tools</title>
+    <meta name="description"
+        content="Free unit converter. Convert between metric and imperial units — kilograms to pounds, centimeters to inches, and more. Instant results.">
+    <link rel="canonical" href="https://etyntools.com/tools/unit-converter.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="apple-touch-icon" href="../logo.png">
+  <meta property="og:image" content="https://etyntools.com/logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ETYN Tools">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle" aria-label="Toggle menu"><svg
+                    fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Unit Converter</span></div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>Unit Converter</h1>
+                        <p>Convert between metric and imperial units instantly.</p>
+
+                        <div class="form-group">
+                            <label for="unitCategory">Category</label>
+                            <select id="unitCategory" onchange="populateUnits()">
+                                <option value="weight">Weight / Mass</option>
+                                <option value="length">Length / Distance</option>
+                                <option value="temperature">Temperature</option>
+                                <option value="volume">Volume</option>
+                                <option value="speed">Speed</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label for="fromUnit">From</label><select id="fromUnit"></select>
+                            </div>
+                            <div class="form-group"><label for="toUnit">To</label><select id="toUnit"></select></div>
+                        </div>
+                        <div class="form-group"><label for="unitValue">Value</label><input type="number" id="unitValue"
+                                placeholder="Enter value" step="any"></div>
+                        <button class="btn btn--primary btn--block" onclick="convertUnit()">Convert</button>
+
+                        <div class="result-box" id="result">
+                            <h3>Result</h3>
+                            <div class="result-item"><span id="resFrom">—</span><span id="resTo">—</span></div>
+                        </div>
+                    </div>
+
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+
+                    <div class="content-section">
+                        <h2>How Unit Conversion Works</h2>
+                        <p>Unit conversion is the process of changing a measurement from one unit to another without
+                            changing the underlying quantity. It is essential in science, engineering, cooking, travel,
+                            and everyday life. Our Unit Converter supports the most commonly needed conversions across
+                            five categories: weight, length, temperature, volume, and speed.</p>
+                        <h3>Weight Conversions</h3>
+                        <p>The most common weight conversions involve switching between the metric system (kilograms,
+                            grams) and the imperial system (pounds, ounces). One kilogram equals approximately 2.205
+                            pounds. Our converter handles kilograms, grams, milligrams, pounds, and ounces with
+                            precision up to several decimal places.</p>
+                        <h3>Length Conversions</h3>
+                        <p>Length conversions frequently arise in travel, construction, and fitness. One meter equals
+                            approximately 3.281 feet or 39.37 inches. One mile equals 1.609 kilometers. Whether you need
+                            to convert your height from centimeters to feet and inches or a road distance from miles to
+                            kilometers, this tool provides instant, accurate results.</p>
+                        <h3>Temperature Conversions</h3>
+                        <p>Temperature conversion between Celsius, Fahrenheit, and Kelvin uses specific formulas rather
+                            than simple multiplication factors. The relationship between Celsius and Fahrenheit is: °F =
+                            (°C × 9/5) + 32. For Kelvin: K = °C + 273.15. These formulas are built into our converter so
+                            you simply enter a value and select your units.</p>
+                        <h3>Volume and Speed</h3>
+                        <p>Volume conversions include liters, milliliters, gallons, cups, and fluid ounces — essential
+                            for cooking and beverage measurement. Speed conversions cover kilometers per hour, miles per
+                            hour, and meters per second — useful for fitness tracking, travel planning, and
+                            understanding weather reports.</p>
+                        <p>All conversions use standard, internationally recognized conversion factors to ensure
+                            accuracy. The calculations run entirely in your browser with no network requests, so results
+                            appear instantly.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>Frequently Asked Questions</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">How accurate are the conversions? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>All conversions use standard conversion factors and are accurate to multiple
+                                        decimal places.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Can I convert temperature? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Yes. Select "Temperature" from the category dropdown to convert between Celsius,
+                                        Fahrenheit, and Kelvin.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Will you add more unit categories? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>We plan to add area, data storage, and time conversions in future updates.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a> &nbsp;|&nbsp; <a href="../disclaimer.html">Disclaimer</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script>
+        const units = {
+            weight: { kg: { name: 'Kilograms', toBase: 1 }, g: { name: 'Grams', toBase: .001 }, mg: { name: 'Milligrams', toBase: .000001 }, lb: { name: 'Pounds', toBase: .453592 }, oz: { name: 'Ounces', toBase: .0283495 } },
+            length: { m: { name: 'Meters', toBase: 1 }, cm: { name: 'Centimeters', toBase: .01 }, mm: { name: 'Millimeters', toBase: .001 }, km: { name: 'Kilometers', toBase: 1000 }, in: { name: 'Inches', toBase: .0254 }, ft: { name: 'Feet', toBase: .3048 }, yd: { name: 'Yards', toBase: .9144 }, mi: { name: 'Miles', toBase: 1609.34 } },
+            temperature: { c: { name: 'Celsius' }, f: { name: 'Fahrenheit' }, k: { name: 'Kelvin' } },
+            volume: { l: { name: 'Liters', toBase: 1 }, ml: { name: 'Milliliters', toBase: .001 }, gal: { name: 'Gallons (US)', toBase: 3.78541 }, cup: { name: 'Cups (US)', toBase: .236588 }, floz: { name: 'Fluid Ounces (US)', toBase: .0295735 } },
+            speed: { kmh: { name: 'km/h', toBase: 1 }, mph: { name: 'mph', toBase: 1.60934 }, ms: { name: 'm/s', toBase: 3.6 } }
+        };
+        function populateUnits() {
+            const cat = document.getElementById('unitCategory').value;
+            const from = document.getElementById('fromUnit'), to = document.getElementById('toUnit');
+            from.innerHTML = ''; to.innerHTML = '';
+            for (const [k, v] of Object.entries(units[cat])) {
+                from.innerHTML += '<option value="' + k + '">' + v.name + '</option>';
+                to.innerHTML += '<option value="' + k + '">' + v.name + '</option>';
+            }
+            if (to.options.length > 1) to.selectedIndex = 1;
+        }
+        function convertUnit() {
+            const cat = document.getElementById('unitCategory').value;
+            const val = parseFloat(document.getElementById('unitValue').value);
+            const fromKey = document.getElementById('fromUnit').value;
+            const toKey = document.getElementById('toUnit').value;
+            if (isNaN(val)) { alert('Enter a valid number.'); return; }
+            let result;
+            if (cat === 'temperature') {
+                let c;
+                if (fromKey === 'c') c = val; else if (fromKey === 'f') c = (val - 32) * 5 / 9; else c = val - 273.15;
+                if (toKey === 'c') result = c; else if (toKey === 'f') result = c * 9 / 5 + 32; else result = c + 273.15;
+            } else {
+                const base = val * units[cat][fromKey].toBase;
+                result = base / units[cat][toKey].toBase;
+            }
+            document.getElementById('resFrom').textContent = val + ' ' + units[cat][fromKey].name;
+            document.getElementById('resTo').textContent = parseFloat(result.toFixed(6)) + ' ' + units[cat][toKey].name;
+            showResult('result');
+        }
+        populateUnits();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Markdown Editor — Live Preview | ETYN Tools</title>
+    <meta name="description"
+        content="Free online Markdown editor with live preview. Write Markdown on the left, see rendered HTML on the right. Export to HTML or copy formatted output.">
+    <link rel="canonical" href="https://etyntools.com/tools/markdown-editor.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="apple-touch-icon" href="../logo.png">
+    <meta property="og:image" content="https://etyntools.com/logo.png">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ETYN Tools">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        .editor-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.25rem 0;
+            min-height: 400px;
+        }
+
+        .editor-grid textarea {
+            font-family: 'Fira Code', Consolas, monospace;
+            font-size: .85rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            background: var(--bg);
+            color: var(--text);
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .editor-preview {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1rem 1.25rem;
+            background: var(--bg-card);
+            overflow: auto;
+            line-height: 1.7;
+            color: var(--text);
+        }
+
+        .editor-preview h1,
+        .editor-preview h2,
+        .editor-preview h3 {
+            margin-top: 1rem;
+            margin-bottom: .5rem;
+            color: var(--heading);
+        }
+
+        .editor-preview code {
+            background: var(--bg);
+            padding: .15rem .4rem;
+            border-radius: 3px;
+            font-size: .85em;
+        }
+
+        .editor-preview pre {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        .editor-preview pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .editor-preview blockquote {
+            border-left: 3px solid var(--primary);
+            padding-left: 1rem;
+            margin-left: 0;
+            color: var(--text-light);
+        }
+
+        .editor-preview table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .editor-preview th,
+        .editor-preview td {
+            border: 1px solid var(--border);
+            padding: .5rem .75rem;
+            text-align: left;
+        }
+
+        .editor-preview img {
+            max-width: 100%;
+        }
+
+        .editor-label {
+            font-size: .8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            color: var(--text-light);
+            margin-bottom: .5rem;
+        }
+
+        @media(max-width:768px) {
+            .editor-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .editor-grid textarea {
+                min-height: 250px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle"
+                aria-label="Toggle menu"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Markdown Editor</span></div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>Online Markdown Editor</h1>
+                        <p>Write Markdown on the left and see a live rendered preview on the right. Supports headings,
+                            bold, italic, links, images, code blocks, tables, and more.</p>
+                        <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;">
+                            <button class="btn btn--outline btn--sm" onclick="copyHTML()">Copy HTML</button>
+                            <button class="btn btn--outline btn--sm" onclick="copyMarkdown()">Copy Markdown</button>
+                            <button class="btn btn--outline btn--sm" onclick="downloadMD()">Download .md</button>
+                            <button class="btn btn--outline btn--sm" onclick="downloadHTML()">Download .html</button>
+                            <button class="btn btn--outline btn--sm" onclick="clearEditor()">Clear</button>
+                        </div>
+                        <div class="editor-grid">
+                            <div>
+                                <div class="editor-label">Markdown</div><textarea id="mdInput"
+                                    oninput="renderPreview()"># Hello, World!
+
+This is a **Markdown** editor with _live preview_.
+
+## Features
+- ✅ Bold, italic, links
+- ✅ Code blocks
+- ✅ Tables
+- ✅ Blockquotes
+
+### Code Example
+```javascript
+function greet(name) {
+  return `Hello, ${name}!`;
+}
+```
+
+> &quot;The best way to predict the future is to create it.&quot;
+
+| Feature | Status |
+|---------|--------|
+| Headers | ✅ |
+| Lists | ✅ |
+| Tables | ✅ |
+
+[Visit ETYN Tools](https://etyntools.com)</textarea>
+                            </div>
+                            <div>
+                                <div class="editor-label">Preview</div>
+                                <div class="editor-preview" id="mdPreview"></div>
+                            </div>
+                        </div>
+                        <div class="result-box visible" style="margin-top:1rem;">
+                            <div class="result-item"><span>Characters</span><span id="charCount">0</span></div>
+                            <div class="result-item"><span>Words</span><span id="wordCount">0</span></div>
+                            <div class="result-item"><span>Lines</span><span id="lineCount">0</span></div>
+                        </div>
+                    </div>
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+                    <div class="content-section">
+                        <h2>Markdown Syntax Guide</h2>
+                        <p>Markdown is a lightweight markup language. Here are the basics:</p>
+                        <ul>
+                            <li><code># Heading 1</code>, <code>## Heading 2</code>, <code>### Heading 3</code></li>
+                            <li><code>**bold**</code> and <code>*italic*</code></li>
+                            <li><code>[Link Text](url)</code> for links</li>
+                            <li><code>![Alt](url)</code> for images</li>
+                            <li><code>`code`</code> for inline code</li>
+                            <li>Triple backticks for code blocks</li>
+                            <li><code>&gt;</code> for blockquotes</li>
+                            <li><code>- item</code> for unordered lists</li>
+                            <li>Pipe tables: <code>| Col1 | Col2 |</code></li>
+                        </ul>
+                    </div>
+                    <div class="content-section">
+                        <h2>FAQ</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">What is Markdown? <svg fill="none"
+                                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Markdown is a lightweight markup language used to format text. It's widely used
+                                        on GitHub, Reddit, Stack Overflow, and many documentation platforms.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Is my content saved? <svg fill="none"
+                                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>No. Content is not saved or stored. If you refresh the page, your content will be
+                                        lost. Use the download buttons to save your work.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar 2</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script>
+        function renderPreview() {
+            const md = document.getElementById('mdInput').value;
+            document.getElementById('mdPreview').innerHTML = marked.parse(md);
+            document.getElementById('charCount').textContent = md.length;
+            document.getElementById('wordCount').textContent = md.trim() ? md.trim().split(/\s+/).length : 0;
+            document.getElementById('lineCount').textContent = md.split('\n').length;
+        }
+        function copyHTML() { navigator.clipboard.writeText(marked.parse(document.getElementById('mdInput').value)); }
+        function copyMarkdown() { navigator.clipboard.writeText(document.getElementById('mdInput').value); }
+        function downloadMD() { const b = new Blob([document.getElementById('mdInput').value], { type: 'text/markdown' }); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'document.md'; a.click(); }
+        function downloadHTML() { const html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Document</title></head><body>' + marked.parse(document.getElementById('mdInput').value) + '</body></html>'; const b = new Blob([html], { type: 'text/html' }); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'document.html'; a.click(); }
+        function clearEditor() { document.getElementById('mdInput').value = ''; renderPreview(); }
+        // Initialize
+        document.addEventListener('DOMContentLoaded', renderPreview);
+    </script>
+</body>
+
+</html>

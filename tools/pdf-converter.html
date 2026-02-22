@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Converter — Convert Images &amp; Text to PDF | ETYN Tools</title>
+    <meta name="description"
+        content="Free online PDF converter. Convert images and text to PDF files directly in your browser. No uploads, no sign-ups, completely private.">
+    <link rel="canonical" href="https://etyntools.com/tools/pdf-converter.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="apple-touch-icon" href="../logo.png">
+  <meta property="og:image" content="https://etyntools.com/logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ETYN Tools">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle"
+                aria-label="Toggle menu"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>PDF Converter</span></div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>PDF Converter</h1>
+                        <p>Convert text or images to a downloadable PDF file — everything runs locally in your browser.
+                        </p>
+
+                        <div class="form-group">
+                            <label>Conversion Mode</label>
+                            <select id="pdfMode" onchange="togglePdfMode()">
+                                <option value="text">Text to PDF</option>
+                                <option value="image">Image to PDF</option>
+                            </select>
+                        </div>
+
+                        <div id="textSection">
+                            <div class="form-group">
+                                <label for="pdfTitle">Document Title</label>
+                                <input type="text" id="pdfTitle" placeholder="My Document">
+                            </div>
+                            <div class="form-group">
+                                <label for="pdfText">Content</label>
+                                <textarea id="pdfText" rows="10"
+                                    placeholder="Type or paste your text here..."></textarea>
+                            </div>
+                        </div>
+
+                        <div id="imageSection" style="display:none;">
+                            <div class="form-group">
+                                <label for="pdfImages">Select Images</label>
+                                <input type="file" id="pdfImages" accept="image/*" multiple>
+                            </div>
+                            <p style="font-size:.85rem;color:var(--text-lighter);">Selected images will each appear on
+                                their own page in the PDF.</p>
+                        </div>
+
+                        <button class="btn btn--primary btn--block" onclick="generatePDF()">Generate PDF</button>
+                    </div>
+
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+
+                    <div class="content-section">
+                        <h2>How to Convert Text and Images to PDF</h2>
+                        <p>PDF (Portable Document Format) is the universal standard for sharing documents across
+                            different devices and operating systems. Created by Adobe in 1993, PDF files look the same
+                            on every screen and every printer, making them ideal for reports, resumes, invoices, and any
+                            document you want to share reliably.</p>
+                        <h3>Text to PDF</h3>
+                        <p>Our Text to PDF converter takes any text you type or paste and wraps it into a properly
+                            formatted PDF document. You can add a custom title that appears at the top of the document.
+                            The converter handles line breaks and word wrapping automatically, ensuring your text flows
+                            naturally across pages. This is perfect for quickly converting notes, articles, code
+                            snippets, or email drafts into shareable PDF files.</p>
+                        <h3>Image to PDF</h3>
+                        <p>The Image to PDF mode allows you to select one or more images from your device and combine
+                            them into a single PDF file. Each image is placed on its own page and automatically scaled
+                            to fit standard A4 dimensions while maintaining its aspect ratio. This is useful for
+                            creating photo portfolios, scanning document images into a single file, or compiling
+                            screenshots into a presentation-ready document.</p>
+                        <h3>Privacy and Security</h3>
+                        <p>Unlike many online PDF converters that upload your files to remote servers, our tool
+                            processes everything locally in your browser using JavaScript. Your text and images never
+                            leave your device, making this one of the most private ways to create PDFs online. There are
+                            no file size limits imposed by server constraints, and the conversion happens instantly
+                            without any queue or waiting time.</p>
+                        <h3>Technical Details</h3>
+                        <p>The converter creates PDF files using the jsPDF-compatible canvas rendering approach. For
+                            text documents, it calculates proper line heights, margins, and page breaks. For images, it
+                            reads files using the FileReader API, renders them to a canvas element for proper sizing,
+                            and embeds the result into the PDF. The output is a standards-compliant PDF 1.3 file that
+                            opens in any PDF reader.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>Frequently Asked Questions</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">Are my files uploaded anywhere? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>No. Everything is processed locally in your browser. Your files never leave your
+                                        device.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">What image formats are supported? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>All standard web image formats: JPEG, PNG, GIF, WebP, and BMP.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Is there a file size limit? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>There is no hard limit, but very large images may be slow to process depending on
+                                        your device's memory.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Can I merge multiple images into one PDF?
+                                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Yes. Select multiple images and each will be placed on a separate page in the
+                                        resulting PDF.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar 2</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a> &nbsp;|&nbsp; <a href="../disclaimer.html">Disclaimer</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script>
+        function togglePdfMode() {
+            const m = document.getElementById('pdfMode').value;
+            document.getElementById('textSection').style.display = m === 'text' ? 'block' : 'none';
+            document.getElementById('imageSection').style.display = m === 'image' ? 'block' : 'none';
+        }
+
+        function generatePDF() {
+            const mode = document.getElementById('pdfMode').value;
+            if (mode === 'text') textToPDF();
+            else imageToPDF();
+        }
+
+        function textToPDF() {
+            const title = document.getElementById('pdfTitle').value || 'Document';
+            const text = document.getElementById('pdfText').value;
+            if (!text.trim()) { alert('Please enter some text.'); return; }
+
+            const pageW = 595.28, pageH = 841.89, margin = 50, lineH = 16, titleH = 28;
+            let y = margin;
+            const pages = [[]];
+            let page = 0;
+
+            // Title
+            pages[0].push({ type: 'title', text: title, y: y });
+            y += titleH + 10;
+
+            // Lines
+            const lines = wrapText(text, pageW - margin * 2, 10);
+            for (const line of lines) {
+                if (y + lineH > pageH - margin) { page++; pages[page] = []; y = margin; }
+                pages[page].push({ type: 'line', text: line, y: y });
+                y += lineH;
+            }
+
+            // Build PDF
+            let pdf = '%PDF-1.3\n';
+            const objs = [];
+            const addObj = (content) => { objs.push({ offset: pdf.length, content }); pdf += objs.length + ' 0 obj\n' + content + '\nendobj\n'; };
+
+            addObj('<< /Type /Catalog /Pages 2 0 R >>');
+            let pageRefs = ''; for (let i = 0; i < pages.length; i++)pageRefs += (3 + i * 2) + ' 0 R ';
+            addObj('<< /Type /Pages /Kids [' + pageRefs + '] /Count ' + pages.length + ' >>');
+
+            const fontObj = objs.length + 1 + pages.length * 2;
+
+            for (let i = 0; i < pages.length; i++) {
+                let stream = 'BT\n';
+                for (const item of pages[i]) {
+                    if (item.type === 'title') {
+                        stream += '/F1 18 Tf\n' + margin + ' ' + (pageH - item.y) + ' Td\n(' + escapePdf(item.text) + ') Tj\n0 0 Td\n';
+                    } else {
+                        stream += '/F1 11 Tf\n' + margin + ' ' + (pageH - item.y) + ' Td\n(' + escapePdf(item.text) + ') Tj\n0 0 Td\n';
+                    }
+                }
+                stream += 'ET';
+                addObj('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ' + pageW + ' ' + pageH + '] /Contents ' + (objs.length + 2) + ' 0 R /Resources << /Font << /F1 ' + fontObj + ' 0 R >> >> >>');
+                addObj('<< /Length ' + stream.length + ' >>\nstream\n' + stream + '\nendstream');
+            }
+
+            addObj('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>');
+
+            const xrefOffset = pdf.length;
+            pdf += 'xref\n0 ' + (objs.length + 1) + '\n0000000000 65535 f \n';
+            for (const o of objs) pdf += (o.offset + '').padStart(10, '0') + ' 00000 n \n';
+            pdf += 'trailer\n<< /Size ' + (objs.length + 1) + ' /Root 1 0 R >>\nstartxref\n' + xrefOffset + '\n%%EOF';
+
+            const blob = new Blob([pdf], { type: 'application/pdf' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = title.replace(/[^a-zA-Z0-9]/g, '_') + '.pdf'; a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function wrapText(text, maxW, charsPerPt) {
+            const maxChars = Math.floor(maxW / (11 * 0.5));
+            const paragraphs = text.split('\n');
+            const lines = [];
+            for (const para of paragraphs) {
+                if (!para.trim()) { lines.push(''); continue; }
+                const words = para.split(' ');
+                let line = '';
+                for (const word of words) {
+                    if ((line + ' ' + word).trim().length > maxChars) {
+                        lines.push(line.trim());
+                        line = word;
+                    } else { line += (line ? ' ' : '') + word; }
+                }
+                if (line) lines.push(line.trim());
+            }
+            return lines;
+        }
+
+        function escapePdf(str) { return str.replace(/\\/g, '\\\\').replace(/\(/g, '\\(').replace(/\)/g, '\\)'); }
+
+        function imageToPDF() {
+            const files = document.getElementById('pdfImages').files;
+            if (!files.length) { alert('Please select at least one image.'); return; }
+            const pageW = 595.28, pageH = 841.89, margin = 30;
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            let pdf = '%PDF-1.3\n';
+            const objs = [];
+            const addObj = (c) => { objs.push({ offset: pdf.length, content: c }); pdf += objs.length + ' 0 obj\n' + c + '\nendobj\n'; return objs.length; };
+
+            let loaded = 0;
+            const images = [];
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => { images[i] = img; loaded++; if (loaded === files.length) buildImagePdf(images); };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(files[i]);
+            }
+
+            function buildImagePdf(imgs) {
+                // Simplified: create individual pages with embedded JPEG via canvas
+                const pageCount = imgs.length;
+                addObj('<< /Type /Catalog /Pages 2 0 R >>');
+
+                let pageRefs = '';
+                const imgDataArr = [];
+                for (let i = 0; i < pageCount; i++) {
+                    const img = imgs[i];
+                    const scale = Math.min((pageW - margin * 2) / img.width, (pageH - margin * 2) / img.height);
+                    const w = img.width * scale, h = img.height * scale;
+                    canvas.width = img.width; canvas.height = img.height;
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0);
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+                    const raw = atob(dataUrl.split(',')[1]);
+                    imgDataArr.push({ raw, w, h, origW: img.width, origH: img.height });
+                }
+
+                // Pages obj placeholder
+                addObj('PLACEHOLDER');
+
+                const imgObjIds = [];
+                const pageObjIds = [];
+                const contentObjIds = [];
+
+                for (let i = 0; i < pageCount; i++) {
+                    const d = imgDataArr[i];
+                    const imgId = addObj('<< /Type /XObject /Subtype /Image /Width ' + d.origW + ' /Height ' + d.origH + ' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ' + d.raw.length + ' >>\nstream\n' + d.raw + '\nendstream');
+                    imgObjIds.push(imgId);
+
+                    const x = margin + (pageW - margin * 2 - d.w) / 2;
+                    const y = margin + (pageH - margin * 2 - d.h) / 2;
+                    const stream = 'q ' + d.w.toFixed(2) + ' 0 0 ' + d.h.toFixed(2) + ' ' + x.toFixed(2) + ' ' + y.toFixed(2) + ' cm /Img' + i + ' Do Q';
+                    const contId = addObj('<< /Length ' + stream.length + ' >>\nstream\n' + stream + '\nendstream');
+                    contentObjIds.push(contId);
+
+                    const pageId = addObj('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ' + pageW + ' ' + pageH + '] /Contents ' + contId + ' 0 R /Resources << /XObject << /Img' + i + ' ' + imgId + ' 0 R >> >> >>');
+                    pageObjIds.push(pageId);
+                    pageRefs += pageId + ' 0 R ';
+                }
+
+                // Fix pages obj
+                objs[1].content = '<< /Type /Pages /Kids [' + pageRefs + '] /Count ' + pageCount + ' >>';
+
+                // Rebuild PDF string
+                pdf = '%PDF-1.3\n';
+                for (let i = 0; i < objs.length; i++) {
+                    objs[i].offset = pdf.length;
+                    pdf += (i + 1) + ' 0 obj\n' + objs[i].content + '\nendobj\n';
+                }
+
+                const xref = pdf.length;
+                pdf += 'xref\n0 ' + (objs.length + 1) + '\n0000000000 65535 f \n';
+                for (const o of objs) pdf += (o.offset + '').padStart(10, '0') + ' 00000 n \n';
+                pdf += 'trailer\n<< /Size ' + (objs.length + 1) + ' /Root 1 0 R >>\nstartxref\n' + xref + '\n%%EOF';
+
+                const blob = new Blob([pdf], { type: 'application/pdf' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a'); a.href = url; a.download = 'images.pdf'; a.click();
+                URL.revokeObjectURL(url);
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Text Summarizer — Summarize Long Text Instantly | ETYN Tools</title>
+    <meta name="description"
+        content="Free AI text summarizer. Paste long articles, essays, or documents and get a concise summary instantly. 100% client-side, no data sent to servers.">
+    <link rel="canonical" href="https://etyntools.com/tools/ai-text-summarizer.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="apple-touch-icon" href="../logo.png">
+    <meta property="og:image" content="https://etyntools.com/logo.png">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ETYN Tools">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle"
+                aria-label="Toggle menu"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>AI Text Summarizer</span></div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>AI Text Summarizer</h1>
+                        <p>Paste long text below and get a concise summary instantly. Uses extractive summarization — no
+                            data leaves your browser.</p>
+                        <div class="form-group"><label for="inputText">Original Text</label><textarea id="inputText"
+                                rows="10" placeholder="Paste your article, essay, or document here..."></textarea></div>
+                        <div class="form-group"><label for="sentenceCount">Summary Length (sentences)</label>
+                            <select id="sentenceCount">
+                                <option value="3">3 sentences</option>
+                                <option value="5" selected>5 sentences</option>
+                                <option value="7">7 sentences</option>
+                                <option value="10">10 sentences</option>
+                            </select>
+                        </div>
+                        <button class="btn btn--primary btn--block" onclick="summarize()">Summarize Text</button>
+                        <div class="result-box" id="result">
+                            <h3>Summary</h3>
+                            <div id="summaryOutput" style="white-space:pre-wrap;line-height:1.7;"></div>
+                            <div class="result-item"><span>Original Words</span><span id="origWords">0</span></div>
+                            <div class="result-item"><span>Summary Words</span><span id="sumWords">0</span></div>
+                            <div class="result-item"><span>Reduction</span><span id="reduction">0%</span></div>
+                            <button class="btn btn--outline btn--sm" onclick="copySummary()"
+                                style="margin-top:.75rem;">Copy Summary</button>
+                        </div>
+                    </div>
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+                    <div class="content-section">
+                        <h2>How It Works</h2>
+                        <p>Our AI Text Summarizer uses extractive summarization — it analyzes your text, scores each
+                            sentence by importance using word frequency analysis, and extracts the most significant
+                            sentences to create a concise summary. The algorithm preserves the original sentence order
+                            for readability.</p>
+                        <h3>Use Cases</h3>
+                        <ul>
+                            <li>Summarize research papers and academic articles</li>
+                            <li>Get key points from long blog posts or news articles</li>
+                            <li>Create executive summaries for reports</li>
+                            <li>Study aid for students reviewing lengthy materials</li>
+                        </ul>
+                    </div>
+                    <div class="content-section">
+                        <h2>FAQ</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">Is this real AI? <svg fill="none"
+                                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>It uses a statistical NLP algorithm (extractive summarization) that runs entirely
+                                        in your browser. It does not use cloud-based AI models.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Is my text sent to any server? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>No. All processing happens locally in your browser. Your text never leaves your
+                                        device.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">What languages are supported? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>The summarizer works best with English text but can handle any language that uses
+                                        spaces between words.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar 2</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script>
+        function summarize() {
+            const text = document.getElementById('inputText').value.trim();
+            if (!text) { alert('Please enter some text to summarize.'); return; }
+            const numSentences = parseInt(document.getElementById('sentenceCount').value);
+            const sentences = text.match(/[^.!?]+[.!?]+/g);
+            if (!sentences || sentences.length <= numSentences) { document.getElementById('summaryOutput').textContent = text; showResult('result'); updateStats(text, text); return; }
+            // Word frequency scoring
+            const stopWords = new Set(['the', 'a', 'an', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might', 'shall', 'can', 'need', 'dare', 'ought', 'used', 'to', 'of', 'in', 'for', 'on', 'with', 'at', 'by', 'from', 'as', 'into', 'through', 'during', 'before', 'after', 'above', 'below', 'between', 'out', 'off', 'over', 'under', 'again', 'further', 'then', 'once', 'here', 'there', 'when', 'where', 'why', 'how', 'all', 'both', 'each', 'few', 'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 'own', 'same', 'so', 'than', 'too', 'very', 'just', 'because', 'but', 'and', 'or', 'if', 'while', 'that', 'this', 'it', 'its', 'i', 'me', 'my', 'we', 'our', 'you', 'your', 'he', 'him', 'his', 'she', 'her', 'they', 'them', 'their', 'what', 'which', 'who', 'whom']);
+            const words = text.toLowerCase().replace(/[^a-z\s]/g, '').split(/\s+/).filter(w => w.length > 2 && !stopWords.has(w));
+            const freq = {}; words.forEach(w => { freq[w] = (freq[w] || 0) + 1; });
+            const maxFreq = Math.max(...Object.values(freq));
+            Object.keys(freq).forEach(w => { freq[w] /= maxFreq; });
+            // Score sentences
+            const scored = sentences.map((s, i) => {
+                const sWords = s.toLowerCase().replace(/[^a-z\s]/g, '').split(/\s+/);
+                let score = sWords.reduce((sum, w) => sum + (freq[w] || 0), 0) / Math.max(sWords.length, 1);
+                if (i === 0) score += 0.15; // Boost first sentence
+                return { text: s.trim(), score, index: i };
+            });
+            scored.sort((a, b) => b.score - a.score);
+            const top = scored.slice(0, numSentences).sort((a, b) => a.index - b.index);
+            const summary = top.map(s => s.text).join(' ');
+            document.getElementById('summaryOutput').textContent = summary;
+            updateStats(text, summary);
+            showResult('result');
+        }
+        function updateStats(orig, sum) {
+            const ow = orig.trim().split(/\s+/).length;
+            const sw = sum.trim().split(/\s+/).length;
+            document.getElementById('origWords').textContent = ow;
+            document.getElementById('sumWords').textContent = sw;
+            document.getElementById('reduction').textContent = Math.round((1 - sw / ow) * 100) + '%';
+        }
+        function copySummary() { const t = document.getElementById('summaryOutput').textContent; if (t) navigator.clipboard.writeText(t); }
+    </script>
+</body>
+
+</html>

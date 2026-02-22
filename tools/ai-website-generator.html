@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Website Generator — Build Complete Website Plans | ETYN Tools</title>
+    <meta name="description"
+        content="Free AI website generator. Describe your website idea and get a complete structure, layout plan, SEO suggestions, keywords, and ready-to-copy HTML code instantly.">
+    <link rel="canonical" href="https://etyntools.com/tools/ai-website-generator.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="apple-touch-icon" href="../logo.png">
+    <meta property="og:image" content="https://etyntools.com/logo.png">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ETYN Tools">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .pro-badge-lg {
+            display: inline-block;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #fff;
+            font-size: .7rem;
+            font-weight: 800;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: .3rem .85rem;
+            border-radius: 100px;
+            margin-left: .6rem;
+            vertical-align: middle;
+            box-shadow: 0 0 12px rgba(245, 158, 11, .35);
+            animation: pro-pulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pro-pulse {
+            0% {
+                box-shadow: 0 0 6px rgba(245, 158, 11, .25);
+            }
+
+            100% {
+                box-shadow: 0 0 18px rgba(245, 158, 11, .55);
+            }
+        }
+
+        .gen-output {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 2rem;
+            margin-top: 1.25rem;
+            line-height: 1.8;
+            color: var(--text);
+            display: none;
+            animation: resultFadeIn .5s ease;
+        }
+
+        @keyframes resultFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .gen-output .go-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .gen-output .go-title {
+            font-weight: 800;
+            font-size: 1.05rem;
+            color: var(--primary);
+            margin-bottom: .4rem;
+            display: block;
+        }
+
+        .gen-output .go-subtitle {
+            font-weight: 700;
+            font-size: .92rem;
+            color: var(--heading);
+            margin-bottom: .2rem;
+            display: block;
+        }
+
+        .gen-output .go-text {
+            color: var(--text);
+            line-height: 1.75;
+        }
+
+        .gen-output .go-code {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1rem 1.25rem;
+            font-family: 'Fira Code', Consolas, monospace;
+            font-size: .8rem;
+            line-height: 1.6;
+            overflow-x: auto;
+            white-space: pre;
+            margin: .75rem 0;
+            color: var(--text);
+        }
+
+        .gen-output hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 1.25rem 0;
+        }
+
+        .palette-row {
+            display: flex;
+            gap: .5rem;
+            flex-wrap: wrap;
+            margin: .5rem 0;
+        }
+
+        .palette-swatch {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-sm);
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .55rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+            cursor: pointer;
+            transition: transform .15s;
+        }
+
+        .palette-swatch:hover {
+            transform: scale(1.12);
+        }
+
+        .field-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .gen-btn {
+            position: relative;
+            overflow: hidden;
+            transition: transform .15s ease, box-shadow .15s ease;
+        }
+
+        .gen-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(245, 158, 11, .2);
+        }
+
+        .gen-btn:active {
+            transform: translateY(0);
+        }
+
+        .action-row {
+            display: flex;
+            gap: .5rem;
+            flex-wrap: wrap;
+            margin-top: .75rem;
+        }
+
+        @media(max-width:600px) {
+            .field-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle"
+                aria-label="Toggle menu"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>AI Website Generator</span>
+            </div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>AI Website Generator <span class="pro-badge-lg">PRO</span></h1>
+                        <p>Describe your website idea below and get a complete website plan — including layout
+                            structure, section breakdown, content suggestions, SEO meta, keywords, color palette, and
+                            ready-to-copy HTML code.</p>
+
+                        <div class="form-group">
+                            <label for="ideaInput">Describe Your Website Idea <span
+                                    style="color:#ef4444;">*</span></label>
+                            <textarea id="ideaInput" rows="4"
+                                placeholder="e.g. A modern portfolio website for a freelance graphic designer who specializes in branding and logo design..."></textarea>
+                        </div>
+
+                        <div class="field-grid">
+                            <div class="form-group">
+                                <label for="platformType">Platform Type</label>
+                                <select id="platformType">
+                                    <option value="Business Website">Business Website</option>
+                                    <option value="Portfolio">Portfolio</option>
+                                    <option value="Online Store">Online Store</option>
+                                    <option value="Landing Page">Landing Page</option>
+                                    <option value="Blog">Blog</option>
+                                    <option value="Personal Brand">Personal Brand</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="styleType">Design Style</label>
+                                <select id="styleType">
+                                    <option value="Modern">Modern</option>
+                                    <option value="Minimal">Minimal</option>
+                                    <option value="Dark">Dark</option>
+                                    <option value="Corporate">Corporate</option>
+                                    <option value="Creative">Creative</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button class="btn btn--primary btn--block gen-btn" onclick="generateWebsite()">🚀 Generate
+                            Website Plan</button>
+
+                        <div class="gen-output" id="genOutput"></div>
+
+                        <div class="action-row" id="actionRow" style="display:none;">
+                            <button class="btn btn--outline btn--sm" onclick="copyAll()">📋 Copy Full Plan</button>
+                            <button class="btn btn--outline btn--sm" onclick="copyHTML()">🔗 Copy HTML Only</button>
+                            <button class="btn btn--outline btn--sm" onclick="downloadPlan()">💾 Download as
+                                .txt</button>
+                        </div>
+                    </div>
+
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+
+                    <div class="content-section">
+                        <h2>What Does This Tool Generate?</h2>
+                        <p>The AI Website Generator creates a comprehensive website blueprint based on your description.
+                            It analyzes your idea, platform type, and design style to produce:</p>
+                        <ul>
+                            <li><strong>Website Structure:</strong> Complete section-by-section layout plan (Hero,
+                                About, Services, Products, Testimonials, Contact, Footer)</li>
+                            <li><strong>Content Suggestions:</strong> Headline, tagline, section copy, and CTA text
+                                tailored to your niche</li>
+                            <li><strong>Color Palette:</strong> 5 harmonious colors selected to match your style</li>
+                            <li><strong>SEO Optimization:</strong> Meta title, description, and target keywords</li>
+                            <li><strong>Ready HTML Code:</strong> Clean, semantic HTML structure you can copy and start
+                                building with</li>
+                        </ul>
+                        <h3>Who Is This For?</h3>
+                        <ul>
+                            <li>Freelancers planning a new portfolio site</li>
+                            <li>Entrepreneurs launching a business website</li>
+                            <li>Students learning web development</li>
+                            <li>Designers looking for structural inspiration</li>
+                            <li>Content creators building a personal brand</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>FAQ</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">Does this use AI or an API? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>No. This tool uses a sophisticated rule-based engine built in JavaScript. It
+                                        analyzes your input keywords and selections to construct a tailored website
+                                        plan. No external API or AI model is called — everything runs in your browser.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Can I use the generated HTML in my
+                                    project? <svg fill="none" stroke="currentColor" stroke-width="2"
+                                        viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Yes! The HTML output is clean, semantic, and free to use in any personal or
+                                        commercial project. It provides a solid starting structure you can customize
+                                        with your own CSS and content.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Is my data stored anywhere? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>No. All processing happens locally in your browser. Your website idea and
+                                        generated plans never leave your device.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar 2</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script>
+        /* ======= AI Website Generator — PRO ======= */
+
+        const platformSections = {
+            'Business Website': ['Hero', 'About Us', 'Services', 'Why Choose Us', 'Testimonials', 'Team', 'Contact', 'Footer'],
+            'Portfolio': ['Hero / Intro', 'About Me', 'Skills & Expertise', 'Selected Work / Projects', 'Testimonials', 'Contact', 'Footer'],
+            'Online Store': ['Hero Banner', 'Featured Products', 'Product Categories', 'Bestsellers', 'Customer Reviews', 'Newsletter Signup', 'FAQ', 'Footer'],
+            'Landing Page': ['Hero with CTA', 'Problem Statement', 'Solution Overview', 'Key Features', 'Social Proof', 'Pricing', 'Final CTA', 'Footer'],
+            'Blog': ['Hero / Latest Post', 'Featured Articles', 'Categories', 'About the Author', 'Newsletter Signup', 'Popular Posts Sidebar', 'Footer'],
+            'Personal Brand': ['Hero / Intro', 'My Story', 'What I Do', 'Featured Content', 'As Seen In', 'Testimonials', 'Contact / Booking', 'Footer']
+        };
+
+        const styleTokens = {
+            'Modern': { fonts: 'Inter, Outfit', radius: '12px', vibe: 'Clean lines, generous whitespace, subtle shadows, gradient accents', colors: ['#6366f1', '#818cf8', '#1e1b4b', '#f8fafc', '#e2e8f0'] },
+            'Minimal': { fonts: 'DM Sans, Helvetica Neue', radius: '4px', vibe: 'Maximum whitespace, monochromatic palette, understated elegance', colors: ['#111827', '#6b7280', '#f9fafb', '#ffffff', '#d1d5db'] },
+            'Dark': { fonts: 'Space Grotesk, Inter', radius: '8px', vibe: 'Dark backgrounds, neon accents, glassmorphism elements', colors: ['#0f172a', '#1e293b', '#38bdf8', '#f1f5f9', '#6366f1'] },
+            'Corporate': { fonts: 'Source Sans Pro, Georgia', radius: '6px', vibe: 'Trustworthy, structured, professional grid layout', colors: ['#1e40af', '#1e3a5f', '#f0f4f8', '#ffffff', '#d4a017'] },
+            'Creative': { fonts: 'Poppins, Playfair Display', radius: '16px', vibe: 'Bold typography, asymmetric layouts, vivid colors, playful animations', colors: ['#ec4899', '#8b5cf6', '#fbbf24', '#0f172a', '#f8fafc'] }
+        };
+
+        const sectionContent = {
+            'Hero': { desc: 'Full-width hero section with a bold headline, subheadline, and primary CTA button. Background image or gradient.', copy: 'A compelling one-liner that captures your value proposition instantly.' },
+            'Hero / Intro': { desc: 'Personal introduction with name, title, and a brief tagline. Portrait photo or background visual.', copy: 'Hi, I\'m [Name] — [Role]. I help [audience] achieve [outcome].' },
+            'Hero Banner': { desc: 'Full-width promotional banner with featured product, seasonal sale, or brand story. CTA button to shop.', copy: 'Discover [Collection Name] — Crafted for [audience].' },
+            'Hero with CTA': { desc: 'Focused hero with one clear headline, one supporting sentence, and one CTA button. No distractions.', copy: '[Product/Service] — The fastest way to [desired outcome].' },
+            'Hero / Latest Post': { desc: 'Full-width featured article with title, excerpt, featured image, and "Read More" link.', copy: 'Latest: [Article Title] — Your guide to [topic].' },
+            'About Us': { desc: 'Company story, mission, values, and team introduction. Build trust with authentic narrative.', copy: 'Founded in [year], we set out to [mission]. Today, we serve [audience] with [value].' },
+            'About Me': { desc: 'Personal story, background, expertise, and what drives you. Include a professional photo.', copy: 'I\'m a [profession] with [X] years of experience in [field]. I specialize in [skills].' },
+            'About the Author': { desc: 'Author bio with photo, credentials, social links, and writing focus areas.', copy: 'Written by [Name] — [Title]. Covering [topics] with [X] years of industry experience.' },
+            'Services': { desc: 'Grid or list of service offerings. Each with icon, title, short description, and optional pricing.', copy: 'Our core services: [Service 1], [Service 2], [Service 3]. Tailored to your needs.' },
+            'What I Do': { desc: 'Overview of services or expertise areas with icons and brief descriptions.', copy: 'I specialize in: [Area 1], [Area 2], [Area 3] — helping [audience] achieve [outcome].' },
+            'Skills & Expertise': { desc: 'Visual skill bars or tags showing technical and soft skills. Organized by category.', copy: 'Technical: [Skill 1], [Skill 2]. Creative: [Skill 3], [Skill 4].' },
+            'Selected Work / Projects': { desc: 'Portfolio grid with project thumbnails, titles, and brief descriptions. Link to case studies.', copy: 'Featured Project: [Name] — [Brief description of challenge, solution, and result].' },
+            'Featured Products': { desc: 'Product cards with image, name, price, and "Add to Cart" button. Highlight bestsellers.', copy: '[Product Name] — [Brief description]. $[Price].' },
+            'Product Categories': { desc: 'Visual category grid with images and labels. Easy navigation to product collections.', copy: 'Shop by Category: [Cat 1], [Cat 2], [Cat 3].' },
+            'Bestsellers': { desc: 'Horizontal scroll or grid of top-selling products with badges and ratings.', copy: 'Our Bestsellers — Loved by [X]+ customers.' },
+            'Why Choose Us': { desc: '3-4 key differentiators with icons. Emphasize unique value propositions.', copy: 'Why Us: [Differentiator 1], [Differentiator 2], [Differentiator 3].' },
+            'Testimonials': { desc: 'Customer/client quotes in cards with name, role, photo, and star rating.', copy: '"[Quote about how the product/service helped them]" — [Name], [Role]' },
+            'Customer Reviews': { desc: 'Product review cards with star ratings, reviewer name, and verified purchase badge.', copy: '"Exceeded expectations! [Specific praise]." ★★★★★ — [Name]' },
+            'Social Proof': { desc: 'Logos of clients/press, key statistics, or user count. Build credibility quickly.', copy: 'Trusted by [X]+ [users/clients] worldwide. As featured in [Publication].' },
+            'As Seen In': { desc: 'Logo bar of publications, podcasts, or brands you\'ve worked with.', copy: 'Featured in: [Brand 1], [Brand 2], [Brand 3].' },
+            'Team': { desc: 'Team member cards with photo, name, role, and optional social links.', copy: 'Meet Our Team — [X] professionals dedicated to [mission].' },
+            'Featured Content': { desc: 'Highlight reel of your best videos, posts, or projects with thumbnails and links.', copy: 'My Latest: [Content Title] — [Brief description].' },
+            'Key Features': { desc: 'Feature grid with icons, titles, and descriptions. Compare against competitors.', copy: 'Feature 1: [Name] — [Benefit]. Feature 2: [Name] — [Benefit].' },
+            'Pricing': { desc: 'Pricing table with 2-3 tiers. Highlight recommended plan. Include feature comparison.', copy: 'Starter: $[X]/mo. Professional: $[Y]/mo (Most Popular). Enterprise: Custom.' },
+            'Newsletter Signup': { desc: 'Email capture form with compelling headline, privacy note, and submit button.', copy: 'Subscribe to Our Newsletter — Get [value proposition] delivered weekly.' },
+            'Popular Posts Sidebar': { desc: 'Sidebar widget showing top 5 most-read articles with thumbnails and titles.', copy: 'Most Popular: 1. [Title] 2. [Title] 3. [Title].' },
+            'Categories': { desc: 'Blog category tags or cards for easy content navigation.', copy: 'Browse: [Category 1], [Category 2], [Category 3], [Category 4].' },
+            'Contact': { desc: 'Contact form with name, email, subject, and message fields. Include address, phone, and map.', copy: 'Get in Touch — We\'d love to hear from you. Response within 24 hours.' },
+            'Contact / Booking': { desc: 'Contact form with calendar booking widget or link to scheduling tool.', copy: 'Let\'s Work Together — Book a free [X]-minute consultation.' },
+            'Problem Statement': { desc: 'Identify the audience\'s main pain point. Create emotional resonance.', copy: 'Struggling with [problem]? You\'re not alone. [Statistic about the problem].' },
+            'Solution Overview': { desc: 'Present your product/service as the clear solution. Connect to the problem.', copy: 'Introducing [Product] — The [adjective] way to [solve problem].' },
+            'Final CTA': { desc: 'Strong closing CTA section with urgency and value recap.', copy: 'Ready to [desired outcome]? Start your free trial today. No credit card required.' },
+            'FAQ': { desc: 'Accordion-style FAQ section addressing common objections and questions.', copy: 'Q: [Common question]? A: [Clear, concise answer].' },
+            'My Story': { desc: 'Personal timeline or narrative about your journey, challenges, and growth.', copy: 'My journey started in [year] when [origin story]. Today, [current state].' },
+            'Footer': { desc: 'Site links, social icons, newsletter signup, copyright, and legal links.', copy: '© [Year] [Brand]. All rights reserved. Privacy Policy | Terms of Service.' }
+        };
+
+        function extractKeywords(idea) {
+            const stop = new Set(['a', 'an', 'the', 'is', 'are', 'was', 'were', 'be', 'been', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'can', 'may', 'might', 'for', 'and', 'but', 'or', 'nor', 'on', 'at', 'to', 'from', 'by', 'in', 'of', 'with', 'as', 'that', 'this', 'it', 'its', 'my', 'your', 'our', 'their', 'we', 'i', 'me', 'you', 'he', 'she', 'they', 'who', 'which', 'what', 'how', 'very', 'just', 'about', 'into', 'some', 'need', 'want', 'make', 'like', 'also', 'more', 'most', 'really', 'than', 'then', 'so', 'up', 'out', 'all', 'been', 'being', 'each', 'other', 'over', 'such', 'no', 'not', 'only', 'own', 'same', 'too', 'get', 'let', 'new', 'now', 'old', 'see', 'way', 'may', 'try', 'use', 'her', 'him']);
+            return idea.toLowerCase().replace(/[^a-z\s]/g, '').split(/\s+/).filter(w => w.length > 2 && !stop.has(w));
+        }
+
+        function generateWebsite() {
+            const idea = document.getElementById('ideaInput').value.trim();
+            if (!idea) { alert('Please describe your website idea.'); return; }
+            const platform = document.getElementById('platformType').value;
+            const style = document.getElementById('styleType').value;
+            const st = styleTokens[style];
+            const sections = platformSections[platform];
+            const keywords = extractKeywords(idea);
+            const topKeywords = [...new Set(keywords)].slice(0, 10);
+            const brandName = idea.split(/\s+/).slice(0, 3).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+
+            let html = '';
+
+            // 1. Overview
+            html += '<div class="go-section"><span class="go-title">📐 WEBSITE OVERVIEW</span>';
+            html += '<span class="go-text"><strong>Type:</strong> ' + platform + '\n';
+            html += '<strong>Style:</strong> ' + style + '\n';
+            html += '<strong>Design Vibe:</strong> ' + st.vibe + '\n';
+            html += '<strong>Typography:</strong> ' + st.fonts + '\n';
+            html += '<strong>Border Radius:</strong> ' + st.radius + '\n';
+            html += '<strong>Total Sections:</strong> ' + sections.length + '</span></div>';
+
+            html += '<hr>';
+
+            // 2. Color Palette
+            html += '<div class="go-section"><span class="go-title">🎨 SUGGESTED COLOR PALETTE</span>';
+            html += '<div class="palette-row">';
+            const colorNames = ['Primary', 'Secondary', 'Background', 'Surface', 'Accent'];
+            st.colors.forEach((c, i) => {
+                html += '<div class="palette-swatch" style="background:' + c + ';" onclick="navigator.clipboard.writeText(\'' + c + '\')" title="Click to copy ' + c + '">' + colorNames[i] + '<br>' + c + '</div>';
+            });
+            html += '</div></div>';
+
+            html += '<hr>';
+
+            // 3. SEO
+            html += '<div class="go-section"><span class="go-title">🔍 SEO OPTIMIZATION</span>';
+            html += '<span class="go-subtitle">Meta Title</span>';
+            html += '<span class="go-text">' + brandName + ' — ' + platform + ' | ' + (topKeywords.slice(0, 3).join(', ')) + '</span>\n';
+            html += '<span class="go-subtitle">Meta Description</span>';
+            html += '<span class="go-text">' + idea.substring(0, 155) + (idea.length > 155 ? '...' : '') + ' Professional ' + platform.toLowerCase() + ' with ' + style.toLowerCase() + ' design.</span>\n';
+            html += '<span class="go-subtitle">Target Keywords</span>';
+            html += '<span class="go-text">' + topKeywords.join(', ') + '</span></div>';
+
+            html += '<hr>';
+
+            // 4. Section Breakdown
+            html += '<div class="go-section"><span class="go-title">🏗️ SECTION-BY-SECTION BREAKDOWN</span></div>';
+            sections.forEach((sec, i) => {
+                const sc = sectionContent[sec] || { desc: 'Custom section tailored to your website needs.', copy: 'Add your content here.' };
+                html += '<div class="go-section">';
+                html += '<span class="go-subtitle">' + (i + 1) + '. ' + sec + '</span>';
+                html += '<span class="go-text"><strong>Layout:</strong> ' + sc.desc + '\n';
+                html += '<strong>Suggested Copy:</strong> ' + sc.copy + '</span>';
+                html += '</div>';
+            });
+
+            html += '<hr>';
+
+            // 5. UI Structure Suggestion
+            html += '<div class="go-section"><span class="go-title">🖥️ UI LAYOUT STRUCTURE</span>';
+            html += '<span class="go-text">';
+            html += '<strong>Navigation:</strong> Sticky top navbar with logo (left), links (center/right), CTA button (right).\n';
+            html += '<strong>Grid System:</strong> 12-column responsive grid. Max-width: 1200px. Padding: 1.5rem.\n';
+            html += '<strong>Breakpoints:</strong> Mobile: 0–768px (1 col) | Tablet: 768–1024px (2 col) | Desktop: 1024px+ (3-4 col).\n';
+            html += '<strong>Spacing:</strong> Section padding: 5rem 0. Element gap: 1.5rem. Consistent vertical rhythm.\n';
+            html += '<strong>Interactions:</strong> Hover effects on cards/buttons, scroll-triggered fade-in animations, smooth anchor scrolling.</span></div>';
+
+            html += '<hr>';
+
+            // 6. HTML Code
+            const sectionHTML = sections.map((sec, i) => {
+                const id = sec.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-');
+                if (sec.includes('Hero')) return '  <section id="' + id + '" class="hero">\n    <div class="container">\n      <h1>' + brandName + '</h1>\n      <p>' + (sectionContent[sec]?.copy || 'Your tagline here.') + '</p>\n      <a href="#contact" class="btn btn-primary">Get Started</a>\n    </div>\n  </section>';
+                if (sec === 'Footer') return '  <footer id="footer">\n    <div class="container">\n      <p>&copy; 2026 ' + brandName + '. All rights reserved.</p>\n      <nav>\n        <a href="#privacy">Privacy</a>\n        <a href="#terms">Terms</a>\n      </nav>\n    </div>\n  </footer>';
+                return '  <section id="' + id + '">\n    <div class="container">\n      <h2>' + sec + '</h2>\n      <p>' + (sectionContent[sec]?.copy || 'Content for this section.') + '</p>\n    </div>\n  </section>';
+            }).join('\n\n');
+
+            const fullHTML = '&lt;!DOCTYPE html&gt;\n&lt;html lang="en"&gt;\n&lt;head&gt;\n  &lt;meta charset="UTF-8"&gt;\n  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;\n  &lt;title&gt;' + brandName + '&lt;/title&gt;\n  &lt;meta name="description" content="' + idea.substring(0, 155) + '"&gt;\n  &lt;link href="https://fonts.googleapis.com/css2?family=' + st.fonts.split(',')[0].trim().replace(/\s/g, '+') + ':wght@400;600;700&amp;display=swap" rel="stylesheet"&gt;\n  &lt;style&gt;\n    :root {\n      --primary: ' + st.colors[0] + ';\n      --secondary: ' + st.colors[1] + ';\n      --bg: ' + st.colors[2] + ';\n      --surface: ' + st.colors[3] + ';\n      --accent: ' + st.colors[4] + ';\n      --radius: ' + st.radius + ';\n    }\n    * { margin: 0; padding: 0; box-sizing: border-box; }\n    body { font-family: \'' + st.fonts.split(',')[0].trim() + '\', sans-serif; color: #333; }\n    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }\n    section { padding: 5rem 0; }\n  &lt;/style&gt;\n&lt;/head&gt;\n&lt;body&gt;\n  &lt;nav&gt;\n    &lt;div class="container"&gt;\n      &lt;a href="#"&gt;' + brandName + '&lt;/a&gt;\n    &lt;/div&gt;\n  &lt;/nav&gt;\n\n' + sectionHTML.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/&lt;/g, '&lt;').replace(/&gt;/g, '&gt;') + '\n\n&lt;/body&gt;\n&lt;/html&gt;';
+
+            html += '<div class="go-section"><span class="go-title">💻 READY-TO-COPY HTML CODE</span>';
+            html += '<div class="go-code" id="htmlCode">' + fullHTML + '</div></div>';
+
+            const output = document.getElementById('genOutput');
+            output.innerHTML = html;
+            output.style.display = 'block';
+            document.getElementById('actionRow').style.display = 'flex';
+            output.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function getPlainText() { return document.getElementById('genOutput').innerText; }
+
+        function copyAll() {
+            navigator.clipboard.writeText(getPlainText()).then(() => {
+                const b = document.querySelector('#actionRow button');
+                const o = b.textContent; b.textContent = '✅ Copied!';
+                setTimeout(() => b.textContent = o, 2000);
+            });
+        }
+
+        function copyHTML() {
+            const el = document.getElementById('htmlCode');
+            if (el) {
+                const text = el.textContent.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+                navigator.clipboard.writeText(text).then(() => {
+                    const btns = document.querySelectorAll('#actionRow button');
+                    const b = btns[1]; const o = b.textContent; b.textContent = '✅ Copied!';
+                    setTimeout(() => b.textContent = o, 2000);
+                });
+            }
+        }
+
+        function downloadPlan() {
+            const blob = new Blob([getPlainText()], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob); a.download = 'website-plan.txt'; a.click();
+        }
+    </script>
+</body>
+
+</html>

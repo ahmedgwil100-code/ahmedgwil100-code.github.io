@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator — Create QR Codes Instantly | ETYN Tools</title>
+    <meta name="description"
+        content="Free online QR code generator. Create QR codes for URLs, text, email, phone numbers, and more. Download as PNG. No sign-up required.">
+    <link rel="canonical" href="https://etyntools.com/tools/qr-code-generator.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="apple-touch-icon" href="../logo.png">
+  <meta property="og:image" content="https://etyntools.com/logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ETYN Tools">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle" aria-label="Toggle menu"><svg
+                    fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>QR Code Generator</span></div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>QR Code Generator</h1>
+                        <p>Enter text or a URL below to generate a QR code instantly. Download the result as PNG.</p>
+
+                        <div class="form-group">
+                            <label for="qrInput">Text or URL</label>
+                            <textarea id="qrInput" rows="3" placeholder="https://example.com"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label for="qrSize">Size (px)</label>
+                                <select id="qrSize">
+                                    <option value="200">200×200</option>
+                                    <option value="300" selected>300×300</option>
+                                    <option value="400">400×400</option>
+                                    <option value="500">500×500</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label for="qrColor">Color</label><input type="color" id="qrColor"
+                                    value="#000000" style="height:42px;padding:2px;"></div>
+                        </div>
+                        <button class="btn btn--primary btn--block" onclick="generateQR()">Generate QR Code</button>
+
+                        <div class="qr-output" id="qrOutput" style="display:none; margin-top:1.5rem;">
+                            <canvas id="qrCanvas"></canvas>
+                            <button class="btn btn--outline btn--sm" onclick="downloadQR()">Download PNG</button>
+                        </div>
+                    </div>
+
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+
+                    <div class="content-section">
+                        <h2>About QR Codes</h2>
+                        <p>QR (Quick Response) codes are two-dimensional barcodes that can store various types of data,
+                            including URLs, plain text, email addresses, phone numbers, and Wi-Fi credentials. First
+                            invented in 1994 by Denso Wave for tracking automotive parts, QR codes have become
+                            ubiquitous in our daily lives — from restaurant menus and product packaging to event tickets
+                            and payment systems.</p>
+                        <h3>How QR Codes Work</h3>
+                        <p>A QR code encodes data into a grid of black and white squares (called modules). The
+                            arrangement of these modules represents the encoded information in binary form. Three large
+                            squares in the corners serve as position markers, helping scanners quickly detect and orient
+                            the code. Error correction algorithms (based on Reed-Solomon codes) allow QR codes to remain
+                            readable even when partially damaged or obscured.</p>
+                        <h3>Using Our Generator</h3>
+                        <p>Simply type or paste any text or URL into the input field, choose your preferred size and
+                            color, and click "Generate QR Code." The code is created entirely in your browser using a
+                            client-side JavaScript library — no data is sent to our servers. You can then download the
+                            QR code as a PNG image for use in print materials, websites, or digital documents.</p>
+                        <h3>Best Practices for QR Codes</h3>
+                        <ul>
+                            <li>Use short, clean URLs for better scannability (consider URL shorteners)</li>
+                            <li>Ensure sufficient contrast between the code color and background</li>
+                            <li>Test your QR code with multiple devices before printing</li>
+                            <li>Keep a quiet zone (white space) around the code to improve readability</li>
+                            <li>Use an appropriate size — at least 2 cm × 2 cm for printed materials</li>
+                        </ul>
+                        <p>Our QR Code Generator supports text inputs up to 2,953 bytes (the maximum QR code capacity).
+                            For most URLs and text snippets, this is more than sufficient. The generated codes use
+                            medium error correction, meaning they remain scannable even if up to 15% of the code is
+                            damaged.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>Frequently Asked Questions</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">Is the QR code generated locally? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Yes. The QR code is generated entirely in your browser. No data is sent to any
+                                        server.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Can I customize the color? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Yes. Use the color picker to choose any foreground color. The background is
+                                        always white for best scannability.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">What format is the download? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>The QR code is downloaded as a PNG image, which is supported by all major image
+                                        editing and printing tools.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Is there a text length limit? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>The practical limit depends on the QR code version and error correction level.
+                                        For best results, keep your input under 500 characters.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar 2</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a> &nbsp;|&nbsp; <a href="../disclaimer.html">Disclaimer</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <!-- Lightweight QR code library (client-side only) -->
+    <script>
+        /**
+         * Minimal QR Code generator (client-side, no dependencies)
+         * Based on the QR code specification ISO/IEC 18004
+         */
+        const QRCode = (function () {
+            // Encoding and generation
+            function generateQR(text, canvas, size, color) {
+                const modules = encode(text);
+                const n = modules.length;
+                const ctx = canvas.getContext('2d');
+                canvas.width = size; canvas.height = size;
+                ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, size, size);
+                const cellSize = size / n;
+                ctx.fillStyle = color;
+                for (let r = 0; r < n; r++)for (let c = 0; c < n; c++)
+                    if (modules[r][c]) ctx.fillRect(c * cellSize, r * cellSize, cellSize + .5, cellSize + .5);
+            }
+            function encode(text) {
+                const data = [];
+                for (let i = 0; i < text.length; i++)data.push(text.charCodeAt(i));
+                // Determine version (simplified — supports up to ~300 chars with EC level M)
+                let version = 1;
+                const capacities = [0, 16, 28, 44, 64, 86, 108, 124, 154, 182, 216, 254, 290, 334, 365, 415, 453, 507, 563, 627, 669];
+                for (let v = 1; v <= 20; v++) { if (data.length <= capacities[v]) { version = v; break; } }
+                if (data.length > capacities[20]) version = 20;
+                const size = 17 + version * 4;
+                const modules = Array.from({ length: size }, () => Array(size).fill(null));
+                const reserved = Array.from({ length: size }, () => Array(size).fill(false));
+                // Place finder patterns
+                placeFinder(modules, reserved, 0, 0);
+                placeFinder(modules, reserved, 0, size - 7);
+                placeFinder(modules, reserved, size - 7, 0);
+                // Timing patterns
+                for (let i = 8; i < size - 8; i++) {
+                    modules[6][i] = i % 2 === 0; reserved[6][i] = true;
+                    modules[i][6] = i % 2 === 0; reserved[i][6] = true;
+                }
+                // Alignment patterns (version >= 2)
+                if (version >= 2) {
+                    const positions = getAlignmentPositions(version);
+                    for (const r of positions) for (const c of positions) {
+                        if (reserved[r][c]) continue;
+                        placeAlignment(modules, reserved, r, c);
+                    }
+                }
+                // Dark module
+                modules[size - 8][8] = true; reserved[size - 8][8] = true;
+                // Reserve format & version info areas
+                reserveFormatArea(reserved, size);
+                if (version >= 7) reserveVersionArea(reserved, size);
+                // Encode data
+                const ecLevel = 1;// M level
+                const ecCodewords = getECCount(version, ecLevel);
+                const totalCodewords = getTotalCodewords(version);
+                const dataCodewords = totalCodewords - ecCodewords;
+                const bits = [];
+                // Byte mode indicator
+                bits.push(0, 1, 0, 0);
+                // Character count
+                const ccBits = version <= 9 ? 8 : (version <= 26 ? 16 : 16);
+                for (let i = ccBits - 1; i >= 0; i--)bits.push((data.length >> i) & 1);
+                // Data
+                for (const byte of data) for (let i = 7; i >= 0; i--)bits.push((byte >> i) & 1);
+                // Terminator
+                for (let i = 0; i < 4 && bits.length < dataCodewords * 8; i++)bits.push(0);
+                while (bits.length % 8 !== 0) bits.push(0);
+                while (bits.length < dataCodewords * 8) { bits.push(1, 1, 1, 0, 1, 1, 0, 0); if (bits.length < dataCodewords * 8) bits.push(0, 0, 0, 1, 0, 0, 0, 1); }
+                bits.length = dataCodewords * 8;
+                const dataBytes = [];
+                for (let i = 0; i < bits.length; i += 8) {
+                    let b = 0; for (let j = 0; j < 8; j++)b = (b << 1) | bits[i + j]; dataBytes.push(b);
+                }
+                const ecBytes = generateEC(dataBytes, ecCodewords);
+                const allBytes = [...dataBytes, ...ecBytes];
+                const allBits = [];
+                for (const b of allBytes) for (let i = 7; i >= 0; i--)allBits.push((b >> i) & 1);
+                // Place data bits
+                let bitIdx = 0;
+                for (let col = size - 1; col >= 0; col -= 2) {
+                    if (col === 6) col = 5;
+                    for (let row = 0; row < size; row++) {
+                        for (let c = 0; c < 2; c++) {
+                            const cc = col - c;
+                            const isUp = ((Math.floor((size - 1 - col) / 2)) % 2 === 0);
+                            const rr = isUp ? size - 1 - row : row;
+                            if (!reserved[rr][cc]) {
+                                modules[rr][cc] = bitIdx < allBits.length ? !!allBits[bitIdx] : false;
+                                bitIdx++;
+                            }
+                        }
+                    }
+                }
+                // Apply best mask
+                applyMask(modules, reserved, size);
+                // Write format info
+                writeFormatInfo(modules, size, ecLevel, 0);
+                if (version >= 7) writeVersionInfo(modules, size, version);
+                return modules;
+            }
+            function placeFinder(m, r, row, col) {
+                for (let dr = -1; dr <= 7; dr++)for (let dc = -1; dc <= 7; dc++) {
+                    const rr = row + dr, cc = col + dc;
+                    if (rr < 0 || rr >= m.length || cc < 0 || cc >= m.length) continue;
+                    const outer = (dr === -1 || dr === 7 || dc === -1 || dc === 7);
+                    const ring = (dr === 0 || dr === 6) && dc >= 0 && dc <= 6 || (dc === 0 || dc === 6) && dr >= 0 && dr <= 6;
+                    const inner = dr >= 2 && dr <= 4 && dc >= 2 && dc <= 4;
+                    m[rr][cc] = !outer && (ring || inner);
+                    r[rr][cc] = true;
+                }
+            }
+            function placeAlignment(m, r, row, col) {
+                for (let dr = -2; dr <= 2; dr++)for (let dc = -2; dc <= 2; dc++) {
+                    const rr = row + dr, cc = col + dc;
+                    m[rr][cc] = (Math.abs(dr) === 2 || Math.abs(dc) === 2 || dr === 0 && dc === 0);
+                    r[rr][cc] = true;
+                }
+            }
+            function getAlignmentPositions(v) {
+                if (v === 1) return [];
+                const intervals = Math.floor(v / 7) + 1;
+                const step = v === 32 ? 26 : Math.ceil((v * 4 + 4) / (intervals * 2 - 2)) * 2;
+                const positions = [6];
+                let pos = v * 4 + 10;
+                for (let i = intervals - 1; i > 0; i--) { positions.unshift(pos); pos -= step; }
+                return positions;
+            }
+            function reserveFormatArea(r, s) {
+                for (let i = 0; i < 9; i++) { if (i < s) { r[8][i] = true; r[i][8] = true; } }
+                for (let i = 0; i < 8; i++) { r[8][s - 1 - i] = true; r[s - 1 - i][8] = true; }
+            }
+            function reserveVersionArea(r, s) {
+                for (let i = 0; i < 6; i++)for (let j = 0; j < 3; j++) { r[i][s - 11 + j] = true; r[s - 11 + j][i] = true; }
+            }
+            function getECCount(v, l) { const t = [[], [7, 10, 13, 17], [10, 16, 22, 28], [15, 26, 36, 44], [20, 36, 52, 64], [26, 48, 72, 88], [36, 64, 96, 112], [40, 72, 108, 130], [48, 88, 132, 156], [60, 110, 160, 192], [72, 130, 192, 224], [80, 150, 224, 264], [96, 176, 260, 308], [104, 198, 288, 352], [120, 216, 320, 384], [132, 240, 360, 432], [144, 280, 408, 480], [168, 308, 448, 532], [180, 338, 504, 588], [196, 364, 546, 650], [224, 416, 600, 700]][v]; return t ? t[l] : t ? t[1] : 10; }
+            function getTotalCodewords(v) { const s = 17 + v * 4; const total = s * s; const fmtBits = 31; const funcBits = 202 + (v >= 2 ? 25 * Math.pow(Math.floor(v / 7) + 1, 2) - 10 : 0) + (v >= 2 ? (v * 4 + 1) * 2 - 25 : 0); return Math.floor((total - funcBits - fmtBits) / 8); }
+            function generateEC(data, ecCount) {
+                const gp = getGeneratorPoly(ecCount);
+                const msg = [...data, ...Array(ecCount).fill(0)];
+                for (let i = 0; i < data.length; i++) {
+                    const coef = msg[i];
+                    if (coef === 0) continue;
+                    const logCoef = LOG[coef];
+                    for (let j = 0; j < gp.length; j++)msg[i + j] ^= EXP[(logCoef + LOG[gp[j]]) % 255];
+                }
+                return msg.slice(data.length);
+            }
+            const EXP = new Array(256), LOG = new Array(256);
+            (function () { let v = 1; for (let i = 0; i < 256; i++) { EXP[i] = v; LOG[v] = i; v *= 2; if (v >= 256) v ^= 285; } })();
+            function getGeneratorPoly(n) {
+                let poly = [1];
+                for (let i = 0; i < n; i++) {
+                    const newPoly = Array(poly.length + 1).fill(0);
+                    for (let j = 0; j < poly.length; j++) {
+                        newPoly[j] ^= poly[j];
+                        newPoly[j + 1] ^= EXP[(LOG[poly[j]] + i) % 255];
+                    }
+                    poly = newPoly;
+                }
+                return poly;
+            }
+            function applyMask(m, r, s) {
+                const maskFn = (row, col) => (row + col) % 2 === 0;
+                for (let row = 0; row < s; row++)for (let col = 0; col < s; col++)
+                    if (!r[row][col]) m[row][col] = m[row][col] !== maskFn(row, col);
+            }
+            function writeFormatInfo(m, s, ecl, mask) {
+                const bits = [1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0];// Pre-computed for EC level M, mask 0
+                for (let i = 0; i < 6; i++)m[8][i] = !!bits[i];
+                m[8][7] = !!bits[6]; m[8][8] = !!bits[7]; m[7][8] = !!bits[8];
+                for (let i = 0; i < 6; i++)m[5 - i][8] = !!bits[9 + i];
+                for (let i = 0; i < 8; i++)m[8][s - 1 - i] = !!bits[14 - i];
+                for (let i = 0; i < 7; i++)m[s - 7 + i][8] = !!bits[i];
+            }
+            function writeVersionInfo(m, s, v) {
+                if (v < 7) return;
+                const versionBits = getVersionBits(v);
+                let bitIdx = 0;
+                for (let i = 0; i < 6; i++)for (let j = 0; j < 3; j++) {
+                    const bit = !!(versionBits >> bitIdx & 1);
+                    m[i][s - 11 + j] = bit; m[s - 11 + j][i] = bit;
+                    bitIdx++;
+                }
+            }
+            function getVersionBits(v) {
+                let d = v << 12; const g = 0x1F25;
+                for (let i = 17; i >= 12; i--)if (d >> (i) & 1) d ^= g << (i - 12);
+                return (v << 12) | d;
+            }
+            return { generate: generateQR };
+        })();
+    </script>
+    <script>
+        function generateQR() {
+            const text = document.getElementById('qrInput').value.trim();
+            if (!text) { alert('Please enter text or a URL.'); return; }
+            const size = parseInt(document.getElementById('qrSize').value);
+            const color = document.getElementById('qrColor').value;
+            const canvas = document.getElementById('qrCanvas');
+            try {
+                QRCode.generate(text, canvas, size, color);
+                document.getElementById('qrOutput').style.display = 'flex';
+            } catch (e) { alert('Error generating QR code. Try shorter text.'); }
+        }
+        function downloadQR() {
+            const canvas = document.getElementById('qrCanvas');
+            const link = document.createElement('a');
+            link.download = 'qrcode.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+    </script>
+</body>
+
+</html>

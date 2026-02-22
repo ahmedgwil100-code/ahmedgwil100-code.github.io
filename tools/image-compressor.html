@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Compressor — Compress Images Online Free | ETYN Tools</title>
+    <meta name="description"
+        content="Free online image compressor. Reduce image file size while maintaining quality. Supports JPEG, PNG, and WebP. No uploads to external servers.">
+    <link rel="canonical" href="https://etyntools.com/tools/image-compressor.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="apple-touch-icon" href="../logo.png">
+  <meta property="og:image" content="https://etyntools.com/logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ETYN Tools">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle"
+                aria-label="Toggle menu"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Image Compressor</span></div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>Image Compressor</h1>
+                        <p>Compress your images to reduce file size while maintaining visual quality. Everything runs in
+                            your browser.</p>
+
+                        <div class="form-group">
+                            <label for="imgFile">Select Image</label>
+                            <input type="file" id="imgFile" accept="image/*" onchange="previewImage()">
+                        </div>
+                        <div class="form-group">
+                            <label for="quality">Quality: <strong id="qualityVal">70</strong>%</label>
+                            <input type="range" id="quality" min="10" max="100" value="70"
+                                oninput="document.getElementById('qualityVal').textContent=this.value">
+                        </div>
+                        <div class="form-group">
+                            <label for="maxWidth">Max Width (px, 0 = no resize)</label>
+                            <input type="number" id="maxWidth" value="0" min="0" placeholder="0 = keep original">
+                        </div>
+                        <div class="form-group">
+                            <label for="outputFormat">Output Format</label>
+                            <select id="outputFormat">
+                                <option value="image/jpeg">JPEG</option>
+                                <option value="image/webp">WebP</option>
+                                <option value="image/png">PNG</option>
+                            </select>
+                        </div>
+                        <button class="btn btn--primary btn--block" onclick="compressImage()">Compress Image</button>
+
+                        <div class="result-box" id="result">
+                            <h3>Compression Results</h3>
+                            <div class="result-item"><span>Original Size</span><span id="resOriginal">—</span></div>
+                            <div class="result-item"><span>Compressed Size</span><span id="resCompressed">—</span></div>
+                            <div class="result-item"><span>Reduction</span><span id="resReduction">—</span></div>
+                            <div style="margin-top:1rem;text-align:center;">
+                                <img id="previewImg"
+                                    style="max-width:100%;border-radius:8px;margin-bottom:1rem;display:none;"
+                                    alt="Compressed preview">
+                                <br>
+                                <a id="downloadLink" class="btn btn--outline btn--sm" style="display:none;"
+                                    download="compressed-image">Download Compressed Image</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+
+                    <div class="content-section">
+                        <h2>How Image Compression Works</h2>
+                        <p>Image compression reduces the file size of an image by removing redundant or less important
+                            visual information. This is essential for website performance, email attachments, social
+                            media uploads, and storage optimization. Our browser-based compressor uses the HTML5 Canvas
+                            API to re-encode images at your chosen quality level without sending any data to external
+                            servers.</p>
+                        <h3>Lossy vs. Lossless Compression</h3>
+                        <p>JPEG and WebP use lossy compression, meaning some visual data is discarded to achieve smaller
+                            file sizes. At quality levels above 70%, the difference is usually imperceptible to the
+                            human eye. PNG uses lossless compression and preserves every pixel exactly, but achieves
+                            smaller file size reductions. For photographs, JPEG or WebP at 70-80% quality typically
+                            offers the best balance of size and quality.</p>
+                        <h3>Quality Settings</h3>
+                        <p>The quality slider controls how much compression is applied. A value of 100% means minimal
+                            compression with the highest quality (largest file). A value of 10% means maximum
+                            compression with noticeable quality loss (smallest file). For most use cases, 60-80%
+                            provides an excellent balance, reducing file size by 50-80% with minimal visible difference.
+                        </p>
+                        <h3>Resizing</h3>
+                        <p>Setting a maximum width allows you to downscale large images before compression. This is
+                            particularly useful for images from modern cameras or smartphones, which often have
+                            resolutions much higher than needed for web use. A photo from a 48-megapixel phone camera
+                            can be resized to 1920px width and compressed to under 200KB — perfect for web pages.</p>
+                        <h3>Output Formats</h3>
+                        <ul>
+                            <li><strong>JPEG:</strong> Best for photographs and complex images. Universally supported.
+                            </li>
+                            <li><strong>WebP:</strong> Modern format with better compression than JPEG. Supported in all
+                                modern browsers.</li>
+                            <li><strong>PNG:</strong> Best for graphics with sharp edges, text, or transparency.</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>Frequently Asked Questions</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">Is my image uploaded to a server? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>No. Compression happens entirely in your browser using the Canvas API. Your image
+                                        never leaves your device.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">What is the best quality setting? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>For most photos, 70-80% quality gives excellent results with significant file
+                                        size reduction.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Can I compress PNG images? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Yes. You can select PNG as the output format. Note that PNG compression is
+                                        lossless and may not reduce file size as dramatically as JPEG or WebP.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Is there a file size limit? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>There is no strict limit, but very large images (50MB+) may cause slower
+                                        processing depending on your device.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a> &nbsp;|&nbsp; <a href="../disclaimer.html">Disclaimer</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script>
+        let originalFile = null;
+        function previewImage() {
+            const file = document.getElementById('imgFile').files[0];
+            if (file) originalFile = file;
+        }
+
+        function compressImage() {
+            if (!originalFile) { alert('Please select an image first.'); return; }
+            const quality = parseInt(document.getElementById('quality').value) / 100;
+            const maxW = parseInt(document.getElementById('maxWidth').value) || 0;
+            const format = document.getElementById('outputFormat').value;
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = new Image();
+                img.onload = function () {
+                    const canvas = document.createElement('canvas');
+                    let w = img.width, h = img.height;
+                    if (maxW > 0 && w > maxW) { h = Math.round(h * (maxW / w)); w = maxW; }
+                    canvas.width = w; canvas.height = h;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, w, h);
+                    canvas.toBlob(function (blob) {
+                        const origSize = originalFile.size;
+                        const compSize = blob.size;
+                        const reduction = ((1 - compSize / origSize) * 100).toFixed(1);
+                        document.getElementById('resOriginal').textContent = formatBytes(origSize);
+                        document.getElementById('resCompressed').textContent = formatBytes(compSize);
+                        document.getElementById('resReduction').textContent = reduction + '%';
+                        const url = URL.createObjectURL(blob);
+                        const preview = document.getElementById('previewImg');
+                        preview.src = url; preview.style.display = 'block';
+                        const dl = document.getElementById('downloadLink');
+                        const ext = format === 'image/jpeg' ? '.jpg' : format === 'image/webp' ? '.webp' : '.png';
+                        dl.href = url; dl.download = 'compressed' + ext; dl.style.display = 'inline-flex';
+                        showResult('result');
+                    }, format, quality);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(originalFile);
+        }
+
+        function formatBytes(b) {
+            if (b < 1024) return b + ' B';
+            if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
+            return (b / 1048576).toFixed(1) + ' MB';
+        }
+    </script>
+</body>
+
+</html>

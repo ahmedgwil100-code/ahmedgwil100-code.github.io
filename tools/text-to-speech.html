@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text-to-Speech — Convert Text to Voice Online | ETYN Tools</title>
+    <meta name="description"
+        content="Free online text-to-speech converter. Type or paste text and hear it spoken aloud using your browser's built-in speech synthesis. Choose voice, speed, and pitch.">
+    <link rel="canonical" href="https://etyntools.com/tools/text-to-speech.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="apple-touch-icon" href="../logo.png">
+  <meta property="og:image" content="https://etyntools.com/logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ETYN Tools">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle"
+                aria-label="Toggle menu"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Text-to-Speech</span></div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>Text-to-Speech</h1>
+                        <p>Type or paste text below and listen to it spoken aloud using your browser's built-in speech
+                            synthesis.</p>
+
+                        <div class="form-group">
+                            <label for="ttsText">Text to Speak</label>
+                            <textarea id="ttsText" rows="6" placeholder="Enter the text you want to hear..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="ttsVoice">Voice</label>
+                            <select id="ttsVoice"></select>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ttsRate">Speed: <strong id="ttsRateVal">1.0</strong>x</label>
+                                <input type="range" id="ttsRate" min="0.5" max="2" step="0.1" value="1"
+                                    oninput="document.getElementById('ttsRateVal').textContent=parseFloat(this.value).toFixed(1)">
+                            </div>
+                            <div class="form-group">
+                                <label for="ttsPitch">Pitch: <strong id="ttsPitchVal">1.0</strong></label>
+                                <input type="range" id="ttsPitch" min="0.5" max="2" step="0.1" value="1"
+                                    oninput="document.getElementById('ttsPitchVal').textContent=parseFloat(this.value).toFixed(1)">
+                            </div>
+                        </div>
+                        <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+                            <button class="btn btn--primary" onclick="speakText()" id="speakBtn">🔊 Speak</button>
+                            <button class="btn btn--outline" onclick="pauseResume()" id="pauseBtn" disabled>⏸
+                                Pause</button>
+                            <button class="btn btn--outline" onclick="stopSpeech()" id="stopBtn" disabled>⏹
+                                Stop</button>
+                        </div>
+                    </div>
+
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+
+                    <div class="content-section">
+                        <h2>About Text-to-Speech Technology</h2>
+                        <p>Text-to-Speech (TTS) is a form of assistive technology that converts written text into spoken
+                            words. It has become an integral part of modern computing, powering virtual assistants like
+                            Siri, Alexa, and Google Assistant, as well as accessibility features in operating systems,
+                            e-readers, and navigation apps.</p>
+                        <h3>How It Works in Your Browser</h3>
+                        <p>Our Text-to-Speech tool uses the Web Speech API, specifically the SpeechSynthesis interface,
+                            which is built into modern web browsers. This means no external services are called — the
+                            speech is generated using the voices already installed on your device. Different operating
+                            systems offer different voice options: Windows provides Microsoft voices, macOS offers Siri
+                            voices, and Chrome includes Google's cloud-based voices.</p>
+                        <h3>Customization Options</h3>
+                        <p>You can customize three key parameters: voice, speed, and pitch. The <strong>voice</strong>
+                            selector lets you choose from any voice available on your system, including different
+                            languages and accents. The <strong>speed</strong> slider (0.5x to 2x) controls how fast the
+                            text is read — slower speeds are great for language learning, while faster speeds help you
+                            consume content quickly. The <strong>pitch</strong> slider adjusts the tone of the voice
+                            from deeper to higher.</p>
+                        <h3>Use Cases</h3>
+                        <ul>
+                            <li><strong>Accessibility:</strong> Help visually impaired users consume written content
+                            </li>
+                            <li><strong>Proofreading:</strong> Hearing your writing read aloud helps catch errors you
+                                might miss when reading silently</li>
+                            <li><strong>Language Learning:</strong> Listen to pronunciation of text in different
+                                languages</li>
+                            <li><strong>Multitasking:</strong> Have articles or emails read to you while doing other
+                                tasks</li>
+                            <li><strong>Content Creation:</strong> Preview how scripts or presentations sound before
+                                recording</li>
+                        </ul>
+                        <h3>Privacy</h3>
+                        <p>Since the Web Speech API uses your browser's built-in speech engine, your text is processed
+                            locally on your device. No data is sent to our servers or any third party. This makes our
+                            tool one of the most private text-to-speech solutions available online.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>Frequently Asked Questions</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">What browsers support text-to-speech?
+                                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>All modern browsers support the Web Speech API: Chrome, Firefox, Edge, Safari,
+                                        and Opera.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Can I use voices in different languages?
+                                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Yes. Available voices depend on your operating system and browser. Most systems
+                                        include voices for multiple languages.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Why are there different voices on
+                                    different devices? <svg fill="none" stroke="currentColor" stroke-width="2"
+                                        viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Voices are provided by your operating system and browser, not by our website.
+                                        Windows, macOS, Android, and iOS each have their own voice libraries.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Is my text sent to any server? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>No. Speech synthesis occurs locally using your browser's built-in engine. Your
+                                        text stays on your device.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a> &nbsp;|&nbsp; <a href="../disclaimer.html">Disclaimer</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script>
+        const synth = window.speechSynthesis;
+        let voices = [];
+        function loadVoices() {
+            voices = synth.getVoices();
+            const sel = document.getElementById('ttsVoice');
+            sel.innerHTML = '';
+            voices.forEach((v, i) => {
+                const opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = v.name + ' (' + v.lang + ')';
+                if (v.default) opt.selected = true;
+                sel.appendChild(opt);
+            });
+        }
+        loadVoices();
+        if (synth.onvoiceschanged !== undefined) synth.onvoiceschanged = loadVoices;
+
+        function speakText() {
+            const text = document.getElementById('ttsText').value.trim();
+            if (!text) { alert('Please enter some text.'); return; }
+            synth.cancel();
+            const utter = new SpeechSynthesisUtterance(text);
+            const vi = document.getElementById('ttsVoice').value;
+            if (voices[vi]) utter.voice = voices[vi];
+            utter.rate = parseFloat(document.getElementById('ttsRate').value);
+            utter.pitch = parseFloat(document.getElementById('ttsPitch').value);
+            utter.onstart = () => { document.getElementById('pauseBtn').disabled = false; document.getElementById('stopBtn').disabled = false; document.getElementById('speakBtn').textContent = '🔊 Speaking...'; };
+            utter.onend = () => { resetBtns(); };
+            synth.speak(utter);
+        }
+        function pauseResume() {
+            if (synth.paused) { synth.resume(); document.getElementById('pauseBtn').textContent = '⏸ Pause'; }
+            else { synth.pause(); document.getElementById('pauseBtn').textContent = '▶ Resume'; }
+        }
+        function stopSpeech() { synth.cancel(); resetBtns(); }
+        function resetBtns() {
+            document.getElementById('speakBtn').textContent = '🔊 Speak';
+            document.getElementById('pauseBtn').textContent = '⏸ Pause';
+            document.getElementById('pauseBtn').disabled = true;
+            document.getElementById('stopBtn').disabled = true;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPA Calculator — Calculate Grade Point Average | ETYN Tools</title>
+    <meta name="description"
+        content="Free GPA calculator. Enter your courses, grades, and credit hours to calculate your cumulative GPA. Supports 4.0 scale.">
+    <link rel="canonical" href="https://etyntools.com/tools/gpa-calculator.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="apple-touch-icon" href="../logo.png">
+  <meta property="og:image" content="https://etyntools.com/logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ETYN Tools">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle" aria-label="Toggle menu"><svg
+                    fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>GPA Calculator</span></div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>GPA Calculator</h1>
+                        <p>Add your courses below with grades and credit hours to calculate your GPA on a 4.0 scale.</p>
+
+                        <div id="courses">
+                            <div class="gpa-row" style="margin-bottom:.25rem;">
+                                <div class="form-group"><label>Course Name</label></div>
+                                <div class="form-group"><label>Grade</label></div>
+                                <div class="form-group"><label>Credits</label></div>
+                                <div></div>
+                            </div>
+                        </div>
+
+                        <div style="display:flex;gap:.75rem;margin:1rem 0;">
+                            <button class="btn btn--outline btn--sm" onclick="addCourse()">+ Add Course</button>
+                            <button class="btn btn--primary" onclick="calcGPA()">Calculate GPA</button>
+                        </div>
+
+                        <div class="result-box" id="result">
+                            <h3>Your GPA</h3>
+                            <div class="result-item"><span>GPA (4.0 scale)</span><span id="resGPA">—</span></div>
+                            <div class="result-item"><span>Total Credits</span><span id="resCredits">—</span></div>
+                            <div class="result-item"><span>Total Grade Points</span><span id="resPoints">—</span></div>
+                        </div>
+                    </div>
+
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+
+                    <div class="content-section">
+                        <h2>How GPA Is Calculated</h2>
+                        <p>Grade Point Average (GPA) is a standardized way of measuring academic achievement in the
+                            United States and many other countries. It provides a single number that summarizes a
+                            student's overall academic performance. Most institutions use a 4.0 scale, where an A equals
+                            4.0, a B equals 3.0, a C equals 2.0, a D equals 1.0, and an F equals 0.0.</p>
+                        <h3>The GPA Formula</h3>
+                        <p>To calculate GPA, you multiply the grade point value of each course by its credit hours to
+                            get quality points. Then you sum all quality points and divide by the total number of credit
+                            hours. For example, if you earned an A (4.0) in a 3-credit course and a B (3.0) in a
+                            4-credit course, your GPA would be: (4.0 × 3 + 3.0 × 4) ÷ (3 + 4) = (12 + 12) ÷ 7 = 3.43.
+                        </p>
+                        <h3>Grade Scale Reference</h3>
+                        <ul>
+                            <li><strong>A+/A:</strong> 4.0</li>
+                            <li><strong>A-:</strong> 3.7</li>
+                            <li><strong>B+:</strong> 3.3</li>
+                            <li><strong>B:</strong> 3.0</li>
+                            <li><strong>B-:</strong> 2.7</li>
+                            <li><strong>C+:</strong> 2.3</li>
+                            <li><strong>C:</strong> 2.0</li>
+                            <li><strong>C-:</strong> 1.7</li>
+                            <li><strong>D+:</strong> 1.3</li>
+                            <li><strong>D:</strong> 1.0</li>
+                            <li><strong>F:</strong> 0.0</li>
+                        </ul>
+                        <h3>Why GPA Matters</h3>
+                        <p>GPA is used for scholarship eligibility, graduate school admissions, academic honors, and
+                            employment screening. Many scholarships require a minimum GPA of 3.0 or higher. Graduate
+                            programs often set a 3.0 or 3.5 minimum for admission. Employers, especially for entry-level
+                            positions, sometimes use GPA as a screening criterion. Understanding your GPA helps you set
+                            academic goals and track your progress toward them.</p>
+                        <p>Our calculator supports plus and minus grades for more precise GPA values. Simply add all
+                            your courses, select the appropriate grade, enter the credit hours, and click Calculate.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>Frequently Asked Questions</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">Does this support plus/minus grades? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Yes. The grade dropdown includes A+, A, A-, B+, B, B-, C+, C, C-, D+, D, and F.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Can I calculate my cumulative GPA across
+                                    semesters? <svg fill="none" stroke="currentColor" stroke-width="2"
+                                        viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Yes. Simply add all courses from all semesters and the calculator will compute
+                                        your cumulative GPA.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">What scale does this use? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>The standard US 4.0 scale. If your school uses a different scale, the results may
+                                        not match exactly.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a> &nbsp;|&nbsp; <a href="../disclaimer.html">Disclaimer</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script>
+        const gradeOpts = '<option value="4.0">A+ / A</option><option value="3.7">A-</option><option value="3.3">B+</option><option value="3.0">B</option><option value="2.7">B-</option><option value="2.3">C+</option><option value="2.0">C</option><option value="1.7">C-</option><option value="1.3">D+</option><option value="1.0">D</option><option value="0.0">F</option>';
+        let courseCount = 0;
+        function addCourse() {
+            courseCount++;
+            const div = document.createElement('div');
+            div.className = 'gpa-row';
+            div.id = 'course' + courseCount;
+            div.innerHTML = '<div class="form-group"><input type="text" placeholder="Course ' + courseCount + '"></div><div class="form-group"><select>' + gradeOpts + '</select></div><div class="form-group"><input type="number" placeholder="3" min="0.5" step="0.5" value="3"></div><button class="gpa-remove" onclick="this.parentElement.remove()">✕</button>';
+            document.getElementById('courses').appendChild(div);
+        }
+        for (let i = 0; i < 4; i++)addCourse();
+
+        function calcGPA() {
+            const rows = document.querySelectorAll('.gpa-row select');
+            if (rows.length === 0) { alert('Add at least one course.'); return; }
+            let totalPts = 0, totalCreds = 0;
+            rows.forEach(sel => {
+                const row = sel.closest('.gpa-row');
+                const grade = parseFloat(sel.value);
+                const creds = parseFloat(row.querySelector('input[type="number"]').value) || 0;
+                totalPts += grade * creds;
+                totalCreds += creds;
+            });
+            if (totalCreds === 0) { alert('Total credits cannot be zero.'); return; }
+            document.getElementById('resGPA').textContent = (totalPts / totalCreds).toFixed(2);
+            document.getElementById('resCredits').textContent = totalCreds;
+            document.getElementById('resPoints').textContent = totalPts.toFixed(1);
+            showResult('result');
+        }
+    </script>
+</body>
+
+</html>

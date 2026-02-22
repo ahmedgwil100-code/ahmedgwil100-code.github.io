@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter PRO — Real-Time Exchange Rates | ETYN Tools</title>
+    <meta name="description"
+        content="Free online currency converter with real-time exchange rates. Convert between USD, EUR, GBP, JPY, TND, SAR, AED, and 30+ global currencies instantly.">
+    <link rel="canonical" href="https://etyntools.com/tools/currency-converter.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="apple-touch-icon" href="../logo.png">
+    <meta property="og:image" content="https://etyntools.com/logo.png">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ETYN Tools">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .pro-badge-red {
+            display: inline-block;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: #fff;
+            font-size: .7rem;
+            font-weight: 800;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: .3rem .85rem;
+            border-radius: 100px;
+            margin-left: .6rem;
+            vertical-align: middle;
+            box-shadow: 0 0 12px rgba(239, 68, 68, .35);
+            animation: red-pulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes red-pulse {
+            0% {
+                box-shadow: 0 0 6px rgba(239, 68, 68, .25);
+            }
+
+            100% {
+                box-shadow: 0 0 18px rgba(239, 68, 68, .55);
+            }
+        }
+
+        .converter-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: .75rem;
+            align-items: end;
+        }
+
+        .swap-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background: var(--bg-card);
+            color: var(--primary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .2s ease;
+            margin-bottom: .15rem;
+        }
+
+        .swap-btn:hover {
+            background: var(--primary);
+            color: #fff;
+            transform: rotate(180deg);
+            border-color: var(--primary);
+        }
+
+        .rate-display {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .rate-card {
+            flex: 1;
+            min-width: 140px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .rate-card .rc-label {
+            font-size: .7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--text-light);
+            margin-bottom: .35rem;
+        }
+
+        .rate-card .rc-value {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--heading);
+        }
+
+        .rate-card .rc-sub {
+            font-size: .75rem;
+            color: var(--text-light);
+            margin-top: .2rem;
+        }
+
+        .result-fade {
+            animation: fadeSlideIn .4s ease;
+        }
+
+        @keyframes fadeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .convert-btn {
+            position: relative;
+            overflow: hidden;
+            transition: transform .15s ease, box-shadow .15s ease;
+        }
+
+        .convert-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(239, 68, 68, .18);
+        }
+
+        .loading-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #fff;
+            animation: dotBounce .6s infinite alternate;
+            margin: 0 2px;
+        }
+
+        .loading-dot:nth-child(2) {
+            animation-delay: .2s;
+        }
+
+        .loading-dot:nth-child(3) {
+            animation-delay: .4s;
+        }
+
+        @keyframes dotBounce {
+            to {
+                opacity: .3;
+                transform: translateY(-4px);
+            }
+        }
+
+        @media(max-width:600px) {
+            .converter-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .swap-btn {
+                margin: 0 auto;
+                transform: rotate(90deg);
+            }
+
+            .swap-btn:hover {
+                transform: rotate(270deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle"
+                aria-label="Toggle menu"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Currency Converter</span></div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>Currency Converter <span class="pro-badge-red">PRO</span></h1>
+                        <p>Convert between 30+ global currencies with real-time exchange rates. Fast, accurate, and
+                            free.</p>
+
+                        <div class="form-group">
+                            <label for="amount">Amount</label>
+                            <input type="number" id="amount" value="1" min="0" step="any" placeholder="Enter amount">
+                        </div>
+
+                        <div class="converter-grid">
+                            <div class="form-group">
+                                <label for="fromCurrency">From</label>
+                                <select id="fromCurrency"></select>
+                            </div>
+                            <button class="swap-btn" onclick="swapCurrencies()" title="Swap currencies"
+                                aria-label="Swap currencies">⇄</button>
+                            <div class="form-group">
+                                <label for="toCurrency">To</label>
+                                <select id="toCurrency"></select>
+                            </div>
+                        </div>
+
+                        <button class="btn btn--primary btn--block convert-btn" id="convertBtn" onclick="convert()">💱
+                            Convert</button>
+
+                        <div id="resultArea" style="display:none;" class="result-fade">
+                            <div class="rate-display">
+                                <div class="rate-card">
+                                    <div class="rc-label">Converted Amount</div>
+                                    <div class="rc-value" id="convertedAmount">—</div>
+                                    <div class="rc-sub" id="convertedLabel"></div>
+                                </div>
+                                <div class="rate-card">
+                                    <div class="rc-label">Exchange Rate</div>
+                                    <div class="rc-value" id="exchangeRate">—</div>
+                                    <div class="rc-sub" id="rateLabel"></div>
+                                </div>
+                                <div class="rate-card">
+                                    <div class="rc-label">Last Updated</div>
+                                    <div class="rc-value" style="font-size:1rem;" id="rateDate">—</div>
+                                    <div class="rc-sub">Data source: exchangerate-api</div>
+                                </div>
+                            </div>
+                            <div style="display:flex;gap:.5rem;margin-top:1rem;flex-wrap:wrap;">
+                                <button class="btn btn--outline btn--sm" onclick="copyResult()">📋 Copy Result</button>
+                            </div>
+                        </div>
+
+                        <div id="statusMsg"
+                            style="margin-top:.75rem;font-size:.85rem;font-weight:600;color:var(--text-light);"></div>
+                    </div>
+
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+
+                    <div class="content-section">
+                        <h2>How It Works</h2>
+                        <p>This currency converter fetches real-time exchange rates from the free
+                            <strong>ExchangeRate-API</strong> service. Simply enter an amount, select your currencies,
+                            and click Convert. The tool supports 30+ major global currencies including USD, EUR, GBP,
+                            JPY, TND, SAR, AED, and many more.</p>
+                        <h3>Supported Currencies</h3>
+                        <ul>
+                            <li><strong>Americas:</strong> USD (US Dollar), CAD (Canadian Dollar), BRL (Brazilian Real),
+                                MXN (Mexican Peso)</li>
+                            <li><strong>Europe:</strong> EUR (Euro), GBP (British Pound), CHF (Swiss Franc), SEK
+                                (Swedish Krona), NOK (Norwegian Krone)</li>
+                            <li><strong>Asia-Pacific:</strong> JPY (Japanese Yen), CNY (Chinese Yuan), INR (Indian
+                                Rupee), KRW (South Korean Won), AUD (Australian Dollar), NZD (New Zealand Dollar), SGD
+                                (Singapore Dollar)</li>
+                            <li><strong>Middle East & Africa:</strong> AED (UAE Dirham), SAR (Saudi Riyal), TND
+                                (Tunisian Dinar), QAR (Qatari Riyal), EGP (Egyptian Pound), ZAR (South African Rand),
+                                MAD (Moroccan Dirham)</li>
+                        </ul>
+                        <h3>Accuracy</h3>
+                        <p>Exchange rates are updated daily by the API provider. For financial transactions, always
+                            verify rates with your bank or financial institution. This tool is for informational and
+                            educational purposes.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>FAQ</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">Are the exchange rates real-time? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>The rates are updated daily by the ExchangeRate-API service. They reflect the
+                                        most recent available market rates but may differ slightly from live interbank
+                                        rates.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Is this free to use? <svg fill="none"
+                                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Yes, completely free. The tool uses a free-tier API with generous rate limits. No
+                                        sign-up or payment required.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Can I use this for financial decisions?
+                                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>This tool is for informational purposes only. For actual financial transactions,
+                                        please verify exchange rates with your bank or licensed currency exchange
+                                        provider.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">What if the API is down? <svg fill="none"
+                                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>If the API is temporarily unavailable, the tool will display a fallback message.
+                                        You can try again after a few minutes.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar 2</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script>
+        /* ======= Currency Converter — PRO ======= */
+
+        const currencies = [
+            { code: 'USD', name: 'US Dollar', symbol: '$' },
+            { code: 'EUR', name: 'Euro', symbol: '€' },
+            { code: 'GBP', name: 'British Pound', symbol: '£' },
+            { code: 'JPY', name: 'Japanese Yen', symbol: '¥' },
+            { code: 'CAD', name: 'Canadian Dollar', symbol: 'C$' },
+            { code: 'AUD', name: 'Australian Dollar', symbol: 'A$' },
+            { code: 'CHF', name: 'Swiss Franc', symbol: 'CHF' },
+            { code: 'CNY', name: 'Chinese Yuan', symbol: '¥' },
+            { code: 'INR', name: 'Indian Rupee', symbol: '₹' },
+            { code: 'KRW', name: 'South Korean Won', symbol: '₩' },
+            { code: 'TND', name: 'Tunisian Dinar', symbol: 'د.ت' },
+            { code: 'SAR', name: 'Saudi Riyal', symbol: '﷼' },
+            { code: 'AED', name: 'UAE Dirham', symbol: 'د.إ' },
+            { code: 'QAR', name: 'Qatari Riyal', symbol: '﷼' },
+            { code: 'EGP', name: 'Egyptian Pound', symbol: 'E£' },
+            { code: 'MAD', name: 'Moroccan Dirham', symbol: 'MAD' },
+            { code: 'ZAR', name: 'South African Rand', symbol: 'R' },
+            { code: 'BRL', name: 'Brazilian Real', symbol: 'R$' },
+            { code: 'MXN', name: 'Mexican Peso', symbol: '$' },
+            { code: 'SGD', name: 'Singapore Dollar', symbol: 'S$' },
+            { code: 'NZD', name: 'New Zealand Dollar', symbol: 'NZ$' },
+            { code: 'SEK', name: 'Swedish Krona', symbol: 'kr' },
+            { code: 'NOK', name: 'Norwegian Krone', symbol: 'kr' },
+            { code: 'DKK', name: 'Danish Krone', symbol: 'kr' },
+            { code: 'PLN', name: 'Polish Zloty', symbol: 'zł' },
+            { code: 'TRY', name: 'Turkish Lira', symbol: '₺' },
+            { code: 'THB', name: 'Thai Baht', symbol: '฿' },
+            { code: 'MYR', name: 'Malaysian Ringgit', symbol: 'RM' },
+            { code: 'PHP', name: 'Philippine Peso', symbol: '₱' },
+            { code: 'IDR', name: 'Indonesian Rupiah', symbol: 'Rp' },
+            { code: 'HKD', name: 'Hong Kong Dollar', symbol: 'HK$' },
+            { code: 'TWD', name: 'Taiwan Dollar', symbol: 'NT$' },
+            { code: 'COP', name: 'Colombian Peso', symbol: '$' },
+            { code: 'ARS', name: 'Argentine Peso', symbol: '$' },
+            { code: 'CLP', name: 'Chilean Peso', symbol: '$' },
+            { code: 'PKR', name: 'Pakistani Rupee', symbol: '₨' },
+            { code: 'BDT', name: 'Bangladeshi Taka', symbol: '৳' },
+            { code: 'NGN', name: 'Nigerian Naira', symbol: '₦' },
+            { code: 'KES', name: 'Kenyan Shilling', symbol: 'KSh' },
+            { code: 'GHS', name: 'Ghanaian Cedi', symbol: 'GH₵' }
+        ];
+
+        function populateSelects() {
+            const fromSel = document.getElementById('fromCurrency');
+            const toSel = document.getElementById('toCurrency');
+            currencies.forEach(c => {
+                fromSel.innerHTML += '<option value="' + c.code + '">' + c.code + ' — ' + c.name + '</option>';
+                toSel.innerHTML += '<option value="' + c.code + '">' + c.code + ' — ' + c.name + '</option>';
+            });
+            fromSel.value = 'USD';
+            toSel.value = 'EUR';
+        }
+        populateSelects();
+
+        function swapCurrencies() {
+            const from = document.getElementById('fromCurrency');
+            const to = document.getElementById('toCurrency');
+            const temp = from.value;
+            from.value = to.value;
+            to.value = temp;
+        }
+
+        async function convert() {
+            const amount = parseFloat(document.getElementById('amount').value);
+            if (isNaN(amount) || amount <= 0) { alert('Please enter a valid amount.'); return; }
+
+            const from = document.getElementById('fromCurrency').value;
+            const to = document.getElementById('toCurrency').value;
+            const btn = document.getElementById('convertBtn');
+            const status = document.getElementById('statusMsg');
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span> Converting...';
+            status.textContent = '';
+
+            try {
+                const res = await fetch('https://open.er-api.com/v6/latest/' + from);
+                if (!res.ok) throw new Error('API request failed');
+                const data = await res.json();
+
+                if (data.result !== 'success') throw new Error('Invalid API response');
+
+                const rate = data.rates[to];
+                if (!rate) throw new Error('Currency not supported');
+
+                const converted = amount * rate;
+                const toCurr = currencies.find(c => c.code === to);
+                const fromCurr = currencies.find(c => c.code === from);
+
+                document.getElementById('convertedAmount').textContent = (toCurr ? toCurr.symbol : '') + ' ' + converted.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 });
+                document.getElementById('convertedLabel').textContent = to + ' (' + (toCurr ? toCurr.name : to) + ')';
+                document.getElementById('exchangeRate').textContent = rate.toFixed(6);
+                document.getElementById('rateLabel').textContent = '1 ' + from + ' = ' + rate.toFixed(4) + ' ' + to;
+                document.getElementById('rateDate').textContent = data.time_last_update_utc ? data.time_last_update_utc.split(' ').slice(0, 4).join(' ') : new Date().toLocaleDateString();
+
+                const resultArea = document.getElementById('resultArea');
+                resultArea.style.display = 'block';
+                resultArea.classList.remove('result-fade');
+                void resultArea.offsetWidth; // trigger reflow
+                resultArea.classList.add('result-fade');
+
+                status.textContent = '✅ Conversion successful.';
+                status.style.color = 'var(--primary)';
+            } catch (err) {
+                status.textContent = '❌ Error: ' + err.message + '. Please try again.';
+                status.style.color = '#ef4444';
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '💱 Convert';
+            }
+        }
+
+        function copyResult() {
+            const amount = document.getElementById('amount').value;
+            const from = document.getElementById('fromCurrency').value;
+            const converted = document.getElementById('convertedAmount').textContent;
+            const to = document.getElementById('toCurrency').value;
+            const rate = document.getElementById('exchangeRate').textContent;
+            const text = amount + ' ' + from + ' = ' + converted + ' ' + to + ' (Rate: ' + rate + ')';
+            navigator.clipboard.writeText(text).then(() => {
+                const b = document.querySelector('#resultArea button');
+                const o = b.textContent; b.textContent = '✅ Copied!';
+                setTimeout(() => b.textContent = o, 2000);
+            });
+        }
+    </script>
+</body>
+
+</html>

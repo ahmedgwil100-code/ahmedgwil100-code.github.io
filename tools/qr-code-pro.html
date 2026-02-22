@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator Pro — Custom Colors &amp; Logo | ETYN Tools</title>
+    <meta name="description"
+        content="Advanced QR code generator with custom colors, size options, and logo support. Generate high-quality QR codes for URLs, text, WiFi, and more.">
+    <link rel="canonical" href="https://etyntools.com/tools/qr-code-pro.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="apple-touch-icon" href="../logo.png">
+    <meta property="og:image" content="https://etyntools.com/logo.png">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ETYN Tools">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        .color-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: end;
+        }
+
+        .color-row .form-group {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .qr-preview {
+            text-align: center;
+            padding: 2rem;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            margin: 1.25rem 0;
+        }
+
+        .qr-preview canvas,
+        .qr-preview img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle"
+                aria-label="Toggle menu"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>QR Code Generator Pro</span>
+            </div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>QR Code Generator Pro</h1>
+                        <p>Generate custom QR codes with your choice of colors, size, and embedded logo. Higher error
+                            correction allows the QR code to remain scannable even with a logo overlay.</p>
+                        <div class="form-group"><label for="qrContent">Content (URL, text, etc.)</label><input
+                                type="text" id="qrContent" placeholder="https://etyntools.com"
+                                value="https://etyntools.com"></div>
+                        <div class="color-row">
+                            <div class="form-group"><label for="qrFg">Foreground Color</label><input type="color"
+                                    id="qrFg" value="#000000"
+                                    style="width:60px;height:36px;border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;">
+                            </div>
+                            <div class="form-group"><label for="qrBg">Background Color</label><input type="color"
+                                    id="qrBg" value="#ffffff"
+                                    style="width:60px;height:36px;border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;">
+                            </div>
+                            <div class="form-group"><label for="qrSize">Size (px)</label><select id="qrSize">
+                                    <option value="200">200</option>
+                                    <option value="300" selected>300</option>
+                                    <option value="400">400</option>
+                                    <option value="500">500</option>
+                                </select></div>
+                        </div>
+                        <div class="form-group"><label for="qrLevel">Error Correction</label><select id="qrLevel">
+                                <option value="L">Low (7%)</option>
+                                <option value="M" selected>Medium (15%)</option>
+                                <option value="Q">Quartile (25%)</option>
+                                <option value="H">High (30%) — best for logo</option>
+                            </select></div>
+                        <div class="form-group"><label for="logoInput">Embed Logo (optional)</label><input type="file"
+                                id="logoInput" accept="image/*"></div>
+                        <button class="btn btn--primary btn--block" onclick="generateQR()">Generate QR Code</button>
+                        <div class="qr-preview" id="qrPreview" style="display:none;"><canvas id="qrCanvas"></canvas>
+                        </div>
+                        <button class="btn btn--outline btn--block" id="dlBtn" onclick="downloadQR()"
+                            style="display:none;">Download PNG</button>
+                    </div>
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+                    <div class="content-section">
+                        <h2>Features</h2>
+                        <ul>
+                            <li>Custom foreground and background colors</li>
+                            <li>Multiple size options (200–500px)</li>
+                            <li>4 error correction levels</li>
+                            <li>Embed a logo or image in the center</li>
+                            <li>Download as high-quality PNG</li>
+                        </ul>
+                    </div>
+                    <div class="content-section">
+                        <h2>FAQ</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">Will the QR code still scan with a logo?
+                                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Yes, if you use High error correction (30%). The QR code can tolerate up to 30%
+                                        of its data being obscured and still be readable.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">What content can I encode? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>URLs, plain text, email addresses, phone numbers, WiFi credentials, vCard data —
+                                        any text content.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar 2</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script>
+        let qrInstance = null;
+        function generateQR() {
+            const content = document.getElementById('qrContent').value.trim();
+            if (!content) { alert('Please enter content for the QR code.'); return; }
+            const size = parseInt(document.getElementById('qrSize').value);
+            const fg = document.getElementById('qrFg').value;
+            const bg = document.getElementById('qrBg').value;
+            const level = document.getElementById('qrLevel').value;
+            const levels = { L: QRCode.CorrectLevel.L, M: QRCode.CorrectLevel.M, Q: QRCode.CorrectLevel.Q, H: QRCode.CorrectLevel.H };
+            // Clear previous
+            const container = document.getElementById('qrPreview');
+            container.innerHTML = ''; container.style.display = 'block';
+            qrInstance = new QRCode(container, { text: content, width: size, height: size, colorDark: fg, colorLight: bg, correctLevel: levels[level] });
+            // Add logo if selected
+            const logoFile = document.getElementById('logoInput').files[0];
+            if (logoFile) {
+                setTimeout(() => {
+                    const canvas = container.querySelector('canvas');
+                    if (!canvas) return;
+                    const ctx = canvas.getContext('2d');
+                    const logoImg = new Image();
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        logoImg.onload = function () {
+                            const logoSize = size * 0.22;
+                            const x = (size - logoSize) / 2; const y = (size - logoSize) / 2;
+                            ctx.fillStyle = bg;
+                            ctx.fillRect(x - 4, y - 4, logoSize + 8, logoSize + 8);
+                            ctx.drawImage(logoImg, x, y, logoSize, logoSize);
+                        };
+                        logoImg.src = e.target.result;
+                    };
+                    reader.readAsDataURL(logoFile);
+                }, 200);
+            }
+            document.getElementById('dlBtn').style.display = 'block';
+        }
+        function downloadQR() {
+            const canvas = document.getElementById('qrPreview').querySelector('canvas');
+            if (!canvas) return;
+            const a = document.createElement('a'); a.href = canvas.toDataURL('image/png'); a.download = 'qr-code.png'; a.click();
+        }
+    </script>
+</body>
+
+</html>

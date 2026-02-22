@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Counter — Count Words, Characters &amp; Sentences | ETYN Tools</title>
+    <meta name="description"
+        content="Free online word counter. Count words, characters, sentences, and paragraphs instantly. Perfect for essays, blog posts, and social media.">
+    <link rel="canonical" href="https://etyntools.com/tools/word-counter.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="apple-touch-icon" href="../logo.png">
+  <meta property="og:image" content="https://etyntools.com/logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ETYN Tools">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle" aria-label="Toggle menu"><svg
+                    fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Word Counter</span></div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>Word Counter</h1>
+                        <p>Paste or type your text below to instantly see word, character, sentence, and paragraph
+                            counts.</p>
+
+                        <div class="form-group">
+                            <label for="textInput">Your Text</label>
+                            <textarea id="textInput" rows="10" placeholder="Start typing or paste your text here..."
+                                oninput="countWords()"></textarea>
+                        </div>
+
+                        <div class="result-box visible" id="result">
+                            <h3>Statistics</h3>
+                            <div class="result-item"><span>Words</span><span id="resWords">0</span></div>
+                            <div class="result-item"><span>Characters (with spaces)</span><span id="resChars">0</span>
+                            </div>
+                            <div class="result-item"><span>Characters (no spaces)</span><span
+                                    id="resCharsNoSpace">0</span></div>
+                            <div class="result-item"><span>Sentences</span><span id="resSentences">0</span></div>
+                            <div class="result-item"><span>Paragraphs</span><span id="resParagraphs">0</span></div>
+                            <div class="result-item"><span>Reading Time</span><span id="resReadTime">0 min</span></div>
+                        </div>
+                    </div>
+
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+
+                    <div class="content-section">
+                        <h2>Why Use a Word Counter?</h2>
+                        <p>Whether you are a student writing an essay, a blogger crafting a post, a marketer preparing
+                            social media copy, or a professional editing a report, knowing the exact word count of your
+                            text is essential. Many assignments and platforms have strict word or character limits, and
+                            our Word Counter helps you stay within them effortlessly.</p>
+                        <h3>Real-Time Counting</h3>
+                        <p>Unlike many word counters that require you to click a button, our tool counts in real time as
+                            you type or paste text. You see instant updates for words, characters (with and without
+                            spaces), sentences, and paragraphs. This eliminates the need to repeatedly check your count
+                            — just glance at the results panel as you write.</p>
+                        <h3>Understanding the Metrics</h3>
+                        <p><strong>Words</strong> are counted by splitting text on whitespace boundaries.
+                            <strong>Characters with spaces</strong> counts every character including spaces, which is
+                            what platforms like Twitter use. <strong>Characters without spaces</strong> excludes spaces
+                            and is used by some SMS and advertising platforms. <strong>Sentences</strong> are estimated
+                            by counting sentence-ending punctuation (periods, question marks, exclamation marks).
+                            <strong>Paragraphs</strong> are counted by the number of non-empty text blocks separated by
+                            line breaks.</p>
+                        <h3>Reading Time Estimate</h3>
+                        <p>The reading time estimate assumes an average reading speed of 200 words per minute, which is
+                            the generally accepted rate for adult readers consuming online content. This helps bloggers
+                            and content creators gauge how long their articles will take to read.</p>
+                        <h3>Common Word Limits</h3>
+                        <ul>
+                            <li>Twitter/X post: 280 characters</li>
+                            <li>College essay: 250–650 words</li>
+                            <li>Blog post: 1,000–2,500 words</li>
+                            <li>Meta description: 150–160 characters</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>Frequently Asked Questions</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">Does it count in real time? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Yes. Statistics update as you type or paste, with no need to click a button.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">How is reading time calculated? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>It is based on an average reading speed of 200 words per minute.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Does it count hyphenated words as one or
+                                    two? <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Hyphenated words like "well-known" are counted as a single word, which matches
+                                        standard word processing conventions.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a> &nbsp;|&nbsp; <a href="../disclaimer.html">Disclaimer</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script>
+        function countWords() {
+            const t = document.getElementById('textInput').value;
+            const words = t.trim() ? t.trim().split(/\s+/).length : 0;
+            const chars = t.length;
+            const charsNoSpace = t.replace(/\s/g, '').length;
+            const sentences = t.trim() ? (t.match(/[.!?]+/g) || []).length || 0 : 0;
+            const paragraphs = t.trim() ? t.split(/\n\s*\n/).filter(p => p.trim()).length : 0;
+            const readTime = Math.max(1, Math.ceil(words / 200));
+            document.getElementById('resWords').textContent = words;
+            document.getElementById('resChars').textContent = chars;
+            document.getElementById('resCharsNoSpace').textContent = charsNoSpace;
+            document.getElementById('resSentences').textContent = sentences;
+            document.getElementById('resParagraphs').textContent = paragraphs || (t.trim() ? 1 : 0);
+            document.getElementById('resReadTime').textContent = words ? readTime + ' min' : '0 min';
+        }
+    </script>
+</body>
+
+</html>

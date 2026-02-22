@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us — ETYN Tools</title>
+    <meta name="description"
+        content="Get in touch with ETYN Tools. Send us feedback, tool requests, or questions using our contact form.">
+    <link rel="canonical" href="https://etyntools.com/contact.html">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+    <meta property="og:image" content="https://etyntools.com/logo.png">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ETYN Tools">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="index.html">Home</a><a href="about.html">About</a><a href="contact.html"
+                    class="active">Contact</a><button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle"
+                aria-label="Toggle menu"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>Contact Us</h1>
+        <p>Have a question, suggestion, or feedback? We'd love to hear from you.</p>
+    </div>
+
+    <div class="page-content">
+        <div class="contact-form">
+            <form id="contactForm" action="https://formspree.io/f/xgollrqk" method="POST">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" name="name" id="name" placeholder="John Doe" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" name="_replyto" id="email" placeholder="john@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <select name="subject" id="subject" required>
+                        <option value="">Select a subject...</option>
+                        <option value="feedback">General Feedback</option>
+                        <option value="bug">Bug Report</option>
+                        <option value="feature">Feature Request</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea name="message" id="message" rows="6" placeholder="Tell us what's on your mind..."
+                        required></textarea>
+                </div>
+
+                <button class="btn btn--primary btn--block" type="submit">Send Message</button>
+
+                <p id="formMsg"
+                    style="margin-top:1rem;font-weight:600;color:var(--primary);text-align:center;display:none;"></p>
+            </form>
+        </div>
+
+        <script>
+            const form = document.getElementById('contactForm');
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const formMsg = document.getElementById('formMsg');
+
+                fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        formMsg.textContent = '✅ Message sent successfully! Thank you for contacting us.';
+                        formMsg.style.display = 'block';
+                        form.reset();
+                    } else {
+                        formMsg.textContent = '❌ Oops! There was a problem sending your message.';
+                        formMsg.style.display = 'block';
+                    }
+                }).catch(() => {
+                    formMsg.textContent = '❌ Oops! There was a problem sending your message.';
+                    formMsg.style.display = 'block';
+                });
+            });
+        </script>
+</body>
+
+</html>

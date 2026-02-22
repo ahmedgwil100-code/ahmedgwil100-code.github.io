@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Background Remover — Remove Backgrounds Free | ETYN Tools</title>
+    <meta name="description"
+        content="Free online image background remover. Remove backgrounds from images automatically using client-side processing. No uploads to any server.">
+    <link rel="canonical" href="https://etyntools.com/tools/image-bg-remover.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="apple-touch-icon" href="../logo.png">
+    <meta property="og:image" content="https://etyntools.com/logo.png">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ETYN Tools">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .preview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.25rem 0;
+        }
+
+        .preview-grid img {
+            width: 100%;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: repeating-conic-gradient(#eee 0% 25%, #fff 0% 50%) 0/20px 20px;
+        }
+
+        .preview-label {
+            font-size: .8rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: .35rem;
+        }
+
+        @media(max-width:600px) {
+            .preview-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle"
+                aria-label="Toggle menu"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Image Background Remover</span>
+            </div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>Image Background Remover</h1>
+                        <p>Upload an image and remove the background color automatically. Best for images with solid or
+                            near-solid backgrounds.</p>
+                        <div class="form-group"><label for="fileInput">Upload Image</label><input type="file"
+                                id="fileInput" accept="image/*" onchange="loadImage(event)"></div>
+                        <div class="form-group"><label for="tolerance">Color Tolerance: <span
+                                    id="tolVal">30</span></label><input type="range" id="tolerance" min="1" max="100"
+                                value="30" oninput="document.getElementById('tolVal').textContent=this.value"
+                                style="width:100%;"></div>
+                        <div class="form-group"><label>Background color to remove</label>
+                            <div style="display:flex;gap:.5rem;align-items:center;"><input type="color" id="bgColor"
+                                    value="#ffffff"
+                                    style="width:50px;height:36px;border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;"><span
+                                    style="font-size:.85rem;color:var(--text-light);">Click image to pick color, or
+                                    choose manually</span></div>
+                        </div>
+                        <button class="btn btn--primary btn--block" onclick="removeBackground()">Remove
+                            Background</button>
+                        <div class="preview-grid" id="previewGrid" style="display:none;">
+                            <div>
+                                <div class="preview-label">Original</div><canvas id="originalCanvas"></canvas>
+                            </div>
+                            <div>
+                                <div class="preview-label">Result (transparent bg)</div><canvas
+                                    id="resultCanvas"></canvas>
+                            </div>
+                        </div>
+                        <button class="btn btn--outline btn--block" id="downloadBtn" onclick="downloadResult()"
+                            style="display:none;margin-top:.5rem;">Download PNG</button>
+                    </div>
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+                    <div class="content-section">
+                        <h2>How It Works</h2>
+                        <p>This tool uses color-based background removal. It analyzes each pixel in your image and makes
+                            pixels transparent if their color is within the specified tolerance of the selected
+                            background color. Works best with solid-color backgrounds (white, green, blue, etc.).</p>
+                        <h3>Tips for Best Results</h3>
+                        <ul>
+                            <li>Use images with solid or near-solid backgrounds</li>
+                            <li>Click on the background area of your image to auto-detect the color</li>
+                            <li>Adjust the tolerance slider — higher values remove more shades</li>
+                            <li>Green-screen or white-background photos work best</li>
+                        </ul>
+                    </div>
+                    <div class="content-section">
+                        <h2>FAQ</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">Is my image uploaded anywhere? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>No. All processing happens in your browser using Canvas API. Your images never
+                                        leave your device.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Can it remove complex backgrounds? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>This tool works best with solid-color backgrounds. For complex scene backgrounds,
+                                        professional AI tools are recommended.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar 2</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script>
+        let imgData = null;
+        function loadImage(e) {
+            const file = e.target.files[0]; if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function (ev) {
+                const img = new Image(); img.onload = function () {
+                    const c = document.getElementById('originalCanvas'); c.width = img.width; c.height = img.height;
+                    const ctx = c.getContext('2d'); ctx.drawImage(img, 0, 0); imgData = ctx.getImageData(0, 0, img.width, img.height);
+                    document.getElementById('previewGrid').style.display = 'grid';
+                    c.style.cursor = 'crosshair';
+                    c.onclick = function (ev) { const rect = c.getBoundingClientRect(); const sx = img.width / rect.width; const sy = img.height / rect.height; const x = Math.floor((ev.clientX - rect.left) * sx); const y = Math.floor((ev.clientY - rect.top) * sy); const i = (y * img.width + x) * 4; const r = imgData.data[i], g = imgData.data[i + 1], b = imgData.data[i + 2]; document.getElementById('bgColor').value = '#' + [r, g, b].map(v => v.toString(16).padStart(2, '0')).join(''); };
+                }; img.src = ev.target.result;
+            }; reader.readAsDataURL(file);
+        }
+        function removeBackground() {
+            if (!imgData) { alert('Please upload an image first.'); return; }
+            const hex = document.getElementById('bgColor').value; const tol = parseInt(document.getElementById('tolerance').value);
+            const tr = parseInt(hex.substr(1, 2), 16), tg = parseInt(hex.substr(3, 2), 16), tb = parseInt(hex.substr(5, 2), 16);
+            const rc = document.getElementById('resultCanvas'); rc.width = imgData.width; rc.height = imgData.height;
+            const ctx = rc.getContext('2d'); const newData = ctx.createImageData(imgData.width, imgData.height);
+            for (let i = 0; i < imgData.data.length; i += 4) {
+                const dr = imgData.data[i] - tr, dg = imgData.data[i + 1] - tg, db = imgData.data[i + 2] - tb;
+                const dist = Math.sqrt(dr * dr + dg * dg + db * db);
+                if (dist < tol * 2.55) { newData.data[i] = newData.data[i + 1] = newData.data[i + 2] = newData.data[i + 3] = 0; }
+                else { newData.data[i] = imgData.data[i]; newData.data[i + 1] = imgData.data[i + 1]; newData.data[i + 2] = imgData.data[i + 2]; newData.data[i + 3] = imgData.data[i + 3]; }
+            }
+            ctx.putImageData(newData, 0, 0); document.getElementById('downloadBtn').style.display = 'block';
+        }
+        function downloadResult() { const c = document.getElementById('resultCanvas'); const a = document.createElement('a'); a.download = 'background-removed.png'; a.href = c.toDataURL('image/png'); a.click(); }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator — Calculate Body Mass Index | ETYN Tools</title>
+    <meta name="description"
+        content="Free BMI Calculator. Enter your height and weight to find your Body Mass Index and health category. Supports metric and imperial units.">
+    <link rel="canonical" href="https://etyntools.com/tools/bmi-calculator.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="apple-touch-icon" href="../logo.png">
+  <meta property="og:image" content="https://etyntools.com/logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ETYN Tools">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle" aria-label="Toggle menu"><svg
+                    fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>BMI Calculator</span></div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>BMI Calculator</h1>
+                        <p>Enter your height and weight to calculate your Body Mass Index and see your category.</p>
+
+                        <div class="form-group">
+                            <label for="bmiUnit">Unit System</label>
+                            <select id="bmiUnit" onchange="toggleBmiUnit()">
+                                <option value="metric">Metric (kg / cm)</option>
+                                <option value="imperial">Imperial (lbs / inches)</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="weight" id="weightLabel">Weight (kg)</label>
+                                <input type="number" id="weight" placeholder="e.g. 70" min="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="height" id="heightLabel">Height (cm)</label>
+                                <input type="number" id="height" placeholder="e.g. 175" min="1">
+                            </div>
+                        </div>
+                        <button class="btn btn--primary btn--block" onclick="calculateBMI()">Calculate BMI</button>
+
+                        <div class="result-box" id="result">
+                            <h3>Your Results</h3>
+                            <div class="result-item"><span>BMI</span><span id="resBmi">—</span></div>
+                            <div class="result-item"><span>Category</span><span id="resCat">—</span></div>
+                            <div class="result-item"><span>Healthy Weight Range</span><span id="resRange">—</span></div>
+                        </div>
+                    </div>
+
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+
+                    <div class="content-section">
+                        <h2>What Is BMI and How Is It Calculated?</h2>
+                        <p>Body Mass Index (BMI) is a simple screening tool that uses your height and weight to estimate
+                            body fat. It was developed in the 19th century by Belgian mathematician Adolphe Quetelet and
+                            remains one of the most widely used health metrics today. Healthcare professionals, fitness
+                            trainers, and insurance companies all rely on BMI as a quick way to categorize whether a
+                            person is underweight, normal weight, overweight, or obese.</p>
+                        <h3>The BMI Formula</h3>
+                        <p>The metric formula is: BMI = weight (kg) ÷ height (m)². For imperial units, the formula is:
+                            BMI = (weight (lbs) × 703) ÷ height (inches)². Our calculator handles both unit systems
+                            automatically, so you simply enter your measurements and get instant results.</p>
+                        <h3>BMI Categories</h3>
+                        <ul>
+                            <li><strong>Underweight:</strong> BMI below 18.5</li>
+                            <li><strong>Normal weight:</strong> BMI 18.5 – 24.9</li>
+                            <li><strong>Overweight:</strong> BMI 25 – 29.9</li>
+                            <li><strong>Obese:</strong> BMI 30 and above</li>
+                        </ul>
+                        <h3>Limitations of BMI</h3>
+                        <p>While BMI is a useful starting point, it has limitations. It does not distinguish between
+                            muscle mass and fat mass, so athletes with high muscle mass may have a high BMI yet low body
+                            fat. Similarly, BMI does not account for age, gender, or body composition differences. For a
+                            complete health picture, consider additional measurements like waist circumference, body fat
+                            percentage, and blood work.</p>
+                        <p>Despite these limitations, BMI remains valuable because of its simplicity and strong
+                            correlation with population-level health outcomes. Numerous studies have shown that BMI in
+                            the obese range is associated with higher risks for cardiovascular disease, type 2 diabetes,
+                            and certain cancers.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>Frequently Asked Questions</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">What is a healthy BMI? <svg fill="none"
+                                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>A healthy BMI is generally between 18.5 and 24.9. However, individual health
+                                        depends on many factors beyond BMI alone.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Is BMI accurate for athletes? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>BMI may overestimate body fat in athletes with high muscle mass. Consider using
+                                        body fat percentage measurements instead.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Does BMI differ by age? <svg fill="none"
+                                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>For adults 20+, the same BMI categories apply. For children and teens, BMI is
+                                        interpreted using age- and gender-specific percentile charts.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Is my data stored? <svg fill="none"
+                                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>No. All processing happens locally in your browser. We do not store or transmit
+                                        your health information.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar 2</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a> &nbsp;|&nbsp; <a href="../disclaimer.html">Disclaimer</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../main.js"></script>
+    <script>
+        function toggleBmiUnit() {
+            const u = document.getElementById('bmiUnit').value;
+            document.getElementById('weightLabel').textContent = u === 'metric' ? 'Weight (kg)' : 'Weight (lbs)';
+            document.getElementById('heightLabel').textContent = u === 'metric' ? 'Height (cm)' : 'Height (inches)';
+        }
+        function calculateBMI() {
+            let w = parseFloat(document.getElementById('weight').value);
+            let h = parseFloat(document.getElementById('height').value);
+            if (!w || !h || w <= 0 || h <= 0) { alert('Please enter valid weight and height.'); return; }
+            const u = document.getElementById('bmiUnit').value;
+            let bmi;
+            if (u === 'metric') { bmi = w / ((h / 100) ** 2); } else { bmi = (w * 703) / (h ** 2); }
+            let cat = '';
+            if (bmi < 18.5) cat = 'Underweight';
+            else if (bmi < 25) cat = 'Normal weight';
+            else if (bmi < 30) cat = 'Overweight';
+            else cat = 'Obese';
+
+            let hm = u === 'metric' ? h / 100 : h;
+            let lowW, highW;
+            if (u === 'metric') { lowW = (18.5 * (hm ** 2)).toFixed(1) + ' kg'; highW = (24.9 * (hm ** 2)).toFixed(1) + ' kg'; }
+            else { lowW = ((18.5 * (hm ** 2)) / 703).toFixed(1) + ' lbs'; highW = ((24.9 * (hm ** 2)) / 703).toFixed(1) + ' lbs'; }
+
+            document.getElementById('resBmi').textContent = bmi.toFixed(1);
+            document.getElementById('resCat').textContent = cat;
+            document.getElementById('resRange').textContent = lowW + ' – ' + highW;
+            showResult('result');
+        }
+    </script>
+</body>
+
+</html>

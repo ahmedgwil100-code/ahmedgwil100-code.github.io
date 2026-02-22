@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Split &amp; Merge — Split or Merge PDFs Free | ETYN Tools</title>
+    <meta name="description"
+        content="Free online PDF split and merge tool. Split a PDF into individual pages or merge multiple PDFs into one. 100% client-side — no file uploads.">
+    <link rel="canonical" href="https://etyntools.com/tools/pdf-split-merge.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="apple-touch-icon" href="../logo.png">
+    <meta property="og:image" content="https://etyntools.com/logo.png">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ETYN Tools">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <style>
+        .tab-group {
+            display: flex;
+            gap: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: .75rem 1rem;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+            font-size: .9rem;
+        }
+
+        .tab-btn:first-child {
+            border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+        }
+
+        .tab-btn:last-child {
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: .5rem .75rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            margin-bottom: .35rem;
+            font-size: .85rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle"
+                aria-label="Toggle menu"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>PDF Split &amp; Merge</span>
+            </div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>PDF Split &amp; Merge</h1>
+                        <p>Split a PDF into individual pages or merge multiple PDFs into a single file. Everything runs
+                            in your browser.</p>
+                        <div class="tab-group"><button class="tab-btn active" onclick="switchTab('split')">Split
+                                PDF</button><button class="tab-btn" onclick="switchTab('merge')">Merge PDFs</button>
+                        </div>
+                        <div class="tab-content active" id="splitTab">
+                            <div class="form-group"><label for="splitFile">Upload PDF to Split</label><input type="file"
+                                    id="splitFile" accept="application/pdf"></div>
+                            <div id="splitInfo" style="font-size:.85rem;color:var(--text-light);margin-bottom:1rem;">
+                            </div>
+                            <div class="form-group"><label for="pageRange">Page Range (e.g. 1-3, 5, 8-10)</label><input
+                                    type="text" id="pageRange"
+                                    placeholder="Leave empty to extract all pages individually"></div>
+                            <button class="btn btn--primary btn--block" onclick="splitPDF()">Split PDF</button>
+                        </div>
+                        <div class="tab-content" id="mergeTab">
+                            <div class="form-group"><label for="mergeFiles">Upload PDFs to Merge</label><input
+                                    type="file" id="mergeFiles" accept="application/pdf" multiple></div>
+                            <div id="mergeList"></div>
+                            <button class="btn btn--primary btn--block" onclick="mergePDFs()"
+                                style="margin-top:1rem;">Merge All PDFs</button>
+                        </div>
+                        <div id="status" style="margin-top:1rem;font-weight:600;color:var(--primary);"></div>
+                    </div>
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+                    <div class="content-section">
+                        <h2>How It Works</h2>
+                        <p>This tool uses the <strong>pdf-lib</strong> library to process PDFs entirely in your browser.
+                            No files are uploaded to any server. You can split a multi-page PDF into individual pages or
+                            specific page ranges, and merge multiple PDFs into one document.</p>
+                    </div>
+                    <div class="content-section">
+                        <h2>FAQ</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">Are my PDFs uploaded to a server? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>No. All PDF processing happens locally in your browser using JavaScript. Your
+                                        files never leave your device.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Is there a file size limit? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>There's no hard limit, but very large PDFs (100+ MB) may be slow or cause memory
+                                        issues in your browser.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar 2</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script>
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === (tab === 'split' ? 0 : 1)));
+            document.getElementById('splitTab').classList.toggle('active', tab === 'split');
+            document.getElementById('mergeTab').classList.toggle('active', tab === 'merge');
+        }
+        document.getElementById('splitFile').addEventListener('change', async function (e) {
+            const file = e.target.files[0]; if (!file) return;
+            const buf = await file.arrayBuffer();
+            const pdf = await PDFLib.PDFDocument.load(buf);
+            document.getElementById('splitInfo').textContent = 'Loaded: ' + file.name + ' — ' + pdf.getPageCount() + ' pages';
+        });
+        document.getElementById('mergeFiles').addEventListener('change', function (e) {
+            let html = ''; for (let i = 0; i < e.target.files.length; i++)html += '<div class="file-item"><span>' + e.target.files[i].name + '</span><span style="color:var(--text-light);">' + (e.target.files[i].size / 1024).toFixed(1) + ' KB</span></div>';
+            document.getElementById('mergeList').innerHTML = html;
+        });
+        function parseRanges(str, max) {
+            if (!str.trim()) { return Array.from({ length: max }, (_, i) => i); }
+            const pages = new Set();
+            str.split(',').forEach(part => {
+                part = part.trim(); const m = part.match(/^(\d+)\s*-\s*(\d+)$/);
+                if (m) { const a = Math.max(1, parseInt(m[1])), b = Math.min(max, parseInt(m[2])); for (let i = a; i <= b; i++)pages.add(i - 1); }
+                else { const n = parseInt(part); if (n >= 1 && n <= max) pages.add(n - 1); }
+            });
+            return Array.from(pages).sort((a, b) => a - b);
+        }
+        async function splitPDF() {
+            const file = document.getElementById('splitFile').files[0];
+            if (!file) { alert('Please upload a PDF file.'); return; }
+            document.getElementById('status').textContent = 'Processing...';
+            const buf = await file.arrayBuffer(); const src = await PDFLib.PDFDocument.load(buf);
+            const total = src.getPageCount(); const range = document.getElementById('pageRange').value;
+            const pages = parseRanges(range, total);
+            if (pages.length === 0) { document.getElementById('status').textContent = 'No valid pages in range.'; return; }
+            const newPdf = await PDFLib.PDFDocument.create();
+            const copied = await newPdf.copyPages(src, pages);
+            copied.forEach(p => newPdf.addPage(p));
+            const bytes = await newPdf.save();
+            const blob = new Blob([bytes], { type: 'application/pdf' });
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'split-' + file.name; a.click();
+            document.getElementById('status').textContent = '✅ Done! Extracted ' + pages.length + ' page(s).';
+        }
+        async function mergePDFs() {
+            const files = document.getElementById('mergeFiles').files;
+            if (files.length < 2) { alert('Please select at least 2 PDF files to merge.'); return; }
+            document.getElementById('status').textContent = 'Merging...';
+            const merged = await PDFLib.PDFDocument.create();
+            for (let i = 0; i < files.length; i++) {
+                const buf = await files[i].arrayBuffer(); const src = await PDFLib.PDFDocument.load(buf);
+                const pages = await merged.copyPages(src, src.getPageIndices());
+                pages.forEach(p => merged.addPage(p));
+            }
+            const bytes = await merged.save();
+            const blob = new Blob([bytes], { type: 'application/pdf' });
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'merged.pdf'; a.click();
+            document.getElementById('status').textContent = '✅ Done! Merged ' + files.length + ' files.';
+        }
+    </script>
+</body>
+
+</html>

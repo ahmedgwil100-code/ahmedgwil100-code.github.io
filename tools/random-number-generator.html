@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number Generator — Generate Random Numbers | ETYN Tools</title>
+    <meta name="description"
+        content="Free random number generator. Generate random numbers within any range. Supports multiple numbers, no duplicates option, and sorting.">
+    <link rel="canonical" href="https://etyntools.com/tools/random-number-generator.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="apple-touch-icon" href="../logo.png">
+  <meta property="og:image" content="https://etyntools.com/logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ETYN Tools">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle" aria-label="Toggle menu"><svg
+                    fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Random Number Generator</span>
+            </div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>Random Number Generator</h1>
+                        <p>Generate random numbers within a specified range.</p>
+
+                        <div class="form-row">
+                            <div class="form-group"><label for="rngMin">Minimum</label><input type="number" id="rngMin"
+                                    value="1"></div>
+                            <div class="form-group"><label for="rngMax">Maximum</label><input type="number" id="rngMax"
+                                    value="100"></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label for="rngCount">How many?</label><input type="number"
+                                    id="rngCount" value="1" min="1" max="1000"></div>
+                            <div class="form-group" style="display:flex;align-items:end;gap:1rem;padding-bottom:.1rem;">
+                                <label style="margin:0;"><input type="checkbox" id="rngUnique"
+                                        style="accent-color:var(--primary);margin-right:.3rem;">No duplicates</label>
+                                <label style="margin:0;"><input type="checkbox" id="rngSort"
+                                        style="accent-color:var(--primary);margin-right:.3rem;">Sort</label>
+                            </div>
+                        </div>
+                        <button class="btn btn--primary btn--block" onclick="generateRNG()">Generate</button>
+
+                        <div class="result-box" id="result">
+                            <h3>Generated Numbers</h3>
+                            <p id="rngResult"
+                                style="font-size:1.2rem;font-weight:700;color:var(--text);word-break:break-all;margin:0;">
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+
+                    <div class="content-section">
+                        <h2>About Random Number Generation</h2>
+                        <p>Random numbers are used everywhere — from gaming and lotteries to scientific simulations and
+                            statistical sampling. Our Random Number Generator produces numbers within any range you
+                            specify, making it suitable for a wide variety of applications. Whether you need to pick a
+                            raffle winner, simulate dice rolls, or create random sample data, this tool has you covered.
+                        </p>
+                        <h3>How It Works</h3>
+                        <p>The generator uses JavaScript's Math.random() function combined with your specified range to
+                            produce uniformly distributed random numbers. When you select "No duplicates," the tool
+                            ensures each number appears only once — useful for lottery draws, raffles, or creating
+                            unique identifiers. The sort option arranges results in ascending order for easier reading.
+                        </p>
+                        <h3>Use Cases</h3>
+                        <ul>
+                            <li><strong>Games &amp; Contests:</strong> Draw random winners, simulate dice, or pick
+                                random cards</li>
+                            <li><strong>Education:</strong> Generate random math problems or quiz question orders</li>
+                            <li><strong>Statistics:</strong> Create random samples for surveys or experiments</li>
+                            <li><strong>Decision Making:</strong> Let randomness break a tie or make a choice</li>
+                            <li><strong>Testing:</strong> Generate random test data for software development</li>
+                        </ul>
+                        <h3>Uniform Distribution</h3>
+                        <p>Every number in your specified range has an equal probability of being selected. This is
+                            known as a uniform distribution. It means the results are fair and unbiased — no number is
+                            more likely to appear than any other. This makes our generator suitable for fair draws,
+                            random assignments, and unbiased sampling.</p>
+                        <p>For cryptographic purposes (such as generating passwords or encryption keys), we recommend
+                            using our Password Generator, which uses the more secure Web Crypto API. For everyday random
+                            number needs, this generator provides fast, reliable results.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>Frequently Asked Questions</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">Are the results truly random? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>They are pseudo-random, which is sufficient for most non-cryptographic purposes
+                                        like games, draws, and sampling.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">Can I generate numbers without
+                                    duplicates? <svg fill="none" stroke="currentColor" stroke-width="2"
+                                        viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Yes. Check the "No duplicates" option to ensure every generated number is unique
+                                        within the batch.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">What is the maximum count? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>You can generate up to 1,000 numbers at once. For unique numbers, the count
+                                        cannot exceed the range size.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a> &nbsp;|&nbsp; <a href="../disclaimer.html">Disclaimer</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script>
+        function generateRNG() {
+            const min = parseInt(document.getElementById('rngMin').value);
+            const max = parseInt(document.getElementById('rngMax').value);
+            const count = parseInt(document.getElementById('rngCount').value);
+            const unique = document.getElementById('rngUnique').checked;
+            const sort = document.getElementById('rngSort').checked;
+            if (isNaN(min) || isNaN(max) || isNaN(count)) { alert('Please fill in all fields.'); return; }
+            if (min > max) { alert('Minimum must be ≤ Maximum.'); return; }
+            if (count < 1) { alert('Count must be at least 1.'); return; }
+            const range = max - min + 1;
+            if (unique && count > range) { alert('Cannot generate ' + count + ' unique numbers in a range of ' + range + '.'); return; }
+            let nums = [];
+            if (unique) {
+                const pool = new Set();
+                while (pool.size < count) { pool.add(Math.floor(Math.random() * range) + min); }
+                nums = [...pool];
+            } else {
+                for (let i = 0; i < count; i++)nums.push(Math.floor(Math.random() * range) + min);
+            }
+            if (sort) nums.sort((a, b) => a - b);
+            document.getElementById('rngResult').textContent = nums.join(', ');
+            showResult('result');
+        }
+    </script>
+</body>
+
+</html>
