@@ -1,41 +1,224 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
   <url>
     <loc>https://ahmedgwil100-code.github.io/etyn-tools/</loc>
-    <lastmod>2026-02-22</lastmod>
+    <lastmod>2026-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- Example Tool Pages (عدلها حسب أدواتك) -->
-
   <url>
-    <loc>https://ahmedgwil100-code.github.io/etyn-tools/compress-images.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/index.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://ahmedgwil100-code.github.io/etyn-tools/convert-jpg-to-pdf.html</loc>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/about.html</loc>
+    <lastmod>2026-02-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.6</priority>
   </url>
 
   <url>
-    <loc>https://ahmedgwil100-code.github.io/etyn-tools/qr-generator.html</loc>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/contact.html</loc>
+    <lastmod>2026-02-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.6</priority>
   </url>
 
   <url>
-    <loc>https://ahmedgwil100-code.github.io/etyn-tools/password-generator.html</loc>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/privacy-policy.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/terms-of-service.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/googlee79da2779819887c.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.0</priority>
+  </url>
+
+  <!-- Tools pages -->
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/age-calculator.html</loc>
+    <lastmod>2026-02-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/ai-text-summarizer.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/ai-website-generator.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/bmi-calculator.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/currency-converter.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/file-size-calculator.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/gpa-calculator.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/image-bg-remover.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/image-compressor.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/loan-calculator.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/markdown-editor.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/password-generator.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/pdf-converter.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/pdf-split-merge.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/percentage-calculator.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/qr-code-generator.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/qr-code-pro.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/random-number-generator.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/remove-duplicate-lines.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.1</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/screenshot-capture.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/speech-to-text.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/text-to-speech-converter.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/text-to-speech.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/unit-converter.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/viral-content-prompt-engine.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/word-counter.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/tools/youtube-thumbnail-downloader.html</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Blog directory (add posts individually if you have them) -->
+  <url>
+    <loc>https://ahmedgwil100-code.github.io/etyn-tools/blog/</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 
 </urlset>
-
-
-
-
