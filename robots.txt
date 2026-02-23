@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /private
+Sitemap: https://ahmedgwil100-code.github.io/etyn-tools/sitemap.xml
