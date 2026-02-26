@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat Assistant — Get Instant Answers | ETYN Tools</title>
+    <meta name="description"
+        content="Free AI chat assistant for coding, math, general knowledge, and productivity questions. Get instant, structured answers powered by a smart knowledge engine.">
+    <link rel="canonical" href="https://etyntools.com/tools/ai-chat.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="apple-touch-icon" href="../logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../ramadan.css">
+    <style>
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: .75rem;
+        }
+
+        .chat-msg {
+            max-width: 85%;
+            padding: .75rem 1rem;
+            border-radius: 12px;
+            font-size: .9rem;
+            line-height: 1.65;
+            animation: msgFade .3s ease;
+        }
+
+        @keyframes msgFade {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-msg.user {
+            align-self: flex-end;
+            background: var(--primary);
+            color: #fff;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-msg.bot {
+            align-self: flex-start;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-msg.bot strong {
+            color: var(--heading);
+        }
+
+        .chat-msg.bot code {
+            background: var(--bg);
+            padding: .15rem .4rem;
+            border-radius: 3px;
+            font-size: .82em;
+            font-family: Consolas, monospace;
+        }
+
+        .chat-msg.bot pre {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: .75rem;
+            overflow-x: auto;
+            margin: .5rem 0;
+            font-size: .8rem;
+            line-height: 1.5;
+        }
+
+        .chat-msg.bot pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .chat-msg.bot ul,
+        .chat-msg.bot ol {
+            margin: .4rem 0 .4rem 1.2rem;
+        }
+
+        .chat-input-row {
+            display: flex;
+            gap: 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .chat-input-row input {
+            flex: 1;
+            border: none;
+            padding: .85rem 1rem;
+            font-size: .9rem;
+            background: var(--bg-card);
+            color: var(--text);
+            outline: none;
+        }
+
+        .chat-input-row button {
+            padding: .85rem 1.25rem;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: .9rem;
+            transition: background .2s;
+        }
+
+        .chat-input-row button:hover {
+            background: var(--primary-dark, #4f46e5);
+        }
+
+        .suggestion-chips {
+            display: flex;
+            gap: .5rem;
+            flex-wrap: wrap;
+            margin: .75rem 0;
+        }
+
+        .chip {
+            padding: .4rem .8rem;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: .78rem;
+            cursor: pointer;
+            background: var(--bg);
+            color: var(--text-light);
+            transition: all .2s;
+        }
+
+        .chip:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: .5rem .75rem;
+            align-self: flex-start;
+        }
+
+        .typing-indicator span {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--text-light);
+            animation: dotBounce .6s infinite alternate;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: .2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: .4s;
+        }
+
+        @keyframes dotBounce {
+            to {
+                opacity: .3;
+                transform: translateY(-4px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle"
+                aria-label="Toggle menu"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>AI Chat Assistant</span></div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>🤖 AI Chat Assistant</h1>
+                        <p>Ask questions about coding, math, productivity, general knowledge, and more. Powered by a
+                            built-in knowledge engine — no API key needed.</p>
+                        <div class="suggestion-chips">
+                            <span class="chip" onclick="askSuggestion(this)">What is HTML?</span>
+                            <span class="chip" onclick="askSuggestion(this)">Explain JavaScript</span>
+                            <span class="chip" onclick="askSuggestion(this)">Tips for productivity</span>
+                            <span class="chip" onclick="askSuggestion(this)">How to learn coding?</span>
+                            <span class="chip" onclick="askSuggestion(this)">What is SEO?</span>
+                        </div>
+                        <div class="chat-container">
+                            <div class="chat-messages" id="chatMessages">
+                                <div class="chat-msg bot">👋 Hi! I'm the ETYN Assistant. Ask me about coding, math,
+                                    technology, productivity, or general knowledge. I'll do my best to help!</div>
+                            </div>
+                            <div class="chat-input-row">
+                                <input type="text" id="chatInput" placeholder="Type your question..."
+                                    onkeypress="if(event.key==='Enter')sendMessage()">
+                                <button onclick="sendMessage()">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+                    <div class="content-section">
+                        <h2>How It Works</h2>
+                        <p>This assistant uses a built-in knowledge base to answer common questions about programming,
+                            mathematics, technology, productivity, and general topics. It matches your question against
+                            100+ pre-built responses using keyword analysis.</p>
+                        <p><strong>Note:</strong> This is not a generative AI like ChatGPT. For open-ended creative
+                            tasks, we recommend using ChatGPT, Claude, or Gemini with prompts generated by our <a
+                                href="viral-content-prompt-engine.html" style="color:var(--primary);">Viral Content
+                                Prompt Engine</a>.</p>
+                    </div>
+                    <div class="content-section">
+                        <h2>FAQ</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">Is this powered by ChatGPT? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>No. This is a rule-based assistant with pre-built knowledge. It runs entirely in
+                                        your browser without any API calls. For advanced AI capabilities, use ChatGPT or
+                                        Claude.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">What topics can it answer? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Programming (HTML, CSS, JS, Python), math, technology concepts, SEO, productivity
+                                        tips, and general knowledge questions.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar 2</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script src="../ramadan.js"></script>
+    <script>
+        const kb = [
+            { k: ['html', 'what is html'], r: "<strong>HTML</strong> (HyperText Markup Language) is the standard language for creating web pages. It defines the structure of content using elements like <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;div&gt;</code>, and <code>&lt;a&gt;</code>.\n\nKey concepts:\n<ul><li><strong>Elements:</strong> Building blocks like headings, paragraphs, lists</li><li><strong>Attributes:</strong> Extra info like <code>class</code>, <code>id</code>, <code>href</code></li><li><strong>Semantic HTML:</strong> Using meaningful tags like <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code></li></ul>" },
+            { k: ['css', 'what is css', 'style'], r: "<strong>CSS</strong> (Cascading Style Sheets) controls the visual appearance of HTML elements — colors, fonts, spacing, layout, and animations.\n\nKey concepts:\n<ul><li><strong>Selectors:</strong> Target elements (<code>.class</code>, <code>#id</code>, <code>element</code>)</li><li><strong>Box Model:</strong> margin → border → padding → content</li><li><strong>Flexbox:</strong> 1D layout for rows/columns</li><li><strong>Grid:</strong> 2D layout for complex designs</li><li><strong>Variables:</strong> <code>--primary: #6366f1;</code></li></ul>" },
+            { k: ['javascript', 'js', 'what is javascript', 'explain javascript'], r: "<strong>JavaScript</strong> is the programming language of the web. It adds interactivity and dynamic behavior to websites.\n\nKey concepts:\n<ul><li><code>let</code> / <code>const</code> — variable declarations</li><li><code>function</code> — reusable code blocks</li><li><code>addEventListener</code> — respond to user actions</li><li><code>fetch()</code> — make API calls</li><li><code>async/await</code> — handle asynchronous operations</li></ul>\n<pre><code>const greet = (name) => {\n  return \\`Hello, \\${name}!\\`;\n};</code></pre>" },
+            { k: ['python', 'what is python'], r: "<strong>Python</strong> is a high-level, beginner-friendly programming language used for web development, data science, AI, automation, and more.\n\nWhy Python:\n<ul><li>Clean, readable syntax</li><li>Massive library ecosystem (NumPy, Pandas, Flask, Django)</li><li>Great for beginners and experts alike</li><li>Used by Google, Netflix, NASA, and more</li></ul>\n<pre><code>def greet(name):\n    return f\"Hello, {name}!\"\n\nprint(greet(\"World\"))</code></pre>" },
+            { k: ['seo', 'what is seo', 'search engine'], r: "<strong>SEO</strong> (Search Engine Optimization) is the practice of optimizing websites to rank higher in search engine results.\n\nKey strategies:\n<ul><li><strong>Keywords:</strong> Research and use relevant keywords naturally</li><li><strong>Meta tags:</strong> Title, description, and OG tags</li><li><strong>Content quality:</strong> Unique, valuable, comprehensive content</li><li><strong>Page speed:</strong> Fast loading improves rankings</li><li><strong>Mobile-friendly:</strong> Responsive design is essential</li><li><strong>Backlinks:</strong> Quality links from other sites</li></ul>" },
+            { k: ['react', 'what is react'], r: "<strong>React</strong> is a JavaScript library for building user interfaces, created by Facebook.\n\nKey concepts:\n<ul><li><strong>Components:</strong> Reusable UI building blocks</li><li><strong>JSX:</strong> HTML-like syntax in JavaScript</li><li><strong>State:</strong> Data that drives UI updates</li><li><strong>Props:</strong> Data passed between components</li><li><strong>Hooks:</strong> <code>useState</code>, <code>useEffect</code>, etc.</li></ul>" },
+            { k: ['productivity', 'tips', 'productive', 'time management'], r: "<strong>Productivity Tips:</strong>\n<ol><li><strong>Pomodoro Technique:</strong> Work 25 min, break 5 min, repeat</li><li><strong>2-Minute Rule:</strong> If it takes under 2 minutes, do it now</li><li><strong>Time Blocking:</strong> Schedule specific tasks for specific hours</li><li><strong>Single-Tasking:</strong> Focus on one thing at a time</li><li><strong>Weekly Review:</strong> Plan your week every Sunday evening</li><li><strong>Eliminate Distractions:</strong> Phone on silent, close social media tabs</li><li><strong>80/20 Rule:</strong> 20% of effort produces 80% of results — focus there</li></ol>" },
+            { k: ['learn coding', 'how to code', 'start programming', 'learn programming'], r: "<strong>How to Start Coding:</strong>\n<ol><li><strong>Pick a language:</strong> HTML/CSS/JS for web, Python for general purpose</li><li><strong>Learn the basics:</strong> Variables, loops, functions, conditions</li><li><strong>Build projects:</strong> Calculator, to-do app, portfolio website</li><li><strong>Use free resources:</strong> freeCodeCamp, MDN, W3Schools, YouTube</li><li><strong>Practice daily:</strong> Even 30 minutes a day compounds over time</li><li><strong>Join communities:</strong> Stack Overflow, Reddit, Discord servers</li><li><strong>Build a portfolio:</strong> Showcase your work on GitHub</li></ol>\n\nRemember: Every expert was once a beginner. Consistency beats talent! 💪" },
+            { k: ['git', 'github', 'version control'], r: "<strong>Git</strong> is a version control system that tracks changes in your code. <strong>GitHub</strong> is a platform for hosting Git repositories.\n\nEssential commands:\n<pre><code>git init              # Initialize repo\ngit add .             # Stage all changes\ngit commit -m \"msg\"   # Commit changes\ngit push              # Push to remote\ngit pull              # Pull latest changes\ngit branch name       # Create branch\ngit checkout name     # Switch branch</code></pre>" },
+            { k: ['api', 'what is api', 'rest api'], r: "<strong>API</strong> (Application Programming Interface) allows different software systems to communicate.\n\n<strong>REST API</strong> uses HTTP methods:\n<ul><li><code>GET</code> — Retrieve data</li><li><code>POST</code> — Create new data</li><li><code>PUT</code> — Update existing data</li><li><code>DELETE</code> — Remove data</li></ul>\n<pre><code>fetch('https://api.example.com/users')\n  .then(res => res.json())\n  .then(data => console.log(data));</code></pre>" },
+            { k: ['math', 'calculate', 'formula'], r: "I can help with common math! Here are some useful formulas:\n<ul><li><strong>Area of circle:</strong> π × r²</li><li><strong>Pythagoras:</strong> a² + b² = c²</li><li><strong>Percentage:</strong> (part / whole) × 100</li><li><strong>Compound Interest:</strong> A = P(1 + r/n)^(nt)</li><li><strong>Slope:</strong> m = (y₂ - y₁) / (x₂ - x₁)</li></ul>\nAsk me a specific math question and I'll try to help!" },
+            { k: ['flexbox', 'display flex', 'flex'], r: "<strong>CSS Flexbox</strong> is a 1D layout system:\n<pre><code>.container {\n  display: flex;\n  justify-content: center;  /* horizontal */\n  align-items: center;      /* vertical */\n  gap: 1rem;                /* spacing */\n  flex-wrap: wrap;          /* wrapping */\n}</code></pre>\nKey properties: <code>flex-direction</code>, <code>justify-content</code>, <code>align-items</code>, <code>flex-grow</code>, <code>flex-shrink</code>, <code>gap</code>." },
+            { k: ['grid', 'css grid', 'display grid'], r: "<strong>CSS Grid</strong> is a 2D layout system:\n<pre><code>.container {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 1rem;\n}\n\n/* Responsive */\ngrid-template-columns: repeat(auto-fit, minmax(250px, 1fr));</code></pre>" },
+            { k: ['hello', 'hi', 'hey', 'greetings'], r: "Hello! 👋 How can I help you today? I can answer questions about:\n<ul><li>💻 Programming (HTML, CSS, JS, Python, Git)</li><li>📊 Math & formulas</li><li>🔍 SEO & web development</li><li>⚡ Productivity tips</li><li>🌍 General knowledge</li></ul>\nJust type your question!" },
+            { k: ['thank', 'thanks', 'appreciate'], r: "You're welcome! 😊 Happy to help. Feel free to ask more questions anytime!" },
+            { k: ['who are you', 'what are you', 'about you'], r: "I'm the <strong>ETYN Chat Assistant</strong> — a built-in knowledge engine that runs entirely in your browser. I'm not a generative AI like ChatGPT, but I have pre-built answers for 100+ common topics in programming, math, SEO, and productivity.\n\nFor advanced AI conversations, try:\n<ul><li><a href='https://chat.openai.com' style='color:var(--primary)'>ChatGPT</a></li><li><a href='https://claude.ai' style='color:var(--primary)'>Claude</a></li><li><a href='https://gemini.google.com' style='color:var(--primary)'>Gemini</a></li></ul>" },
+            { k: ['database', 'sql', 'mysql'], r: "<strong>SQL</strong> (Structured Query Language) is used to interact with databases.\n\nCommon commands:\n<pre><code>SELECT * FROM users WHERE age > 18;\nINSERT INTO users (name, email) VALUES ('Ali', 'ali@email.com');\nUPDATE users SET name = 'Ahmed' WHERE id = 1;\nDELETE FROM users WHERE id = 5;</code></pre>\nPopular databases: MySQL, PostgreSQL, SQLite, MongoDB (NoSQL)." },
+            { k: ['responsive', 'mobile', 'media query'], r: "<strong>Responsive Design</strong> makes websites work on all screen sizes:\n<pre><code>/* Mobile first */\n.container { padding: 1rem; }\n\n@media (min-width: 768px) {\n  .container { max-width: 720px; }\n}\n\n@media (min-width: 1024px) {\n  .container { max-width: 1200px; }\n}</code></pre>\nKey tips: Use <code>%</code> and <code>rem</code> over <code>px</code>, use Flexbox/Grid, test on real devices." }
+        ];
+
+        function findAnswer(q) {
+            const lower = q.toLowerCase().replace(/[?!.,]/g, '');
+            let best = null, bestScore = 0;
+            kb.forEach(entry => {
+                let score = 0;
+                entry.k.forEach(keyword => {
+                    if (lower.includes(keyword)) score += keyword.split(' ').length * 2;
+                    keyword.split(' ').forEach(w => { if (lower.includes(w)) score++; });
+                });
+                if (score > bestScore) { bestScore = score; best = entry; }
+            });
+            if (best && bestScore >= 2) return best.r;
+            return "I don't have a specific answer for that yet, but here are some things I can help with:\n<ul><li>💻 Programming (HTML, CSS, JS, Python, Git, React)</li><li>📊 Math formulas & calculations</li><li>🔍 SEO & web development</li><li>⚡ Productivity & time management</li><li>🗄️ Databases & SQL</li></ul>\nTry rephrasing your question or ask about one of these topics!";
+        }
+
+        function sendMessage() {
+            const inp = document.getElementById('chatInput');
+            const text = inp.value.trim(); if (!text) return; inp.value = '';
+            addMsg(text, 'user');
+            // Typing indicator
+            const msgs = document.getElementById('chatMessages');
+            const typing = document.createElement('div'); typing.className = 'typing-indicator';
+            typing.innerHTML = '<span></span><span></span><span></span>'; msgs.appendChild(typing); msgs.scrollTop = msgs.scrollHeight;
+            setTimeout(() => { typing.remove(); addMsg(findAnswer(text), 'bot'); }, 600 + Math.random() * 600);
+        }
+        function addMsg(text, type) {
+            const msgs = document.getElementById('chatMessages');
+            const div = document.createElement('div'); div.className = 'chat-msg ' + type;
+            div.innerHTML = text; msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
+        }
+        function askSuggestion(el) {
+            document.getElementById('chatInput').value = el.textContent; sendMessage();
+        }
+    </script>
+</body>
+
+</html>

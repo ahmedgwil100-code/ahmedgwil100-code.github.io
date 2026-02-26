@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Tasks &amp; Quran Tracker | ETYN Tools</title>
+    <meta name="description"
+        content="Track your daily tasks and Quran completion goals. A 30-day plan with progress tracking, motivational streaks, and daily reminders to help you stay productive.">
+    <link rel="canonical" href="https://etyntools.com/tools/daily-tasks.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="apple-touch-icon" href="../logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../ramadan.css">
+    <style>
+        .progress-bar {
+            height: 10px;
+            background: var(--bg);
+            border-radius: 99px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            margin: .5rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light, #818cf8));
+            border-radius: 99px;
+            transition: width .5s ease;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: .75rem;
+            margin: 1.25rem 0;
+        }
+
+        .stat-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .stat-card .sc-val {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--heading);
+        }
+
+        .stat-card .sc-lbl {
+            font-size: .7rem;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            color: var(--text-light);
+            margin-top: .2rem;
+        }
+
+        .task-list {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            padding: .75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            margin-bottom: .5rem;
+            transition: all .2s;
+            cursor: pointer;
+        }
+
+        .task-item:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, .04);
+        }
+
+        .task-item.done {
+            opacity: .6;
+            text-decoration: line-through;
+        }
+
+        .task-item input[type=checkbox] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .task-item label {
+            cursor: pointer;
+            flex: 1;
+            font-size: .9rem;
+        }
+
+        .add-task-row {
+            display: flex;
+            gap: .5rem;
+            margin: 1rem 0;
+        }
+
+        .add-task-row input {
+            flex: 1;
+        }
+
+        .quran-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
+            gap: 6px;
+            margin: 1rem 0;
+        }
+
+        .juz-box {
+            width: 100%;
+            aspect-ratio: 1;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .7rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s;
+            color: var(--text-light);
+        }
+
+        .juz-box:hover {
+            border-color: var(--primary);
+        }
+
+        .juz-box.read {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            margin-bottom: 1.25rem;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: .7rem;
+            text-align: center;
+            font-size: .85rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: var(--bg);
+            color: var(--text-light);
+            border: none;
+            transition: all .2s;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        .streak-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #fff;
+            font-size: .75rem;
+            font-weight: 700;
+            padding: .3rem .7rem;
+            border-radius: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle"
+                aria-label="Toggle menu"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Daily Tasks & Quran
+                    Tracker</span></div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>📖 Daily Tasks & Quran Tracker</h1>
+                        <p>Stay organized and spiritually focused. Track your daily tasks, build streaks, and follow a
+                            30-Juz Quran completion plan.</p>
+                        <div class="stats-row">
+                            <div class="stat-card">
+                                <div class="sc-val" id="tasksDone">0</div>
+                                <div class="sc-lbl">Tasks Done</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="sc-val" id="streakCount">0</div>
+                                <div class="sc-lbl">🔥 Day Streak</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="sc-val" id="juzDone">0/30</div>
+                                <div class="sc-lbl">Quran Progress</div>
+                            </div>
+                        </div>
+
+                        <div class="tabs">
+                            <button class="tab-btn active" onclick="switchTab('tasks')">📝 Daily Tasks</button>
+                            <button class="tab-btn" onclick="switchTab('quran')">📖 Quran Tracker</button>
+                        </div>
+
+                        <!-- Daily Tasks Panel -->
+                        <div class="tab-panel active" id="panel-tasks">
+                            <div class="add-task-row">
+                                <input type="text" id="newTask" placeholder="Add a new task..."
+                                    onkeypress="if(event.key==='Enter')addTask()">
+                                <button class="btn btn--primary" onclick="addTask()">Add</button>
+                            </div>
+                            <ul class="task-list" id="taskList"></ul>
+                            <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem;">
+                                <button class="btn btn--outline btn--sm" onclick="clearCompleted()">Clear
+                                    Completed</button>
+                                <button class="btn btn--outline btn--sm" onclick="resetTasks()">Reset All</button>
+                            </div>
+                        </div>
+
+                        <!-- Quran Tracker Panel -->
+                        <div class="tab-panel" id="panel-quran">
+                            <p style="font-size:.85rem;color:var(--text-light);margin-bottom:.75rem;">Click each Juz
+                                number to mark it as read. Your progress saves automatically.</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="quranProgress" style="width:0%"></div>
+                            </div>
+                            <p style="font-size:.8rem;color:var(--text-light);margin-bottom:1rem;" id="quranPercent">0%
+                                complete</p>
+                            <div class="quran-grid" id="quranGrid"></div>
+                            <button class="btn btn--outline btn--sm" onclick="resetQuran()"
+                                style="margin-top:.75rem;">Reset Quran Progress</button>
+                        </div>
+                    </div>
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+                    <div class="content-section">
+                        <h2>How It Works</h2>
+                        <p>Add daily tasks, check them off as you complete them, and build a streak to stay motivated.
+                            The Quran Tracker divides the Quran into 30 Juz — click each to mark as read and track your
+                            completion progress.</p>
+                        <p>All data is saved in your browser's local storage. Nothing is sent to any server — your data
+                            stays on your device.</p>
+                    </div>
+                    <div class="content-section">
+                        <h2>FAQ</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">Is my data saved? <svg fill="none"
+                                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Yes, all data is saved in your browser's localStorage. It persists across
+                                        sessions but is device-specific. Clearing browser data will reset your progress.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">How does the streak system work? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Your streak increases each day you complete at least one task. If you miss a day,
+                                        the streak resets to zero. Open the tool daily to maintain your streak!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar 2</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script src="../ramadan.js"></script>
+    <script>
+        const TASKS_KEY = 'etyn-daily-tasks'; const QURAN_KEY = 'etyn-quran-juz'; const STREAK_KEY = 'etyn-streak'; const LAST_DAY_KEY = 'etyn-last-day';
+        let tasks = JSON.parse(localStorage.getItem(TASKS_KEY) || '[]');
+        let juzRead = JSON.parse(localStorage.getItem(QURAN_KEY) || '[]');
+
+        function saveTasks() { localStorage.setItem(TASKS_KEY, JSON.stringify(tasks)); }
+        function saveQuran() { localStorage.setItem(QURAN_KEY, JSON.stringify(juzRead)); }
+
+        function renderTasks() {
+            const list = document.getElementById('taskList'); list.innerHTML = '';
+            tasks.forEach((t, i) => {
+                const li = document.createElement('li'); li.className = 'task-item' + (t.done ? ' done' : '');
+                li.innerHTML = '<input type="checkbox" ' + (t.done ? 'checked' : '') + ' onchange="toggleTask(' + i + ')"><label onclick="toggleTask(' + i + ')">' + escHTML(t.text) + '</label><button style="background:none;border:none;color:var(--text-light);cursor:pointer;font-size:1rem;" onclick="deleteTask(' + i + ')">&times;</button>';
+                list.appendChild(li);
+            });
+            updateStats();
+        }
+        function escHTML(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+        function addTask() {
+            const inp = document.getElementById('newTask'); const text = inp.value.trim();
+            if (!text) return; tasks.push({ text, done: false }); inp.value = ''; saveTasks(); renderTasks();
+        }
+        function toggleTask(i) { tasks[i].done = !tasks[i].done; saveTasks(); renderTasks(); updateStreak(); }
+        function deleteTask(i) { tasks.splice(i, 1); saveTasks(); renderTasks(); }
+        function clearCompleted() { tasks = tasks.filter(t => !t.done); saveTasks(); renderTasks(); }
+        function resetTasks() { if (confirm('Reset all tasks?')) { tasks = []; saveTasks(); renderTasks(); } }
+
+        // Quran
+        function renderQuran() {
+            const grid = document.getElementById('quranGrid'); grid.innerHTML = '';
+            for (let j = 1; j <= 30; j++) {
+                const box = document.createElement('div'); box.className = 'juz-box' + (juzRead.includes(j) ? ' read' : '');
+                box.textContent = j; box.onclick = () => toggleJuz(j); grid.appendChild(box);
+            }
+            const pct = Math.round(juzRead.length / 30 * 100);
+            document.getElementById('quranProgress').style.width = pct + '%';
+            document.getElementById('quranPercent').textContent = pct + '% complete';
+            document.getElementById('juzDone').textContent = juzRead.length + '/30';
+        }
+        function toggleJuz(j) {
+            const idx = juzRead.indexOf(j);
+            if (idx >= 0) juzRead.splice(idx, 1); else juzRead.push(j);
+            saveQuran(); renderQuran();
+        }
+        function resetQuran() { if (confirm('Reset Quran progress?')) { juzRead = []; saveQuran(); renderQuran(); } }
+
+        // Streak
+        function updateStreak() {
+            const today = new Date().toDateString();
+            const lastDay = localStorage.getItem(LAST_DAY_KEY);
+            let streak = parseInt(localStorage.getItem(STREAK_KEY) || '0');
+            const doneToday = tasks.some(t => t.done);
+            if (doneToday) {
+                if (lastDay !== today) {
+                    const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
+                    if (lastDay === yesterday.toDateString()) streak++;
+                    else if (lastDay !== today) streak = 1;
+                    localStorage.setItem(STREAK_KEY, streak);
+                    localStorage.setItem(LAST_DAY_KEY, today);
+                }
+            }
+            document.getElementById('streakCount').textContent = streak;
+        }
+        function updateStats() {
+            document.getElementById('tasksDone').textContent = tasks.filter(t => t.done).length;
+            updateStreak();
+        }
+
+        // Tabs
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('panel-' + tab).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        renderTasks(); renderQuran(); updateStreak();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Games — Fun Browser Games | ETYN Tools</title>
+    <meta name="description"
+        content="Play free mini games in your browser. Memory Match, Math Sprint, Typing Speed, and Reaction Time. Track high scores and challenge yourself!">
+    <link rel="canonical" href="https://etyntools.com/tools/mini-games.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="apple-touch-icon" href="../logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../ramadan.css">
+    <style>
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.25rem 0;
+        }
+
+        .game-card {
+            padding: 1.5rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            text-align: center;
+            cursor: pointer;
+            transition: all .25s;
+        }
+
+        .game-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, .1);
+        }
+
+        .game-card .gc-icon {
+            font-size: 2.5rem;
+            margin-bottom: .5rem;
+        }
+
+        .game-card .gc-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--heading);
+        }
+
+        .game-card .gc-desc {
+            font-size: .78rem;
+            color: var(--text-light);
+            margin-top: .3rem;
+        }
+
+        .game-area {
+            display: none;
+            margin: 1rem 0;
+            animation: fadeSlide .3s ease;
+        }
+
+        .game-area.active {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .game-hud {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: .85rem;
+            color: var(--text-light);
+        }
+
+        .game-hud .hud-val {
+            font-weight: 800;
+            color: var(--heading);
+            font-size: 1.1rem;
+        }
+
+        /* Memory */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .mem-card {
+            aspect-ratio: 1;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            cursor: pointer;
+            background: var(--bg-card);
+            transition: all .3s;
+            user-select: none;
+        }
+
+        .mem-card.flipped,
+        .mem-card.matched {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+        }
+
+        .mem-card.matched {
+            opacity: .6;
+            pointer-events: none;
+        }
+
+        .mem-card:not(.flipped):not(.matched):hover {
+            border-color: var(--primary);
+        }
+
+        /* Math */
+        .math-q {
+            font-size: 2rem;
+            font-weight: 800;
+            text-align: center;
+            color: var(--heading);
+            margin: 1rem 0;
+        }
+
+        .math-opts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .math-opt {
+            padding: .8rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s;
+            background: var(--bg-card);
+            color: var(--text);
+        }
+
+        .math-opt:hover {
+            border-color: var(--primary);
+        }
+
+        .math-opt.correct {
+            background: rgba(34, 197, 94, .15);
+            border-color: #22c55e;
+            color: #22c55e;
+        }
+
+        .math-opt.wrong {
+            background: rgba(239, 68, 68, .15);
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+
+        /* Typing */
+        .typing-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            padding: 1.25rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            margin: .75rem 0;
+            letter-spacing: .02em;
+            color: var(--text-light);
+        }
+
+        .typing-text .correct-char {
+            color: var(--heading);
+        }
+
+        .typing-text .wrong-char {
+            color: #ef4444;
+            text-decoration: underline;
+        }
+
+        .typing-text .current-char {
+            background: rgba(99, 102, 241, .2);
+            border-radius: 2px;
+        }
+
+        /* Reaction */
+        .reaction-box {
+            width: 100%;
+            min-height: 250px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background .2s;
+            user-select: none;
+            margin: .75rem 0;
+        }
+
+        .reaction-box.waiting {
+            background: #ef4444;
+            color: #fff;
+        }
+
+        .reaction-box.ready {
+            background: #22c55e;
+            color: #fff;
+        }
+
+        .reaction-box.idle {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            color: var(--text);
+        }
+
+        .high-score {
+            font-size: .8rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-top: .5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle"
+                aria-label="Toggle menu"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Mini Games</span></div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>🎮 Mini Games</h1>
+                        <p>Take a break and challenge yourself with our collection of fun, lightweight browser games.
+                            Track your high scores!</p>
+
+                        <!-- Game Selection -->
+                        <div id="gameSelect">
+                            <div class="game-grid">
+                                <div class="game-card" onclick="startGame('memory')">
+                                    <div class="gc-icon">🧩</div>
+                                    <div class="gc-name">Memory Match</div>
+                                    <div class="gc-desc">Find matching pairs</div>
+                                </div>
+                                <div class="game-card" onclick="startGame('math')">
+                                    <div class="gc-icon">🔢</div>
+                                    <div class="gc-name">Math Sprint</div>
+                                    <div class="gc-desc">Solve 20 fast equations</div>
+                                </div>
+                                <div class="game-card" onclick="startGame('typing')">
+                                    <div class="gc-icon">⌨️</div>
+                                    <div class="gc-name">Typing Speed</div>
+                                    <div class="gc-desc">Test your WPM</div>
+                                </div>
+                                <div class="game-card" onclick="startGame('reaction')">
+                                    <div class="gc-icon">⚡</div>
+                                    <div class="gc-name">Reaction Time</div>
+                                    <div class="gc-desc">How fast can you click?</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Memory Match -->
+                        <div class="game-area" id="game-memory">
+                            <div class="game-hud"><span>Moves: <span class="hud-val"
+                                        id="memMoves">0</span></span><span>Pairs: <span class="hud-val"
+                                        id="memPairs">0</span>/8</span><button class="btn btn--outline btn--sm"
+                                    onclick="backToMenu()">← Back</button></div>
+                            <div class="memory-grid" id="memGrid"></div>
+                            <div class="high-score" id="memHigh"></div>
+                        </div>
+
+                        <!-- Math Sprint -->
+                        <div class="game-area" id="game-math">
+                            <div class="game-hud"><span>Question: <span class="hud-val"
+                                        id="mathQ">1</span>/20</span><span>Score: <span class="hud-val"
+                                        id="mathScore">0</span></span><span>Time: <span class="hud-val"
+                                        id="mathTime">60</span>s</span><button class="btn btn--outline btn--sm"
+                                    onclick="backToMenu()">← Back</button></div>
+                            <div class="math-q" id="mathQuestion"></div>
+                            <div class="math-opts" id="mathOpts"></div>
+                            <div class="high-score" id="mathHigh"></div>
+                        </div>
+
+                        <!-- Typing Speed -->
+                        <div class="game-area" id="game-typing">
+                            <div class="game-hud"><span>WPM: <span class="hud-val"
+                                        id="typWPM">0</span></span><span>Accuracy: <span class="hud-val"
+                                        id="typAcc">100</span>%</span><span>Time: <span class="hud-val"
+                                        id="typTime">30</span>s</span><button class="btn btn--outline btn--sm"
+                                    onclick="backToMenu()">← Back</button></div>
+                            <div class="typing-text" id="typText"></div>
+                            <input type="text" id="typInput" placeholder="Start typing here..." autocomplete="off"
+                                style="margin-top:.5rem;">
+                            <div class="high-score" id="typHigh"></div>
+                        </div>
+
+                        <!-- Reaction Time -->
+                        <div class="game-area" id="game-reaction">
+                            <div class="game-hud"><span>Best: <span class="hud-val"
+                                        id="reactBest">—</span>ms</span><button class="btn btn--outline btn--sm"
+                                    onclick="backToMenu()">← Back</button></div>
+                            <div class="reaction-box idle" id="reactBox" onclick="handleReaction()">Click to Start</div>
+                            <div class="high-score" id="reactHigh"></div>
+                        </div>
+                    </div>
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+                    <div class="content-section">
+                        <h2>About Mini Games</h2>
+                        <p>All games run entirely in your browser — no downloads or installations needed. Your high
+                            scores are saved locally and persist across sessions.</p>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar 2</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script src="../ramadan.js"></script>
+    <script>
+        const HS_KEY = 'etyn-minigames-hs';
+        let highScores = JSON.parse(localStorage.getItem(HS_KEY) || '{}');
+        function saveHS() { localStorage.setItem(HS_KEY, JSON.stringify(highScores)); }
+
+        function startGame(id) {
+            document.getElementById('gameSelect').style.display = 'none';
+            document.querySelectorAll('.game-area').forEach(g => g.classList.remove('active'));
+            document.getElementById('game-' + id).classList.add('active');
+            if (id === 'memory') initMemory();
+            if (id === 'math') initMath();
+            if (id === 'typing') initTyping();
+            if (id === 'reaction') initReaction();
+        }
+        function backToMenu() {
+            document.querySelectorAll('.game-area').forEach(g => g.classList.remove('active'));
+            document.getElementById('gameSelect').style.display = 'block';
+            clearInterval(window._gameTimer);
+        }
+
+        // ===== MEMORY MATCH =====
+        const emojis = ['🎯', '🚀', '💎', '🔥', '🌟', '🎨', '🎵', '🍕'];
+        let memCards = [], memFlipped = [], memMatched = 0, memMoveCount = 0, memLocked = false;
+        function initMemory() {
+            memMatched = 0; memMoveCount = 0; memLocked = false;
+            memCards = shuffle([...emojis, ...emojis]);
+            const grid = document.getElementById('memGrid'); grid.innerHTML = '';
+            memCards.forEach((_, i) => {
+                const d = document.createElement('div'); d.className = 'mem-card'; d.textContent = '?';
+                d.onclick = () => flipCard(i, d); grid.appendChild(d);
+            });
+            document.getElementById('memMoves').textContent = '0';
+            document.getElementById('memPairs').textContent = '0';
+            showHighScore('memHigh', 'memory', 'moves (lower is better)');
+        }
+        function flipCard(i, el) {
+            if (memLocked || el.classList.contains('flipped') || el.classList.contains('matched')) return;
+            el.classList.add('flipped'); el.textContent = memCards[i];
+            memFlipped.push({ i, el });
+            if (memFlipped.length === 2) {
+                memMoveCount++; document.getElementById('memMoves').textContent = memMoveCount;
+                memLocked = true;
+                const [a, b] = memFlipped;
+                if (memCards[a.i] === memCards[b.i]) {
+                    a.el.classList.add('matched'); b.el.classList.add('matched');
+                    memMatched++; document.getElementById('memPairs').textContent = memMatched;
+                    memFlipped = []; memLocked = false;
+                    if (memMatched === 8) {
+                        if (!highScores.memory || memMoveCount < highScores.memory) { highScores.memory = memMoveCount; saveHS(); }
+                        setTimeout(() => alert('🎉 You won in ' + memMoveCount + ' moves!'), 300);
+                    }
+                } else {
+                    setTimeout(() => { a.el.classList.remove('flipped'); a.el.textContent = '?'; b.el.classList.remove('flipped'); b.el.textContent = '?'; memFlipped = []; memLocked = false; }, 800);
+                }
+            }
+        }
+
+        // ===== MATH SPRINT =====
+        let mathQn = 0, mathScoreVal = 0, mathTimeVal = 60;
+        function initMath() {
+            mathQn = 0; mathScoreVal = 0; mathTimeVal = 60;
+            document.getElementById('mathQ').textContent = '1';
+            document.getElementById('mathScore').textContent = '0';
+            document.getElementById('mathTime').textContent = '60';
+            showHighScore('mathHigh', 'math', 'points');
+            nextMathQ();
+            clearInterval(window._gameTimer);
+            window._gameTimer = setInterval(() => {
+                mathTimeVal--; document.getElementById('mathTime').textContent = mathTimeVal;
+                if (mathTimeVal <= 0) { clearInterval(window._gameTimer); endMath(); }
+            }, 1000);
+        }
+        function nextMathQ() {
+            if (mathQn >= 20) { clearInterval(window._gameTimer); endMath(); return; }
+            const ops = ['+', '-', '×']; const op = ops[Math.floor(Math.random() * 3)];
+            let a, b, ans;
+            if (op === '+') { a = Math.floor(Math.random() * 50) + 1; b = Math.floor(Math.random() * 50) + 1; ans = a + b; }
+            else if (op === '-') { a = Math.floor(Math.random() * 50) + 10; b = Math.floor(Math.random() * a); ans = a - b; }
+            else { a = Math.floor(Math.random() * 12) + 2; b = Math.floor(Math.random() * 12) + 2; ans = a * b; }
+            document.getElementById('mathQuestion').textContent = a + ' ' + op + ' ' + b + ' = ?';
+            const wrong = new Set(); wrong.add(ans);
+            while (wrong.size < 4) wrong.add(ans + Math.floor(Math.random() * 20) - 10 || ans + 1);
+            const opts = shuffle([...wrong]);
+            const container = document.getElementById('mathOpts'); container.innerHTML = '';
+            opts.forEach(o => {
+                const btn = document.createElement('button'); btn.className = 'math-opt'; btn.textContent = o;
+                btn.onclick = () => checkMath(o, ans, btn); container.appendChild(btn);
+            });
+        }
+        function checkMath(picked, ans, btn) {
+            document.querySelectorAll('.math-opt').forEach(b => b.style.pointerEvents = 'none');
+            if (picked === ans) { btn.classList.add('correct'); mathScoreVal += 5; }
+            else btn.classList.add('wrong');
+            mathQn++; document.getElementById('mathQ').textContent = Math.min(mathQn + 1, 20);
+            document.getElementById('mathScore').textContent = mathScoreVal;
+            setTimeout(nextMathQ, 500);
+        }
+        function endMath() {
+            if (!highScores.math || mathScoreVal > highScores.math) { highScores.math = mathScoreVal; saveHS(); }
+            alert('⏱ Time\'s up! Score: ' + mathScoreVal + ' points.'); backToMenu();
+        }
+
+        // ===== TYPING SPEED =====
+        const typingSentences = ["The quick brown fox jumps over the lazy dog near the river bank", "Technology is changing the way we learn and communicate every day", "Practice makes perfect and consistency leads to mastery over time", "A journey of a thousand miles begins with a single step forward", "Creativity is intelligence having fun with ideas and possibilities"];
+        let typTarget = '', typPos = 0, typErrors = 0, typStarted = false, typTimeVal = 30;
+        function initTyping() {
+            typTarget = typingSentences[Math.floor(Math.random() * typingSentences.length)];
+            typPos = 0; typErrors = 0; typStarted = false; typTimeVal = 30;
+            document.getElementById('typTime').textContent = '30';
+            document.getElementById('typWPM').textContent = '0';
+            document.getElementById('typAcc').textContent = '100';
+            renderTypingText();
+            const inp = document.getElementById('typInput'); inp.value = ''; inp.focus();
+            inp.oninput = handleTyping;
+            showHighScore('typHigh', 'typing', 'WPM');
+            clearInterval(window._gameTimer);
+        }
+        function renderTypingText() {
+            let html = '';
+            for (let i = 0; i < typTarget.length; i++) {
+                let cls = '';
+                if (i < typPos) cls = typTarget[i] === (document.getElementById('typInput')?.value[i] || '') ? 'correct-char' : 'wrong-char';
+                else if (i === typPos) cls = 'current-char';
+                html += '<span class="' + cls + '">' + typTarget[i] + '</span>';
+            }
+            document.getElementById('typText').innerHTML = html;
+        }
+        function handleTyping() {
+            if (!typStarted) { typStarted = true; clearInterval(window._gameTimer); window._gameTimer = setInterval(() => { typTimeVal--; document.getElementById('typTime').textContent = typTimeVal; if (typTimeVal <= 0) { clearInterval(window._gameTimer); endTyping(); } }, 1000); }
+            const val = document.getElementById('typInput').value; typPos = val.length;
+            let errors = 0; for (let i = 0; i < val.length; i++) { if (val[i] !== typTarget[i]) errors++; }
+            typErrors = errors;
+            const elapsed = 30 - typTimeVal || 1; const words = (typPos / 5); const wpm = Math.round(words / (elapsed / 60));
+            document.getElementById('typWPM').textContent = wpm;
+            document.getElementById('typAcc').textContent = typPos ? Math.round((1 - typErrors / typPos) * 100) : 100;
+            renderTypingText();
+            if (typPos >= typTarget.length) { clearInterval(window._gameTimer); endTyping(); }
+        }
+        function endTyping() {
+            const elapsed = 30 - typTimeVal || 1; const wpm = Math.round((typPos / 5) / (elapsed / 60));
+            if (!highScores.typing || wpm > highScores.typing) { highScores.typing = wpm; saveHS(); }
+            alert('⌨️ Typing test complete! ' + wpm + ' WPM'); backToMenu();
+        }
+
+        // ===== REACTION TIME =====
+        let reactState = 'idle', reactTimeout = null, reactStart = 0;
+        function initReaction() {
+            reactState = 'idle'; const box = document.getElementById('reactBox');
+            box.className = 'reaction-box idle'; box.textContent = 'Click to Start';
+            showHighScore('reactHigh', 'reaction', 'ms (lower is better)');
+        }
+        function handleReaction() {
+            const box = document.getElementById('reactBox');
+            if (reactState === 'idle') {
+                reactState = 'waiting'; box.className = 'reaction-box waiting'; box.textContent = 'Wait for green...';
+                reactTimeout = setTimeout(() => { reactState = 'ready'; box.className = 'reaction-box ready'; box.textContent = 'CLICK NOW!'; reactStart = Date.now(); }, 1000 + Math.random() * 3000);
+            } else if (reactState === 'waiting') {
+                clearTimeout(reactTimeout); box.className = 'reaction-box idle'; box.textContent = 'Too early! Click to try again.'; reactState = 'idle';
+            } else if (reactState === 'ready') {
+                const ms = Date.now() - reactStart; box.className = 'reaction-box idle'; box.textContent = ms + 'ms — Click to try again';
+                document.getElementById('reactBest').textContent = ms;
+                if (!highScores.reaction || ms < highScores.reaction) { highScores.reaction = ms; saveHS(); }
+                reactState = 'idle';
+            }
+        }
+
+        function showHighScore(elId, key, unit) {
+            const el = document.getElementById(elId);
+            el.textContent = highScores[key] ? '🏆 Best: ' + highScores[key] + ' ' + unit : 'No high score yet.';
+        }
+        function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[a[i], a[j]] = [a[j], a[i]]; } return a; }
+    </script>
+</body>
+
+</html>

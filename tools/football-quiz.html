@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Quiz — Test Your Football Knowledge | ETYN Tools</title>
+    <meta name="description"
+        content="Test your football knowledge with 500+ questions about World Cup, Champions League, famous players, clubs, records, and general football trivia. 20 random questions per session — never the same quiz twice!">
+    <link rel="canonical" href="https://etyntools.com/tools/football-quiz.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="apple-touch-icon" href="../logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../ramadan.css">
+    <style>
+        .quiz-hero {
+            text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(34, 197, 94, .08), rgba(99, 102, 241, .06));
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            margin-bottom: 1.25rem;
+        }
+
+        .quiz-hero .qh-icon {
+            font-size: 3rem;
+            margin-bottom: .5rem;
+        }
+
+        .quiz-hero .qh-stats {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: .75rem;
+            font-size: .8rem;
+            color: var(--text-light);
+        }
+
+        .quiz-hero .qh-stat {
+            text-align: center;
+        }
+
+        .quiz-hero .qh-stat strong {
+            display: block;
+            font-size: 1.2rem;
+            color: var(--heading);
+        }
+
+        .progress-strip {
+            height: 6px;
+            background: var(--bg);
+            border-radius: 99px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-strip-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #22c55e, #16a34a);
+            border-radius: 99px;
+            transition: width .4s ease;
+        }
+
+        .q-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: .82rem;
+            color: var(--text-light);
+            margin-bottom: .5rem;
+        }
+
+        .q-bar .timer-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .25rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: .3rem .6rem;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: .85rem;
+            color: var(--heading);
+        }
+
+        .q-bar .timer-badge.warning {
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, .3);
+        }
+
+        .q-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1.5rem;
+            margin: .75rem 0;
+            animation: qFade .3s ease;
+        }
+
+        @keyframes qFade {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .q-category {
+            font-size: .7rem;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: .5rem;
+        }
+
+        .q-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--heading);
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+        }
+
+        .q-opts {
+            display: grid;
+            gap: .5rem;
+        }
+
+        .q-opt {
+            padding: .85rem 1.1rem;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: .9rem;
+            transition: all .2s;
+            text-align: left;
+            background: var(--bg-card);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+        }
+
+        .q-opt:hover:not(.disabled) {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, .05);
+        }
+
+        .q-opt .opt-letter {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1.5px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .75rem;
+            font-weight: 700;
+            color: var(--text-light);
+            flex-shrink: 0;
+            transition: all .2s;
+        }
+
+        .q-opt:hover:not(.disabled) .opt-letter {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .q-opt.correct {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, .1);
+        }
+
+        .q-opt.correct .opt-letter {
+            background: #22c55e;
+            color: #fff;
+            border-color: #22c55e;
+        }
+
+        .q-opt.wrong {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, .08);
+        }
+
+        .q-opt.wrong .opt-letter {
+            background: #ef4444;
+            color: #fff;
+            border-color: #ef4444;
+        }
+
+        .q-opt.disabled {
+            pointer-events: none;
+            opacity: .65;
+        }
+
+        .result-box {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            animation: qFade .4s ease;
+        }
+
+        .result-box .rb-score {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .result-box .rb-label {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin: .5rem 0;
+        }
+
+        .result-box .rb-badge {
+            display: inline-block;
+            padding: .4rem 1rem;
+            border-radius: 100px;
+            font-size: .85rem;
+            font-weight: 700;
+            margin: .75rem 0;
+        }
+
+        .rb-badge.gold {
+            background: rgba(245, 158, 11, .15);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, .3);
+        }
+
+        .rb-badge.silver {
+            background: rgba(156, 163, 175, .12);
+            color: #9ca3af;
+            border: 1px solid rgba(156, 163, 175, .3);
+        }
+
+        .rb-badge.bronze {
+            background: rgba(180, 83, 9, .12);
+            color: #b45309;
+            border: 1px solid rgba(180, 83, 9, .3);
+        }
+
+        .review-list {
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .review-item {
+            padding: .75rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            margin-bottom: .5rem;
+            font-size: .85rem;
+        }
+
+        .review-item.ri-correct {
+            border-left: 3px solid #22c55e;
+        }
+
+        .review-item.ri-wrong {
+            border-left: 3px solid #ef4444;
+        }
+
+        .review-item .ri-q {
+            font-weight: 700;
+            color: var(--heading);
+            margin-bottom: .3rem;
+        }
+
+        .review-item .ri-a {
+            color: var(--text-light);
+        }
+
+        .review-item .ri-a strong {
+            color: #22c55e;
+        }
+
+        .review-toggle {
+            text-align: center;
+            margin: .75rem 0;
+        }
+
+        .best-scores {
+            margin-top: 1rem;
+        }
+
+        .bs-row {
+            display: flex;
+            justify-content: space-between;
+            padding: .5rem .75rem;
+            border-bottom: 1px solid var(--border);
+            font-size: .82rem;
+        }
+
+        .bs-row:first-child {
+            font-weight: 700;
+            color: var(--heading);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle"
+                aria-label="Toggle menu"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Football Quiz</span></div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box">
+                        <h1>⚽ Football Quiz</h1>
+                        <p>Test your football knowledge! 20 random questions from a database of <strong>250+</strong>
+                            questions. Every game is different.</p>
+
+                        <!-- Start Screen -->
+                        <div id="startScreen">
+                            <div class="quiz-hero">
+                                <div class="qh-icon">⚽</div>
+                                <h2 style="margin:0 0 .3rem;color:var(--heading);">Ready to Play?</h2>
+                                <p style="color:var(--text-light);font-size:.9rem;margin:0;">20 questions · 15 seconds
+                                    each · 6 categories</p>
+                                <div class="qh-stats">
+                                    <div class="qh-stat"><strong id="totalQs">0</strong>Total Questions</div>
+                                    <div class="qh-stat"><strong id="gamesPlayed">0</strong>Games Played</div>
+                                    <div class="qh-stat"><strong id="bestScore">—</strong>Best Score</div>
+                                </div>
+                            </div>
+                            <button class="btn btn--primary btn--block" onclick="startQuiz()"
+                                style="font-size:1rem;padding:.9rem;">⚽ Start Quiz</button>
+                            <div class="best-scores" id="bestScores"></div>
+                        </div>
+
+                        <!-- Quiz Screen -->
+                        <div id="quizScreen" style="display:none;">
+                            <div class="progress-strip">
+                                <div class="progress-strip-fill" id="progressBar" style="width:5%"></div>
+                            </div>
+                            <div class="q-bar">
+                                <span>Question <strong id="qNum">1</strong> / 20</span>
+                                <span>Score: <strong id="scoreDisplay">0</strong></span>
+                                <span class="timer-badge" id="timerBadge">🕐 15</span>
+                            </div>
+                            <div class="q-card">
+                                <div class="q-category" id="qCat"></div>
+                                <div class="q-text" id="qText"></div>
+                                <div class="q-opts" id="qOpts"></div>
+                            </div>
+                        </div>
+
+                        <!-- Result Screen -->
+                        <div id="resultScreen" style="display:none;">
+                            <div class="result-box">
+                                <div class="rb-score" id="finalScore">0/20</div>
+                                <div class="rb-label" id="finalMsg"></div>
+                                <div class="rb-badge" id="finalBadge"></div>
+                            </div>
+                            <div class="review-toggle"><button class="btn btn--outline btn--sm"
+                                    onclick="toggleReview()">📋 Show Answers</button></div>
+                            <div class="review-list" id="reviewList" style="display:none;"></div>
+                            <div style="display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-top:1rem;">
+                                <button class="btn btn--primary" onclick="startQuiz()">🔄 Play Again</button>
+                                <button class="btn btn--outline" onclick="showStart()">🏠 Home</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+                    <div class="content-section">
+                        <h2>About This Quiz</h2>
+                        <p>Our football quiz features <strong>250+ carefully curated questions</strong> across 6
+                            categories, with 20 randomly selected per session. Play as many times as you want — you'll
+                            rarely see the same quiz twice!</p>
+                        <h3>Categories</h3>
+                        <ul>
+                            <li>🏆 <strong>World Cup</strong> — Tournaments, hosts, winners, and iconic moments</li>
+                            <li>⭐ <strong>Champions League</strong> — Europe's elite club competition</li>
+                            <li>👤 <strong>Famous Players</strong> — Legends, records, and careers</li>
+                            <li>🏟️ <strong>Clubs</strong> — Stadiums, nicknames, and history</li>
+                            <li>📊 <strong>Records & Statistics</strong> — Transfer records, scoring records, and more
+                            </li>
+                            <li>📚 <strong>General Knowledge</strong> — Rules, tactics, formations, and football culture
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar 2</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script src="../ramadan.js"></script>
+    <script src="football-questions.js"></script>
+    <script>
+        const QUIZ_KEY = 'etyn-football-quiz';
+        let state = JSON.parse(localStorage.getItem(QUIZ_KEY) || '{"games":0,"scores":[]}');
+        let currentQs = [], qIdx = 0, score = 0, timer = null, timeLeft = 15, answers = [];
+
+        function saveState() { localStorage.setItem(QUIZ_KEY, JSON.stringify(state)); }
+
+        function showStart() {
+            document.getElementById('startScreen').style.display = 'block';
+            document.getElementById('quizScreen').style.display = 'none';
+            document.getElementById('resultScreen').style.display = 'none';
+            document.getElementById('totalQs').textContent = footballDB.length;
+            document.getElementById('gamesPlayed').textContent = state.games;
+            document.getElementById('bestScore').textContent = state.scores.length ? Math.max(...state.scores) + '/20' : '—';
+            renderScores();
+        }
+
+        function renderScores() {
+            const el = document.getElementById('bestScores');
+            if (!state.scores.length) { el.innerHTML = ''; return; }
+            const sorted = [...state.scores].sort((a, b) => b - a).slice(0, 5);
+            let html = '<div class="bs-row"><span>#</span><span>Score</span><span>Result</span></div>';
+            sorted.forEach((s, i) => {
+                const pct = Math.round(s / 20 * 100);
+                html += '<div class="bs-row"><span>' + (i + 1) + '</span><span>' + s + '/20</span><span>' + pct + '%</span></div>';
+            });
+            el.innerHTML = html;
+        }
+
+        function shuffle(arr) { for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
+
+        function startQuiz() {
+            currentQs = shuffle([...footballDB]).slice(0, 20);
+            qIdx = 0; score = 0; answers = [];
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('resultScreen').style.display = 'none';
+            document.getElementById('quizScreen').style.display = 'block';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            if (qIdx >= 20) { endQuiz(); return; }
+            const q = currentQs[qIdx];
+            document.getElementById('qNum').textContent = qIdx + 1;
+            document.getElementById('scoreDisplay').textContent = score;
+            document.getElementById('progressBar').style.width = ((qIdx + 1) / 20 * 100) + '%';
+            document.getElementById('qCat').textContent = q.c;
+            document.getElementById('qText').textContent = q.q;
+            const opts = document.getElementById('qOpts'); opts.innerHTML = '';
+            const letters = ['A', 'B', 'C', 'D'];
+            q.o.forEach((o, i) => {
+                const btn = document.createElement('button'); btn.className = 'q-opt';
+                btn.innerHTML = '<span class="opt-letter">' + letters[i] + '</span><span>' + o + '</span>';
+                btn.onclick = () => pickAnswer(i, btn);
+                opts.appendChild(btn);
+            });
+            timeLeft = 15;
+            const tb = document.getElementById('timerBadge'); tb.textContent = '🕐 15'; tb.classList.remove('warning');
+            clearInterval(timer);
+            timer = setInterval(() => {
+                timeLeft--;
+                tb.textContent = '🕐 ' + timeLeft;
+                if (timeLeft <= 5) tb.classList.add('warning');
+                if (timeLeft <= 0) { clearInterval(timer); timeUp(); }
+            }, 1000);
+        }
+
+        function pickAnswer(idx, btn) {
+            clearInterval(timer);
+            const q = currentQs[qIdx];
+            const allOpts = document.querySelectorAll('.q-opt');
+            allOpts.forEach(o => o.classList.add('disabled'));
+            const correct = idx === q.a;
+            if (correct) { btn.classList.add('correct'); score++; }
+            else { btn.classList.add('wrong'); allOpts[q.a].classList.add('correct'); }
+            answers.push({ q: q.q, picked: q.o[idx], correct: q.o[q.a], isCorrect: correct, category: q.c });
+            setTimeout(() => { qIdx++; showQuestion(); }, 1000);
+        }
+
+        function timeUp() {
+            const q = currentQs[qIdx];
+            const allOpts = document.querySelectorAll('.q-opt');
+            allOpts.forEach(o => o.classList.add('disabled'));
+            allOpts[q.a].classList.add('correct');
+            answers.push({ q: q.q, picked: '(No answer)', correct: q.o[q.a], isCorrect: false, category: q.c });
+            setTimeout(() => { qIdx++; showQuestion(); }, 1000);
+        }
+
+        function endQuiz() {
+            clearInterval(timer);
+            document.getElementById('quizScreen').style.display = 'none';
+            document.getElementById('resultScreen').style.display = 'block';
+            document.getElementById('finalScore').textContent = score + '/20';
+            const pct = Math.round(score / 20 * 100);
+            let msg, badge, badgeClass;
+            if (pct >= 90) { msg = '🏆 Legendary! You really know your football!'; badge = '🥇 Football Legend'; badgeClass = 'gold'; }
+            else if (pct >= 70) { msg = '⭐ Great job! Impressive knowledge!'; badge = '🥈 Expert'; badgeClass = 'silver'; }
+            else if (pct >= 50) { msg = '👏 Not bad! Room for improvement.'; badge = '🥉 Enthusiast'; badgeClass = 'bronze'; }
+            else { msg = '💪 Keep learning! Try again for a better score.'; badge = '📚 Rookie'; badgeClass = 'bronze'; }
+            document.getElementById('finalMsg').textContent = msg;
+            const badgeEl = document.getElementById('finalBadge'); badgeEl.textContent = badge; badgeEl.className = 'rb-badge ' + badgeClass;
+            // Review
+            const rl = document.getElementById('reviewList'); rl.innerHTML = ''; rl.style.display = 'none';
+            answers.forEach((a, i) => {
+                rl.innerHTML += '<div class="review-item ' + (a.isCorrect ? 'ri-correct' : 'ri-wrong') + '"><div class="ri-q">' + (i + 1) + '. ' + a.q + '</div><div class="ri-a">Your answer: ' + a.picked + (a.isCorrect ? ' ✅' : ' ❌ — Correct: <strong>' + a.correct + '</strong>') + '</div></div>';
+            });
+            state.games++; state.scores.push(score); saveState();
+        }
+
+        function toggleReview() {
+            const rl = document.getElementById('reviewList');
+            rl.style.display = rl.style.display === 'none' ? 'block' : 'none';
+        }
+
+        showStart();
+    </script>
+</body>
+
+</html>

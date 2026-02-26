@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenges &amp; Quiz — Test Your Knowledge | ETYN Tools</title>
+    <meta name="description"
+        content="Test your knowledge with 100+ quiz questions across General Knowledge, Science, Logic & IQ, and Islamic categories. Timer-based challenges with scoring and leaderboard.">
+    <link rel="canonical" href="https://etyntools.com/tools/quiz-challenge.html">
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="apple-touch-icon" href="../logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../ramadan.css">
+    <style>
+        .quiz-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            animation: fadeSlide .3s ease;
+        }
+
+        @keyframes fadeSlide {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .quiz-q {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--heading);
+            margin-bottom: 1.25rem;
+            line-height: 1.5;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: .6rem;
+        }
+
+        .quiz-opt {
+            padding: .85rem 1.1rem;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: .9rem;
+            transition: all .2s;
+            text-align: left;
+            background: var(--bg-card);
+            color: var(--text);
+        }
+
+        .quiz-opt:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, .06);
+        }
+
+        .quiz-opt.correct {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, .12);
+            color: #22c55e;
+            font-weight: 600;
+        }
+
+        .quiz-opt.wrong {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, .1);
+            color: #ef4444;
+        }
+
+        .quiz-opt.disabled {
+            pointer-events: none;
+            opacity: .7;
+        }
+
+        .quiz-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: .8rem;
+            color: var(--text-light);
+            margin-bottom: .5rem;
+        }
+
+        .quiz-timer {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin: 1.25rem 0;
+        }
+
+        .cat-card {
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            text-align: center;
+            cursor: pointer;
+            transition: all .25s;
+            background: var(--bg);
+        }
+
+        .cat-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, .1);
+        }
+
+        .cat-card .cat-icon {
+            font-size: 2rem;
+            margin-bottom: .5rem;
+        }
+
+        .cat-card .cat-name {
+            font-weight: 700;
+            font-size: .95rem;
+            color: var(--heading);
+        }
+
+        .cat-card .cat-count {
+            font-size: .75rem;
+            color: var(--text-light);
+            margin-top: .2rem;
+        }
+
+        .score-display {
+            text-align: center;
+            padding: 2rem;
+            margin: 1rem 0;
+        }
+
+        .score-display .score-num {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .score-display .score-label {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-top: .3rem;
+        }
+
+        .leaderboard {
+            margin: 1rem 0;
+        }
+
+        .lb-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: .6rem .8rem;
+            border-bottom: 1px solid var(--border);
+            font-size: .85rem;
+        }
+
+        .lb-row:first-child {
+            font-weight: 700;
+            color: var(--heading);
+        }
+
+        .lb-rank {
+            width: 30px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .difficulty-sel {
+            display: flex;
+            gap: .5rem;
+            margin: 1rem 0;
+        }
+
+        .diff-btn {
+            padding: .45rem .9rem;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: .8rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: var(--bg);
+            color: var(--text-light);
+            transition: all .2s;
+        }
+
+        .diff-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="../index.html" class="navbar__logo">ETYN <span>Tools</span></a>
+            <div class="navbar__links"><a href="../index.html">Home</a><a href="../about.html">About</a><a
+                    href="../contact.html">Contact</a><button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle theme">🌙</button></div><button class="navbar__toggle"
+                aria-label="Toggle menu"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg></button>
+        </div>
+    </nav>
+    <div class="tool-page">
+        <div class="container">
+            <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Challenges & Quiz</span></div>
+            <div class="ad-placeholder ad-placeholder--banner">Ad Space — Top Banner</div>
+            <div class="tool-page__grid">
+                <div class="tool-page__main">
+                    <div class="tool-box" id="quizApp">
+                        <h1>🧠 Challenges & Quiz</h1>
+                        <p>Test your knowledge across multiple categories. Answer questions within the time limit, earn
+                            points, and climb the leaderboard!</p>
+
+                        <!-- Category Selection -->
+                        <div id="catScreen">
+                            <h3 style="margin-bottom:.5rem;">Choose a Category</h3>
+                            <div class="category-grid" id="catGrid"></div>
+                            <h3 style="margin-top:1.5rem;margin-bottom:.5rem;">🏆 Leaderboard</h3>
+                            <div class="leaderboard" id="leaderboard"></div>
+                        </div>
+
+                        <!-- Quiz Screen -->
+                        <div id="quizScreen" style="display:none;">
+                            <div class="quiz-bar">
+                                <span id="qCounter">Question 1 / 10</span>
+                                <span>Score: <strong id="liveScore">0</strong></span>
+                                <span class="quiz-timer" id="timer">15</span>
+                            </div>
+                            <div class="quiz-card">
+                                <div class="quiz-q" id="qText"></div>
+                                <div class="quiz-options" id="qOptions"></div>
+                            </div>
+                        </div>
+
+                        <!-- Result Screen -->
+                        <div id="resultScreen" style="display:none;">
+                            <div class="score-display">
+                                <div class="score-num" id="finalScore">0</div>
+                                <div class="score-label" id="finalLabel"></div>
+                            </div>
+                            <div style="text-align:center;">
+                                <button class="btn btn--primary" onclick="showCategories()">Play Again</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ad-placeholder ad-placeholder--rect">Ad Space — Mid Content</div>
+                    <div class="content-section">
+                        <h2>How It Works</h2>
+                        <p>Choose a category, answer 10 questions within 15 seconds each, and see your total score at
+                            the end. Correct answers earn 10 points + time bonus. Your best scores are saved to the
+                            local leaderboard.</p>
+                    </div>
+                    <div class="content-section">
+                        <h2>FAQ</h2>
+                        <div class="faq-list">
+                            <div class="faq-item"><button class="faq-question">Are scores saved? <svg fill="none"
+                                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>Yes, your top scores are saved locally in your browser. They persist across
+                                        sessions but are device-specific.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item"><button class="faq-question">How many questions are there? <svg
+                                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M19 9l-7 7-7-7" />
+                                    </svg></button>
+                                <div class="faq-answer">
+                                    <p>There are 100+ questions across 4 categories, with questions randomized each
+                                        round for variety.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="tool-page__sidebar">
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar</div>
+                    <div class="ad-placeholder ad-placeholder--sidebar">Ad Space — Sidebar 2</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">&copy; 2026 ETYN Tools. All rights reserved. &nbsp;|&nbsp; <a
+                    href="../privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="../terms-of-service.html">Terms</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../main.js"></script>
+    <script src="../ramadan.js"></script>
+    <script>
+        const questions = {
+            general: [
+                { q: "What is the capital of Australia?", o: ["Sydney", "Melbourne", "Canberra", "Perth"], a: 2 },
+                { q: "Which planet is known as the Red Planet?", o: ["Venus", "Mars", "Jupiter", "Saturn"], a: 1 },
+                { q: "What is the largest ocean on Earth?", o: ["Atlantic", "Indian", "Arctic", "Pacific"], a: 3 },
+                { q: "Who painted the Mona Lisa?", o: ["Michelangelo", "Da Vinci", "Raphael", "Donatello"], a: 1 },
+                { q: "How many continents are there?", o: ["5", "6", "7", "8"], a: 2 },
+                { q: "What is the currency of Japan?", o: ["Yuan", "Won", "Yen", "Baht"], a: 2 },
+                { q: "In which year did World War II end?", o: ["1943", "1944", "1945", "1946"], a: 2 },
+                { q: "What is the tallest mountain in the world?", o: ["K2", "Kangchenjunga", "Everest", "Lhotse"], a: 2 },
+                { q: "Which country has the most population?", o: ["USA", "India", "China", "Indonesia"], a: 1 },
+                { q: "What is the smallest country by area?", o: ["Monaco", "Vatican City", "San Marino", "Liechtenstein"], a: 1 },
+                { q: "Which river is the longest in the world?", o: ["Amazon", "Nile", "Yangtze", "Mississippi"], a: 1 },
+                { q: "Who wrote 'Romeo and Juliet'?", o: ["Dickens", "Shakespeare", "Austen", "Hemingway"], a: 1 },
+                { q: "What is the chemical symbol for gold?", o: ["Go", "Gd", "Au", "Ag"], a: 2 },
+                { q: "Which language has the most native speakers?", o: ["English", "Spanish", "Mandarin", "Hindi"], a: 2 },
+                { q: "What year was the United Nations founded?", o: ["1940", "1945", "1950", "1955"], a: 1 }
+            ],
+            science: [
+                { q: "What is the chemical formula for water?", o: ["H2O", "CO2", "NaCl", "O2"], a: 0 },
+                { q: "What is the speed of light (approx)?", o: ["300,000 km/s", "150,000 km/s", "500,000 km/s", "100,000 km/s"], a: 0 },
+                { q: "How many bones are in the human body?", o: ["186", "206", "226", "256"], a: 1 },
+                { q: "What gas do plants absorb?", o: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Hydrogen"], a: 2 },
+                { q: "What is the powerhouse of the cell?", o: ["Nucleus", "Ribosome", "Mitochondria", "Golgi Body"], a: 2 },
+                { q: "Which element has the atomic number 1?", o: ["Helium", "Hydrogen", "Lithium", "Carbon"], a: 1 },
+                { q: "What is the hardest natural substance?", o: ["Gold", "Iron", "Diamond", "Platinum"], a: 2 },
+                { q: "How many planets are in our solar system?", o: ["7", "8", "9", "10"], a: 1 },
+                { q: "What is the largest organ in the human body?", o: ["Liver", "Brain", "Skin", "Heart"], a: 2 },
+                { q: "What force keeps us on the ground?", o: ["Magnetism", "Friction", "Gravity", "Inertia"], a: 2 },
+                { q: "What is the boiling point of water in Celsius?", o: ["90°C", "95°C", "100°C", "110°C"], a: 2 },
+                { q: "Which planet has the most moons?", o: ["Jupiter", "Saturn", "Uranus", "Neptune"], a: 1 },
+                { q: "What is DNA short for?", o: ["Deoxyribose Acid", "Deoxyribonucleic Acid", "Dinitrogen Acid", "Dioxygen Acid"], a: 1 },
+                { q: "What is the most abundant gas in Earth's atmosphere?", o: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Argon"], a: 2 },
+                { q: "Who developed the theory of relativity?", o: ["Newton", "Einstein", "Hawking", "Bohr"], a: 1 }
+            ],
+            logic: [
+                { q: "What comes next: 2, 6, 12, 20, ?", o: ["28", "30", "32", "26"], a: 1 },
+                { q: "If 5+3=28, 9+1=810, then 6+4=?", o: ["210", "1024", "24", "210"], a: 0 },
+                { q: "A bat and ball cost $1.10. The bat costs $1 more than the ball. How much is the ball?", o: ["$0.10", "$0.05", "$0.15", "$0.20"], a: 1 },
+                { q: "Which number is the odd one out: 2, 5, 11, 17, 23, 29?", o: ["2", "5", "17", "29"], a: 1 },
+                { q: "What has keys but no locks?", o: ["Map", "Piano", "Book", "Clock"], a: 1 },
+                { q: "If APPLE = 50, BANANA = ?", o: ["60", "42", "54", "48"], a: 0 },
+                { q: "How many squares on a chessboard?", o: ["64", "204", "32", "128"], a: 1 },
+                { q: "I am not alive but I grow. What am I?", o: ["Fire", "Crystal", "Shadow", "Bacteria"], a: 0 },
+                { q: "What gets wetter the more it dries?", o: ["Sponge", "Towel", "Paper", "Sand"], a: 1 },
+                { q: "Which is larger: 2^10 or 10^3?", o: ["2^10", "10^3", "They are equal", "Cannot determine"], a: 0 },
+                { q: "Next: 1, 1, 2, 3, 5, 8, ?", o: ["11", "12", "13", "14"], a: 2 },
+                { q: "If you rearrange 'CIFAIPC', you get a?", o: ["Country", "Animal", "Ocean", "Color"], a: 2 },
+                { q: "What has a head and a tail but no body?", o: ["Snake", "Coin", "Arrow", "River"], a: 1 },
+                { q: "3 doctors say Robert is their brother. Robert says he has no brothers. Who is lying?", o: ["Robert", "Doctors", "Nobody, doctors are sisters", "Everyone"], a: 2 },
+                { q: "What can travel around the world while staying in a corner?", o: ["Internet", "Stamp", "Satellite", "Light"], a: 1 }
+            ],
+            islamic: [
+                { q: "How many Surahs are in the Quran?", o: ["112", "113", "114", "115"], a: 2 },
+                { q: "In which city was Prophet Muhammad (PBUH) born?", o: ["Medina", "Mecca", "Jerusalem", "Taif"], a: 1 },
+                { q: "How many times a day do Muslims pray?", o: ["3", "4", "5", "6"], a: 2 },
+                { q: "What is the first month of the Islamic calendar?", o: ["Safar", "Rajab", "Muharram", "Ramadan"], a: 2 },
+                { q: "Which Surah is known as the Heart of the Quran?", o: ["Al-Fatiha", "Ya-Sin", "Al-Baqarah", "Al-Ikhlas"], a: 1 },
+                { q: "How many pillars of Islam are there?", o: ["3", "4", "5", "6"], a: 2 },
+                { q: "Where is the Kaaba located?", o: ["Medina", "Jerusalem", "Mecca", "Cairo"], a: 2 },
+                { q: "Which angel brought the Quran to Prophet Muhammad (PBUH)?", o: ["Mikail", "Israfil", "Jibril", "Azrael"], a: 2 },
+                { q: "What night in Ramadan is considered the most blessed?", o: ["15th", "21st", "27th", "Laylat al-Qadr"], a: 3 },
+                { q: "How many years did it take to reveal the complete Quran?", o: ["10", "20", "23", "25"], a: 2 },
+                { q: "Which prophet built the Kaaba?", o: ["Musa", "Isa", "Ibrahim", "Nuh"], a: 2 },
+                { q: "What is Zakat?", o: ["Fasting", "Pilgrimage", "Charity", "Prayer"], a: 2 },
+                { q: "Which Surah is the longest in the Quran?", o: ["Al-Imran", "An-Nisa", "Al-Baqarah", "Al-Maidah"], a: 2 },
+                { q: "What does 'Islam' mean?", o: ["Peace", "Submission", "Love", "Truth"], a: 1 },
+                { q: "How many prophets are mentioned by name in the Quran?", o: ["20", "25", "30", "35"], a: 1 }
+            ]
+        };
+        const catMeta = { general: { icon: '🌍', name: 'General Knowledge' }, science: { icon: '🔬', name: 'Science' }, logic: { icon: '🧩', name: 'Logic & IQ' }, islamic: { icon: '🕌', name: 'Islamic' } };
+        let currentCat = '', currentQs = [], qIndex = 0, score = 0, timer = null, timeLeft = 15;
+        const LB_KEY = 'etyn-quiz-lb';
+
+        function showCategories() {
+            document.getElementById('catScreen').style.display = 'block';
+            document.getElementById('quizScreen').style.display = 'none';
+            document.getElementById('resultScreen').style.display = 'none';
+            renderCategories(); renderLeaderboard();
+        }
+        function renderCategories() {
+            const grid = document.getElementById('catGrid'); grid.innerHTML = '';
+            Object.keys(catMeta).forEach(k => {
+                const m = catMeta[k];
+                grid.innerHTML += '<div class="cat-card" onclick="startQuiz(\'' + k + '\')"><div class="cat-icon">' + m.icon + '</div><div class="cat-name">' + m.name + '</div><div class="cat-count">' + questions[k].length + ' questions</div></div>';
+            });
+        }
+        function startQuiz(cat) {
+            currentCat = cat; score = 0; qIndex = 0;
+            currentQs = shuffle([...questions[cat]]).slice(0, 10);
+            document.getElementById('catScreen').style.display = 'none';
+            document.getElementById('quizScreen').style.display = 'block';
+            showQuestion();
+        }
+        function showQuestion() {
+            if (qIndex >= currentQs.length) { endQuiz(); return; }
+            const q = currentQs[qIndex];
+            document.getElementById('qCounter').textContent = 'Question ' + (qIndex + 1) + ' / ' + currentQs.length;
+            document.getElementById('liveScore').textContent = score;
+            document.getElementById('qText').textContent = q.q;
+            const opts = document.getElementById('qOptions'); opts.innerHTML = '';
+            q.o.forEach((o, i) => {
+                const btn = document.createElement('button'); btn.className = 'quiz-opt'; btn.textContent = o;
+                btn.onclick = () => answerQ(i, btn); opts.appendChild(btn);
+            });
+            timeLeft = 15; document.getElementById('timer').textContent = timeLeft;
+            clearInterval(timer);
+            timer = setInterval(() => {
+                timeLeft--; document.getElementById('timer').textContent = timeLeft;
+                if (timeLeft <= 0) { clearInterval(timer); timeUp(); }
+            }, 1000);
+        }
+        function answerQ(idx, btn) {
+            clearInterval(timer);
+            const q = currentQs[qIndex]; const opts = document.querySelectorAll('.quiz-opt');
+            opts.forEach(o => o.classList.add('disabled'));
+            if (idx === q.a) { btn.classList.add('correct'); score += 10 + timeLeft; }
+            else { btn.classList.add('wrong'); opts[q.a].classList.add('correct'); }
+            setTimeout(() => { qIndex++; showQuestion(); }, 1200);
+        }
+        function timeUp() {
+            const opts = document.querySelectorAll('.quiz-opt');
+            opts.forEach(o => o.classList.add('disabled'));
+            opts[currentQs[qIndex].a].classList.add('correct');
+            setTimeout(() => { qIndex++; showQuestion(); }, 1200);
+        }
+        function endQuiz() {
+            clearInterval(timer);
+            document.getElementById('quizScreen').style.display = 'none';
+            document.getElementById('resultScreen').style.display = 'block';
+            document.getElementById('finalScore').textContent = score;
+            const max = currentQs.length * 25;
+            const pct = Math.round(score / max * 100);
+            let msg = pct >= 80 ? '🏆 Excellent!' : pct >= 60 ? '👏 Great job!' : pct >= 40 ? '📚 Keep learning!' : '💪 Try again!';
+            document.getElementById('finalLabel').textContent = msg + ' You scored ' + score + ' points (' + pct + '%)';
+            saveScore(score);
+        }
+        function saveScore(s) {
+            const lb = JSON.parse(localStorage.getItem(LB_KEY) || '[]');
+            lb.push({ cat: catMeta[currentCat].name, score: s, date: new Date().toLocaleDateString() });
+            lb.sort((a, b) => b.score - a.score);
+            localStorage.setItem(LB_KEY, JSON.stringify(lb.slice(0, 10)));
+        }
+        function renderLeaderboard() {
+            const lb = JSON.parse(localStorage.getItem(LB_KEY) || '[]');
+            const el = document.getElementById('leaderboard');
+            if (!lb.length) { el.innerHTML = '<p style="font-size:.85rem;color:var(--text-light);">No scores yet. Play a quiz to get started!</p>'; return; }
+            el.innerHTML = '<div class="lb-row"><span class="lb-rank">#</span><span style="flex:1">Category</span><span style="width:60px;text-align:right">Score</span></div>';
+            lb.forEach((e, i) => { el.innerHTML += '<div class="lb-row"><span class="lb-rank">' + (i + 1) + '</span><span style="flex:1">' + e.cat + '</span><span style="width:60px;text-align:right;font-weight:700;color:var(--heading);">' + e.score + '</span></div>'; });
+        }
+        function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[a[i], a[j]] = [a[j], a[i]]; } return a; }
+        showCategories();
+    </script>
+</body>
+
+</html>
